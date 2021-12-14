@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace DenizYanar.SenseEngine
+namespace DenizYanar.External.Sense_Engine.Scripts.Core
 {
     [ExecuteAlways]
     public abstract class Sense : MonoBehaviour

@@ -1,7 +1,7 @@
+using DenizYanar.External.Sense_Engine.Scripts.Core;
 using UnityEngine;
-using DenizYanar.SenseEngine;
 
-namespace DenizYanar
+namespace DenizYanar.External.Sense_Engine.Scripts
 {
     public class CubeController : MonoBehaviour
     {
