@@ -7,10 +7,10 @@ namespace DenizYanar.Events
     /// This class is used for Events that have int arguments. {Example: Set gold game event}
     /// </summary>
 
-    [CreateAssetMenu(menuName = "Deniz Yanar/Events/Int Event Channel")]
+    [CreateAssetMenu(menuName = "Slice And Chaos/Events/Int Event Channel")]
     public class IntEventChannelSO : ScriptableObject
     {
-        private HashSet<IntEventListenerSO> _listeners = new HashSet<IntEventListenerSO>();
+        private readonly HashSet<IntEventListenerSO> _listeners = new HashSet<IntEventListenerSO>();
 
         public void Invoke(int value)
         {
