@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace DenizYanar
 {
-    [CreateAssetMenu(menuName = "SliceAndChaos/Player/Player Settings")]
+    [CreateAssetMenu(menuName = "Slice And Chaos/Player/Player Settings")]
     public class PlayerSettings : ScriptableObject
     {
         
