@@ -169,9 +169,9 @@ namespace DenizYanar
 
 
             Bounds bounds = _collider.bounds;
-            int horizontalRayCount = 2;
-            float verticalRaySpace = bounds.size.y / (horizontalRayCount - 1);
-            int movementDirection = _horizontalMovementInput > 0 ? 1 : -1;
+            var horizontalRayCount = 2;
+            var verticalRaySpace = bounds.size.y / (horizontalRayCount - 1);
+            var movementDirection = _horizontalMovementInput > 0 ? 1 : -1;
 
             Vector2 rayStartPosition = new Vector2();
             

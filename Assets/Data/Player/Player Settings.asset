@@ -12,10 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cfe1922ce144fb4d9ce6c64945b24e2, type: 3}
   m_Name: Player Settings
   m_EditorClassIdentifier: 
-  _horizontalMovementSpeed: 10
+  _desiredMovementVelocity: 17
+  _movementAcceleration: 80
   _jumpDelayDuration: 0.1
   _jumpForce: 15
   _jumpCount: 2
+  _airStrafeXAcceleration: 100
+  _airStrafeMaxXVelocity: 20
+  _airStrafeYAcceleration: -200
+  _airStrafeMaxYVelocity: 25
+  _shiftModeSpeed: 650
+  _shiftModeTurnSpeed: 400
   _obstacleLayerMask:
     serializedVersion: 2
     m_Bits: 64

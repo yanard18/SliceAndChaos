@@ -1,38 +1,39 @@
 
 
+using System.Collections;
+using DenizYanar.Events;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace DenizYanar
 {
     public class PlayerJumpState : State
     {
-        private readonly Rigidbody2D _rb;
-        private readonly float _jumpForce;
+        private readonly JumpData _jumpData;
+        private readonly Player _player;
 
-        public PlayerJumpState(Rigidbody2D rb, float jumpForce)
+        public PlayerJumpState(Player player, StringEventChannelSO nameInformerChannel = null, [CanBeNull] string stateName = null)
         {
-            _rb = rb;
-            _jumpForce = jumpForce;
-        }
-        
-        public override void Tick()
-        {
-            Debug.Log("jump");
-        }
-
-        public override void PhysicsTick()
-        {
-            
+            _player = player;
+            _jumpData = player.JumpDataInstance;
+            _stateName = stateName ?? GetType().Name;
+            _stateNameInformerEventChannel = nameInformerChannel;
         }
 
         public override void OnEnter()
         {
-            _rb.velocity = new Vector2(_rb.velocity.x, _jumpForce);
+            base.OnEnter();
+            _jumpData.RB.velocity = new Vector2(_jumpData.RB.velocity.x, _jumpData.JumpForce);
+            _jumpData.JumpCount--;
+            _player.StartCoroutine(StartJumpCooldown(0.15f));
         }
 
-        public override void OnExit()
+        private IEnumerator StartJumpCooldown(float duration)
         {
-            
+            _jumpData.HasCooldown = true;
+            yield return new WaitForSeconds(duration);
+            _jumpData.HasCooldown = false;
         }
+
     }
 }

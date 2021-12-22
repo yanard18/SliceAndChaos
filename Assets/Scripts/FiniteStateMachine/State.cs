@@ -1,18 +1,35 @@
 using System.Collections.Generic;
+using DenizYanar.Events;
 
 namespace DenizYanar
 {
-    public abstract class State
+    public class State
     {
         public readonly List<Transition> Transitions = new List<Transition>();
 
-        public abstract void Tick();
+        protected StringEventChannelSO _stateNameInformerEventChannel;
+        protected string _stateName;
+        
+        public virtual void Tick()
+        {
+            
+        }
 
-        public abstract void PhysicsTick();
+        public virtual void PhysicsTick()
+        {
+            
+        }
 
-        public abstract void OnEnter();
+        public virtual void OnEnter()
+        {
+            if(_stateNameInformerEventChannel != null)
+                _stateNameInformerEventChannel.Invoke(_stateName);
+        }
 
-        public abstract void OnExit();
+        public virtual void OnExit()
+        {
+            
+        }
         
     }
 }

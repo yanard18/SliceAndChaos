@@ -59,6 +59,6 @@ namespace DenizYanar
 
             return null;
         }
-        
+
     }
 }

@@ -1,8 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
-using DenizYanar.Events;
 
-namespace DenizYanar
+namespace DenizYanar.Events
 {
     
     [CreateAssetMenu(menuName = "Slice And Chaos/Events/String Event Channel")]

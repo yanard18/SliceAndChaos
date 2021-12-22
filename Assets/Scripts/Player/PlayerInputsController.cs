@@ -9,12 +9,18 @@ namespace DenizYanar
         
         public void ReadMovementInput(InputAction.CallbackContext context)
         {
-            _input.HorizontalMovement = context.ReadValue<float>();
+            if(context.phase == InputActionPhase.Performed)
+                _input.InvokeHorizontalMovementEvent(context.ReadValue<float>());
+
         }
 
         public void ReadJumpInput(InputAction.CallbackContext context)
         {
-            _input.Jump = context;
+            if(context.phase == InputActionPhase.Performed)
+                _input.InvokeJumpEvent();
+            if(context.phase == InputActionPhase.Canceled)
+                _input.InvokeJumpReleased();
         }
+        
     }
 }

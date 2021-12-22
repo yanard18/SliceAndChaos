@@ -1,27 +1,23 @@
-using UnityEngine;
+using DenizYanar.Events;
+using JetBrains.Annotations;
 
 namespace DenizYanar
 {
     public class PlayerLandState : State
     {
-        public override void Tick()
+        private readonly JumpData _jumpData;
+        
+        public PlayerLandState(JumpData jumpData, StringEventChannelSO nameInformerEvent = null, [CanBeNull] string stateName = null)
         {
-            Debug.Log(this.GetType().Name);
-        }
-
-        public override void PhysicsTick()
-        {
-            
+            _stateName = stateName ?? GetType().Name;
+            _stateNameInformerEventChannel = nameInformerEvent;
+            _jumpData = jumpData;
         }
 
         public override void OnEnter()
         {
-            
-        }
-
-        public override void OnExit()
-        {
-            
+            base.OnEnter();
+            _jumpData.ResetJumpCount();
         }
     }
 }
