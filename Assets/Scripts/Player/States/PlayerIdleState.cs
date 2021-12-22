@@ -1,6 +1,8 @@
 using DenizYanar.Events;
 using JetBrains.Annotations;
 using UnityEngine;
+using DenizYanar.FSM;
+
 
 namespace DenizYanar
 {

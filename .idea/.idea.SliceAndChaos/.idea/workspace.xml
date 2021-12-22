@@ -27,13 +27,10 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/States/PlayerWallSlideState.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/States/PlayerMoveState.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/States/PlayerJumpState.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/States/PlayerFallState.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/FiniteStateMachine/Transition.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/States/PlayerAirStrafeState.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/PlayerInputsController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/States/PlayerIdleState.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/States/PlayerRisingState.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/Player.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/PlayerMovementController.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectId" id="22Elsb3RepeX0SaUnWKndaMTawM" />
   <component name="ProjectViewState">
@@ -102,6 +99,7 @@
       <workItem from="1639971263408" duration="6638000" />
       <workItem from="1640035068199" duration="891000" />
       <workItem from="1640038344703" duration="6262000" />
+      <workItem from="1640208504313" duration="933000" />
     </task>
     <servers />
   </component>

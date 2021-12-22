@@ -1,6 +1,6 @@
 using System;
 
-namespace DenizYanar
+namespace DenizYanar.FSM
 {
     public class Transition
     {

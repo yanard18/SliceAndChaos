@@ -1,4 +1,5 @@
 using DenizYanar.Events;
+using DenizYanar.FSM;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -29,19 +30,23 @@ namespace DenizYanar
 
         public override void PhysicsTick()
         {
-            var movementDirection = Mathf.Sign(Input.GetAxisRaw("Horizontal"));
-            
-            _xVelocity = Mathf.MoveTowards(
-                _xVelocity, 
-                _desiredXVelocity * movementDirection, 
-                Time.fixedDeltaTime * _acceleration);
-            
-            
-            _rb.velocity = new Vector2(_xVelocity, _rb.velocity.y);
-            
+            Move();
         }
-        
-        
+
+        private void Move()
+        {
+            var movementDirection = Mathf.Sign(Input.GetAxisRaw("Horizontal"));
+
+            _xVelocity = Mathf.MoveTowards(
+                _xVelocity,
+                _desiredXVelocity * movementDirection,
+                Time.fixedDeltaTime * _acceleration);
+
+
+            _rb.velocity = new Vector2(_xVelocity, _rb.velocity.y);
+        }
+
+
         public override void OnEnter()
         {
             base.OnEnter();

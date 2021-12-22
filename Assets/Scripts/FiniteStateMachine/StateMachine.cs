@@ -1,9 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
-namespace DenizYanar
+namespace DenizYanar.FSM
 {
     public class StateMachine
     {

@@ -1,6 +1,8 @@
 ﻿using DenizYanar.Events;
 using JetBrains.Annotations;
 using UnityEngine;
+using DenizYanar.FSM;
+
 
 namespace DenizYanar
 {
@@ -16,20 +18,31 @@ namespace DenizYanar
         {
             _stateNameInformerEventChannel = nameInformerEvent;
             _stateName = stateName;
+            
             _rb = rb;
             _originalGravity = rb.gravityScale;
-
             _speed = settings.ShiftModeSpeed;
             _turnSpeed = settings.ShiftModeTurnSpeed;
         }
 
         public override void PhysicsTick()
         {
-            base.PhysicsTick();
-            _rb.velocity = _rb.transform.right * (_speed * Time.fixedDeltaTime);
+            base.PhysicsTick(); 
+            MoveForward();
+            SetAngle();
+        }
+
+        private void SetAngle()
+        {
+            if (Camera.main is null) return;
             Vector3 dir = Input.mousePosition - Camera.main.WorldToScreenPoint(_rb.transform.position);
             var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
             _rb.rotation = Mathf.MoveTowardsAngle(_rb.rotation, angle, Time.fixedDeltaTime * _turnSpeed);
+        }
+
+        private void MoveForward()
+        {
+            _rb.velocity = _rb.transform.right * (_speed * Time.fixedDeltaTime);
         }
 
 
@@ -38,6 +51,7 @@ namespace DenizYanar
             base.OnEnter();
             
 
+            if (Camera.main is null) return;
             Vector3 dir = Input.mousePosition - Camera.main.WorldToScreenPoint(_rb.transform.position);
             var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
             _rb.rotation = angle;

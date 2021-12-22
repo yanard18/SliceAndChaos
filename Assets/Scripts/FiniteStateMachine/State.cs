@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using DenizYanar.Events;
 
-namespace DenizYanar
+namespace DenizYanar.FSM
 {
     public class State
     {
