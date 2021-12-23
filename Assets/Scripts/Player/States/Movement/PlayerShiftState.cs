@@ -32,14 +32,6 @@ namespace DenizYanar
             SetAngle();
         }
 
-        private void SetAngle()
-        {
-            if (Camera.main is null) return;
-            Vector3 dir = Input.mousePosition - Camera.main.WorldToScreenPoint(_rb.transform.position);
-            var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-            _rb.rotation = Mathf.MoveTowardsAngle(_rb.rotation, angle, Time.fixedDeltaTime * _turnSpeed);
-        }
-
         private void MoveForward()
         {
             _rb.velocity = _rb.transform.right * (_speed * Time.fixedDeltaTime);
@@ -51,16 +43,14 @@ namespace DenizYanar
             base.OnEnter();
             
 
-            if (Camera.main is null) return;
-            Vector3 dir = Input.mousePosition - Camera.main.WorldToScreenPoint(_rb.transform.position);
-            var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-            _rb.rotation = angle;
-            
+            SetAngleInstant();
+
             _rb.gravityScale = 0;
             _rb.freezeRotation = false;
 
 
         }
+        
 
         public override void OnExit()
         {
@@ -70,5 +60,23 @@ namespace DenizYanar
             _rb.rotation = 0;
             _rb.freezeRotation = true;
         }
+        
+        
+        private void SetAngle()
+        {
+            if (Camera.main is null) return;
+            Vector3 dir = Input.mousePosition - Camera.main.WorldToScreenPoint(_rb.transform.position);
+            var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            _rb.rotation = Mathf.MoveTowardsAngle(_rb.rotation, angle, Time.fixedDeltaTime * _turnSpeed);
+        }
+        
+        private void SetAngleInstant()
+        {
+            if (Camera.main is null) return;
+            Vector3 dir = Input.mousePosition - Camera.main.WorldToScreenPoint(_rb.transform.position);
+            var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            _rb.rotation = angle;
+        }
     }
+    
 }
