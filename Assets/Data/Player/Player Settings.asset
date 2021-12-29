@@ -21,7 +21,7 @@ MonoBehaviour:
   _airStrafeMaxXVelocity: 20
   _airStrafeYAcceleration: -200
   _airStrafeMaxYVelocity: 25
-  _shiftModeSpeed: 650
+  _shiftModeSpeed: 1300
   _shiftModeTurnSpeed: 400
   _obstacleLayerMask:
     serializedVersion: 2
