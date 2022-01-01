@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace DenizYanar
 {
-    public class PlayerWallSlideState : State
+    public class PlayerMovementWallSlideState : State
     {
         private const float _wallSlideGravityScale = 0.5f;
         
@@ -16,7 +16,7 @@ namespace DenizYanar
         private readonly Collider2D _collider;
         private readonly PlayerSettings _settings;
 
-        public PlayerWallSlideState(PlayerMovementController playerMovementController, PlayerSettings settings, StringEventChannelSO nameInformerEventChannel = null, [CanBeNull] string stateName = null)
+        public PlayerMovementWallSlideState(PlayerMovementController playerMovementController, PlayerSettings settings, StringEventChannelSO nameInformerEventChannel = null, [CanBeNull] string stateName = null)
         {
             _playerMovementController = playerMovementController;
             _rb = playerMovementController.WallSlideDataInstance.RB;

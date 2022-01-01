@@ -6,7 +6,7 @@ using DenizYanar.FSM;
 
 namespace DenizYanar
 {
-    public class PlayerShiftState : State
+    public class PlayerMovementShiftState : State
     {
         private readonly Rigidbody2D _rb;
         private readonly float _originalGravity;
@@ -14,7 +14,7 @@ namespace DenizYanar
         private readonly float _turnSpeed;
         
 
-        public PlayerShiftState(Rigidbody2D rb, PlayerSettings settings, StringEventChannelSO nameInformerEvent = null, [CanBeNull] string stateName = null)
+        public PlayerMovementShiftState(Rigidbody2D rb, PlayerSettings settings, StringEventChannelSO nameInformerEvent = null, [CanBeNull] string stateName = null)
         {
             _stateNameInformerEventChannel = nameInformerEvent;
             _stateName = stateName;
@@ -47,8 +47,6 @@ namespace DenizYanar
 
             _rb.gravityScale = 0;
             _rb.freezeRotation = false;
-
-
         }
         
 

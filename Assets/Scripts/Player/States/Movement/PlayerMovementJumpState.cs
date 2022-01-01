@@ -6,12 +6,12 @@ using DenizYanar.FSM;
 
 namespace DenizYanar
 {
-    public class PlayerJumpState : State
+    public class PlayerMovementJumpState : State
     {
         private readonly JumpData _jumpData;
         private readonly PlayerMovementController _playerMovementController;
 
-        public PlayerJumpState(PlayerMovementController playerMovementController, StringEventChannelSO nameInformerChannel = null, [CanBeNull] string stateName = null)
+        public PlayerMovementJumpState(PlayerMovementController playerMovementController, StringEventChannelSO nameInformerChannel = null, [CanBeNull] string stateName = null)
         {
             _playerMovementController = playerMovementController;
             _jumpData = playerMovementController.JumpDataInstance;

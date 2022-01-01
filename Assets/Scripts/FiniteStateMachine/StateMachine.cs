@@ -6,11 +6,12 @@ namespace DenizYanar.FSM
 {
     public class StateMachine
     {
-        private State _currentState;
-        
+        public State CurrentState { get; private set; }
+
         private List<State> _states = new List<State>();
         private List<Transition> _anyTransitions = new List<Transition>();
 
+        
 
         public void Tick()
         {
@@ -18,10 +19,10 @@ namespace DenizYanar.FSM
             if(transition != null)
                 SetState(transition.To);
             
-            _currentState.Tick();
+            CurrentState.Tick();
         }
         
-        public void PhysicsTick() => _currentState?.PhysicsTick();
+        public void PhysicsTick() => CurrentState?.PhysicsTick();
 
 
         public void AddTransition(State from, State to, Func<bool> condition)
@@ -29,20 +30,25 @@ namespace DenizYanar.FSM
             from.Transitions.Add(new Transition(to, condition));
         }
 
+        public void AddAnyTransition(State to, Func<bool> condition)
+        {
+            _anyTransitions.Add(new Transition(to, condition));
+        }
+
         private void SetState(State state)
         {
-            if (state == _currentState)
+            if (state == CurrentState)
                 return;
 
-            _currentState.OnExit();
-            _currentState = state;
-            _currentState.OnEnter();
+            CurrentState.OnExit();
+            CurrentState = state;
+            CurrentState.OnEnter();
         }
 
         public void InitState(State state)
         {
-            _currentState = state;
-            _currentState.OnEnter();
+            CurrentState = state;
+            CurrentState.OnEnter();
         }
 
         private Transition GetTriggeredTransition()
@@ -52,7 +58,7 @@ namespace DenizYanar.FSM
                 return anyTransition;
 
             
-            foreach (Transition transition in _currentState.Transitions)
+            foreach (Transition transition in CurrentState.Transitions)
                 if(transition.Condition())
                     return transition;
 

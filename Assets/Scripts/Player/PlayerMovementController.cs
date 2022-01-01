@@ -21,6 +21,7 @@ namespace DenizYanar
         public WallSlideData WallSlideDataInstance;
 
         private StateMachine _stateMachine;
+        public State ActiveState => _stateMachine.CurrentState;
 
         private bool _rememberedJumpRequest;
         
@@ -38,13 +39,14 @@ namespace DenizYanar
             
             _stateMachine = new StateMachine();
 
-            PlayerIdleState idle = new PlayerIdleState(_rb, nameInformerEvent: _stateNameInformerEvent, stateName: "Idle");
-            PlayerMoveState move = new PlayerMoveState(_rb, _settings, nameInformerEvent: _stateNameInformerEvent, stateName: "Move");
-            PlayerJumpState jump = new PlayerJumpState(this, nameInformerChannel: _stateNameInformerEvent, stateName: "Jump");
-            PlayerLandState land = new PlayerLandState(JumpDataInstance, nameInformerEvent: _stateNameInformerEvent, stateName: "Land");
-            PlayerWallSlideState wallSlide = new PlayerWallSlideState(this, _settings,nameInformerEventChannel: _stateNameInformerEvent, stateName: "Wall Slide");
-            PlayerAirState air = new PlayerAirState(_rb, _settings, nameInformerChannel: _stateNameInformerEvent, stateName: "At Air");
-            PlayerShiftState shift = new PlayerShiftState(_rb, _settings, nameInformerEvent: _stateNameInformerEvent, stateName: "Shift");
+            PlayerMovementIdleState idle = new PlayerMovementIdleState(_rb, nameInformerEvent: _stateNameInformerEvent, stateName: "Idle");
+            PlayerMovementMoveState move = new PlayerMovementMoveState(_rb, _settings, nameInformerEvent: _stateNameInformerEvent, stateName: "Move");
+            PlayerMovementJumpState jump = new PlayerMovementJumpState(this, nameInformerChannel: _stateNameInformerEvent, stateName: "Jump");
+            PlayerMovementLandState land = new PlayerMovementLandState(JumpDataInstance, nameInformerEvent: _stateNameInformerEvent, stateName: "Land");
+            PlayerMovementWallSlideState wallSlide = new PlayerMovementWallSlideState(this, _settings,nameInformerEventChannel: _stateNameInformerEvent, stateName: "Wall Slide");
+            PlayerMovementAirState air = new PlayerMovementAirState(_rb, _settings, nameInformerChannel: _stateNameInformerEvent, stateName: "At Air");
+            PlayerMovementShiftState shift = new PlayerMovementShiftState(_rb, _settings, nameInformerEvent: _stateNameInformerEvent, stateName: "Shift");
+            PlayerMovementSliceState slice = new PlayerMovementSliceState(_rb);
 
             _stateMachine.InitState(idle);
 
@@ -58,7 +60,9 @@ namespace DenizYanar
             To(idle, jump, CanJump());
             To(move, jump, CanJump());
             To(jump, air, AlwaysTrue());
-            To(air, land, OnContactToGround());
+            To(idle, air, NoMoreContactToGround());
+            To(move, air, NoMoreContactToGround());
+            To(air, land, OnFallToGround());
             To(air, jump, CanJump());
             To(land, idle, AlwaysTrue());
             To(air, wallSlide, OnContactToWall());
@@ -66,6 +70,8 @@ namespace DenizYanar
             To(wallSlide, air, NoContactToWall());
             To(air, shift, OnPressedShift());
             To(shift, air, OnPressedShift());
+            To(shift, slice, OnPressedLeftClick());
+            To(slice, air, OnSliceFinished());
             
 
 
@@ -79,11 +85,15 @@ namespace DenizYanar
             Func<bool> HasNotMovementInput() => () => Input.GetAxisRaw("Horizontal") == 0;
             Func<bool> CanJump() => () =>  _rememberedJumpRequest && JumpDataInstance.CanJump;
             Func<bool> WhenJumpKeyTriggered() => () => _rememberedJumpRequest;
-            Func<bool> OnContactToGround() => () => IsTouchingToGround() != null && _rb.velocity.y <= 0;
+            Func<bool> OnFallToGround() => () => IsTouchingToGround() != null && _rb.velocity.y <= 0;
+            Func<bool> NoMoreContactToGround() => () => IsTouchingToGround() == null;
             Func<bool> OnContactToWall() => () => AngleOfContact() == 0 && WallSlideDataInstance.HasCooldown == false;
             Func<bool> NoContactToWall() => () => AngleOfContact() == null || AngleOfContact() != 0;
             Func<bool> OnPressedShift() => () => Input.GetKeyDown(KeyCode.LeftShift);
+            Func<bool> OnPressedLeftClick() => () => Input.GetMouseButtonDown(0);
+            Func<bool> OnSliceFinished() => () => slice.HasFinished;
             Func<bool> AlwaysTrue() => () => true;
+
 
         }
 

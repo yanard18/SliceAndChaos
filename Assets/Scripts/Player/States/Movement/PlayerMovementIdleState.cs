@@ -6,13 +6,13 @@ using DenizYanar.FSM;
 
 namespace DenizYanar
 {
-    public class PlayerIdleState : State
+    public class PlayerMovementIdleState : State
     {
         private readonly Rigidbody2D _rb;
 
         private const float frictionAcceleration = 40.0f;
         
-        public PlayerIdleState(Rigidbody2D rb, StringEventChannelSO nameInformerEvent = null, [CanBeNull] string stateName = null)
+        public PlayerMovementIdleState(Rigidbody2D rb, StringEventChannelSO nameInformerEvent = null, [CanBeNull] string stateName = null)
         {
             _rb = rb;
             _stateName = stateName ?? GetType().Name;

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace DenizYanar
 {
-    public class PlayerMoveState : State
+    public class PlayerMovementMoveState : State
     {
 
 
@@ -17,7 +17,7 @@ namespace DenizYanar
         
         private readonly Rigidbody2D _rb;
 
-        public PlayerMoveState(Rigidbody2D rb, PlayerSettings settings, StringEventChannelSO nameInformerEvent = null, [CanBeNull] string stateName = null)
+        public PlayerMovementMoveState(Rigidbody2D rb, PlayerSettings settings, StringEventChannelSO nameInformerEvent = null, [CanBeNull] string stateName = null)
         {
             _stateName = stateName ?? GetType().Name;
             _stateNameInformerEventChannel = nameInformerEvent;

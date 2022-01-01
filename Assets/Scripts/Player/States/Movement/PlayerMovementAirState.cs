@@ -6,7 +6,7 @@ using DenizYanar.FSM;
 
 namespace DenizYanar
 {
-    public class PlayerAirState : State
+    public class PlayerMovementAirState : State
     {
 
         private readonly Rigidbody2D _rb;
@@ -16,7 +16,7 @@ namespace DenizYanar
         private readonly float _yAcceleration;
         private readonly float _maxYVelocity;
 
-        public PlayerAirState(Rigidbody2D rb, PlayerSettings settings, StringEventChannelSO nameInformerChannel = null, [CanBeNull] string stateName = null)
+        public PlayerMovementAirState(Rigidbody2D rb, PlayerSettings settings, StringEventChannelSO nameInformerChannel = null, [CanBeNull] string stateName = null)
         {
             _stateName = stateName ?? GetType().Name;
             _stateNameInformerEventChannel = nameInformerChannel;

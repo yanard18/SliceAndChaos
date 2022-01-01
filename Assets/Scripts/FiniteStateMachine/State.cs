@@ -9,7 +9,7 @@ namespace DenizYanar.FSM
 
         protected StringEventChannelSO _stateNameInformerEventChannel;
         protected string _stateName;
-        
+
         public virtual void Tick()
         {
             

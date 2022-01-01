@@ -4,11 +4,11 @@ using JetBrains.Annotations;
 
 namespace DenizYanar
 {
-    public class PlayerLandState : State
+    public class PlayerMovementLandState : State
     {
         private readonly JumpData _jumpData;
         
-        public PlayerLandState(JumpData jumpData, StringEventChannelSO nameInformerEvent = null, [CanBeNull] string stateName = null)
+        public PlayerMovementLandState(JumpData jumpData, StringEventChannelSO nameInformerEvent = null, [CanBeNull] string stateName = null)
         {
             _stateName = stateName ?? GetType().Name;
             _stateNameInformerEventChannel = nameInformerEvent;
