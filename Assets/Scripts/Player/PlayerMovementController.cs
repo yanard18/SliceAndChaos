@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using DenizYanar.Events;
+using DenizYanar.External.Sense_Engine.Scripts.Core;
 using DenizYanar.FSM;
 using UnityEngine;
+
 
 namespace DenizYanar
 {
@@ -24,6 +26,9 @@ namespace DenizYanar
         public State ActiveState => _stateMachine.CurrentState;
 
         private bool _rememberedJumpRequest;
+
+        [Header("Senses")] 
+        [SerializeField] private SenseEnginePlayer _jumpSense;
         
         
         
@@ -39,14 +44,14 @@ namespace DenizYanar
             
             _stateMachine = new StateMachine();
 
-            PlayerMovementIdleState idle = new PlayerMovementIdleState(_rb, nameInformerEvent: _stateNameInformerEvent, stateName: "Idle");
-            PlayerMovementMoveState move = new PlayerMovementMoveState(_rb, _settings, nameInformerEvent: _stateNameInformerEvent, stateName: "Move");
-            PlayerMovementJumpState jump = new PlayerMovementJumpState(this, nameInformerChannel: _stateNameInformerEvent, stateName: "Jump");
-            PlayerMovementLandState land = new PlayerMovementLandState(JumpDataInstance, nameInformerEvent: _stateNameInformerEvent, stateName: "Land");
-            PlayerMovementWallSlideState wallSlide = new PlayerMovementWallSlideState(this, _settings,nameInformerEventChannel: _stateNameInformerEvent, stateName: "Wall Slide");
-            PlayerMovementAirState air = new PlayerMovementAirState(_rb, _settings, nameInformerChannel: _stateNameInformerEvent, stateName: "At Air");
-            PlayerMovementShiftState shift = new PlayerMovementShiftState(_rb, _settings, nameInformerEvent: _stateNameInformerEvent, stateName: "Shift");
-            PlayerMovementSliceState slice = new PlayerMovementSliceState(_rb);
+            var idle = new PlayerMovementIdleState(_rb, nameInformerEvent: _stateNameInformerEvent, stateName: "Idle");
+            var move = new PlayerMovementMoveState(_rb, _settings, nameInformerEvent: _stateNameInformerEvent, stateName: "Move");
+            var jump = new PlayerMovementJumpState(this, _jumpSense, nameInformerChannel: _stateNameInformerEvent, stateName: "Jump");
+            var land = new PlayerMovementLandState(JumpDataInstance, nameInformerEvent: _stateNameInformerEvent, stateName: "Land");
+            var wallSlide = new PlayerMovementWallSlideState(this, _settings,nameInformerEventChannel: _stateNameInformerEvent, stateName: "Wall Slide");
+            var air = new PlayerMovementAirState(_rb, _settings, nameInformerChannel: _stateNameInformerEvent, stateName: "At Air");
+            var shift = new PlayerMovementShiftState(_rb, _settings, nameInformerEvent: _stateNameInformerEvent, stateName: "Shift");
+            var slice = new PlayerMovementSliceState(_rb);
 
             _stateMachine.InitState(idle);
 

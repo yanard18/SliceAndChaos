@@ -1,5 +1,6 @@
 using System.Collections;
 using DenizYanar.Events;
+using DenizYanar.External.Sense_Engine.Scripts.Core;
 using JetBrains.Annotations;
 using UnityEngine;
 using DenizYanar.FSM;
@@ -10,13 +11,15 @@ namespace DenizYanar
     {
         private readonly JumpData _jumpData;
         private readonly PlayerMovementController _playerMovementController;
+        private readonly SenseEnginePlayer _jumpSense;
 
-        public PlayerMovementJumpState(PlayerMovementController playerMovementController, StringEventChannelSO nameInformerChannel = null, [CanBeNull] string stateName = null)
+        public PlayerMovementJumpState(PlayerMovementController playerMovementController, SenseEnginePlayer jumpSense, StringEventChannelSO nameInformerChannel = null, [CanBeNull] string stateName = null)
         {
             _playerMovementController = playerMovementController;
             _jumpData = playerMovementController.JumpDataInstance;
             _stateName = stateName ?? GetType().Name;
             _stateNameInformerEventChannel = nameInformerChannel;
+            _jumpSense = jumpSense;
         }
 
         public override void OnEnter()
@@ -29,6 +32,7 @@ namespace DenizYanar
         {
             _jumpData.RB.velocity = new Vector2(_jumpData.RB.velocity.x, _jumpData.JumpForce);
             _jumpData.JumpCount--;
+            _jumpSense.Play();
             _playerMovementController.StartCoroutine(StartJumpCooldown(0.15f));
         }
 
