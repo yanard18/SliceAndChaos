@@ -6,7 +6,7 @@ using DenizYanar.FSM;
 using UnityEngine;
 
 
-namespace DenizYanar
+namespace DenizYanar.Player
 {
     [RequireComponent(typeof(Rigidbody2D))]
     public class PlayerMovementController : MonoBehaviour
@@ -14,24 +14,25 @@ namespace DenizYanar
         
         private Rigidbody2D _rb;
         private Collider2D _collider;
-
-        [SerializeField] private PlayerSettings _settings;
-
-        [SerializeField] private StringEventChannelSO _stateNameInformerEvent;
-
-        public JumpData JumpDataInstance;
-        public WallSlideData WallSlideDataInstance;
-
         private StateMachine _stateMachine;
-        public State ActiveState => _stateMachine.CurrentState;
-
+        
         private bool _rememberedJumpRequest;
 
-        [Header("Senses")] 
+        [Header("Player Settings")]
+        [SerializeField] private PlayerSettings _settings;
+        
+        [Header("Player State Informer Channel")]
+        [SerializeField] private StringEventChannelSO _stateNameInformerEvent;
+
+        [Header("Senses")]
         [SerializeField] private SenseEnginePlayer _jumpSense;
         
+        public JumpData JumpDataInstance { get; private set; }
+        public WallSlideData WallSlideDataInstance { get; private set; }
         
         
+        
+        #region Monobehaviour
         private void Awake()
         {
 
@@ -40,7 +41,6 @@ namespace DenizYanar
             
             JumpDataInstance = new JumpData(2, 20, _rb);
             WallSlideDataInstance = new WallSlideData(_rb, _collider);
-            
             
             _stateMachine = new StateMachine();
 
@@ -51,15 +51,10 @@ namespace DenizYanar
             var wallSlide = new PlayerMovementWallSlideState(this, _settings,nameInformerEventChannel: _stateNameInformerEvent, stateName: "Wall Slide");
             var air = new PlayerMovementAirState(_rb, _settings, nameInformerChannel: _stateNameInformerEvent, stateName: "At Air");
             var shift = new PlayerMovementShiftState(_rb, _settings, nameInformerEvent: _stateNameInformerEvent, stateName: "Shift");
-            var slice = new PlayerMovementSliceState(_rb);
+            var slice = new PlayerMovementSliceState(_rb, _settings);
 
             _stateMachine.InitState(idle);
 
-           
-            
-            
-            
-            
             To(idle, move, HasMovementInput());
             To(move,idle, HasNotMovementInput());
             To(idle, jump, CanJump());
@@ -78,14 +73,8 @@ namespace DenizYanar
             To(shift, slice, OnPressedLeftClick());
             To(slice, air, OnSliceFinished());
             
-
-
-
-
-
             void To(State from, State to, Func<bool> condition) => _stateMachine.AddTransition(from, to, condition);
             
-
             Func<bool> HasMovementInput() => () => Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0;
             Func<bool> HasNotMovementInput() => () => Input.GetAxisRaw("Horizontal") == 0;
             Func<bool> CanJump() => () =>  _rememberedJumpRequest && JumpDataInstance.CanJump;
@@ -99,7 +88,6 @@ namespace DenizYanar
             Func<bool> OnSliceFinished() => () => slice.HasFinished;
             Func<bool> AlwaysTrue() => () => true;
 
-
         }
 
         private void Update()
@@ -111,16 +99,19 @@ namespace DenizYanar
         }
         private void FixedUpdate() => _stateMachine.PhysicsTick();
 
-        
+        #endregion
+
+        #region Local Methods
+
         private float? IsTouchingToGround()
         {
             const int rayCount = 8;
-            Bounds bounds = _collider.bounds;
+            var bounds = _collider.bounds;
             var spaceBetweenRays = bounds.size.x / (rayCount - 1);
-            Vector2 bottomLeft = new Vector2(bounds.min.x, bounds.min.y);
+            var bottomLeft = new Vector2(bounds.min.x, bounds.min.y);
             for (var i = 0; i < 8; i++)
             {
-                RaycastHit2D hit = Physics2D.Raycast(
+                var hit = Physics2D.Raycast(
                     bottomLeft + Vector2.right * (spaceBetweenRays * i), 
                     Vector2.down, 0.1f, _settings.ObstacleLayerMask);
 
@@ -141,7 +132,7 @@ namespace DenizYanar
             var verticalRaySpace = bounds.size.y / (horizontalRayCount - 1);
             var movementDirection = Input.GetAxisRaw("Horizontal") > 0 ? 1 : -1;
 
-            Vector2 rayStartPosition = movementDirection == 1 ? new Vector2(bounds.max.x, bounds.min.y) : new Vector2(bounds.min.x, bounds.min.y);
+            var rayStartPosition = movementDirection == 1 ? new Vector2(bounds.max.x, bounds.min.y) : new Vector2(bounds.min.x, bounds.min.y);
 
             for (var i = 0; i < 2; i++)
             {
@@ -149,7 +140,7 @@ namespace DenizYanar
                     Color.red);
                 
                 
-                RaycastHit2D hit = Physics2D.Raycast(
+                var hit = Physics2D.Raycast(
                     rayStartPosition + Vector2.up * (verticalRaySpace * i),
                     Vector2.right * movementDirection,
                     0.1f,
@@ -165,14 +156,13 @@ namespace DenizYanar
         private float? AngleOfContact()
         {
             RaycastHit2D? hit = IsTouchingToWall();
-            if (hit != null)
-            {
-                var angle = Vector2.Angle(hit.Value.normal, Vector2.up);
-                angle %= 90;
-                return angle;
-            }
+            if (hit == null) 
+                return null;
+            
+            var angle = Vector2.Angle(hit.Value.normal, Vector2.up);
+            angle %= 90;
+            return angle;
 
-            return null;
         }
 
         private IEnumerator RememberJumpRequest(float duration)
@@ -184,6 +174,10 @@ namespace DenizYanar
             yield return new WaitForSeconds(duration);
             _rememberedJumpRequest = false;
         }
+
+        #endregion
+        
+        
 
     }
 }

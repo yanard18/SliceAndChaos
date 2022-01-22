@@ -17,12 +17,20 @@ MonoBehaviour:
   _jumpDelayDuration: 0.1
   _jumpForce: 15
   _jumpCount: 2
+  _wallSlideGravity: 0.5
+  _wallSlideHorizontalBouncePower: 17
+  _wallSlideVerticalBouncePower: 20
   _airStrafeXAcceleration: 100
   _airStrafeMaxXVelocity: 20
   _airStrafeYAcceleration: -200
   _airStrafeMaxYVelocity: 25
   _shiftModeSpeed: 1300
   _shiftModeTurnSpeed: 400
+  _sliceTeleportDistance: 15
+  _sliceSpeedReductionAfterTeleport: 2
+  _swordProjectile: {fileID: 5749834705407631703, guid: 63a8c24c9a15dfc408344c350f89c1ec, type: 3}
+  _swordThrowSpeed: 80
+  _swordThrowAngularVelocity: 0
   _obstacleLayerMask:
     serializedVersion: 2
     m_Bits: 64

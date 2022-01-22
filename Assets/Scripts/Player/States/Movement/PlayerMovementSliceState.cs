@@ -1,26 +1,34 @@
-﻿using System.Collections;
-using DenizYanar.FSM;
+﻿using DenizYanar.FSM;
 using UnityEngine;
 
-namespace DenizYanar
+namespace DenizYanar.Player
 {
     public class PlayerMovementSliceState : State
     {
 
         private readonly Rigidbody2D _rb;
-        private const float _teleportDistance = 15.0f;
-        private const float _speedReductionAfterTeleport = 2.0f;
+        private readonly float _teleportDistance;
+        private readonly float _speedReductionAfterTeleport;
+        
         public bool HasFinished;
 
-        public PlayerMovementSliceState(Rigidbody2D rb)
+        #region Constructor
+
+        public PlayerMovementSliceState(Rigidbody2D rb, PlayerSettings settings)
         {
             _rb = rb;
+            _teleportDistance = settings.SliceTeleportDistance;
+            _speedReductionAfterTeleport = settings.SliceSpeedReductionAfterTeleport;
         }
+
+        #endregion
         
+        #region State Callbacks
+
         public override void OnEnter()
         {
             base.OnEnter();
-            Vector2 direction = _rb.velocity.normalized;
+            var direction = _rb.velocity.normalized;
             _rb.MovePosition(_rb.position + direction * _teleportDistance);
             HasFinished = true;
         }
@@ -30,6 +38,9 @@ namespace DenizYanar
             _rb.velocity /= _speedReductionAfterTeleport;
             HasFinished = false;
         }
+
+        #endregion
+        
         
     }
 }

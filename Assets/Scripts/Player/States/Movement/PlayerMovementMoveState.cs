@@ -3,19 +3,18 @@ using DenizYanar.FSM;
 using JetBrains.Annotations;
 using UnityEngine;
 
-namespace DenizYanar
+namespace DenizYanar.Player
 {
     public class PlayerMovementMoveState : State
     {
-
-
-        
         private readonly float _desiredXVelocity;
         private readonly float _acceleration;
+        private readonly Rigidbody2D _rb;
         
         private float _xVelocity;
-        
-        private readonly Rigidbody2D _rb;
+
+
+        #region Constructor
 
         public PlayerMovementMoveState(Rigidbody2D rb, PlayerSettings settings, StringEventChannelSO nameInformerEvent = null, [CanBeNull] string stateName = null)
         {
@@ -27,11 +26,21 @@ namespace DenizYanar
             _acceleration = settings.MovementAcceleration;
         }
 
+        #endregion
 
-        public override void PhysicsTick()
+        #region State Callbacks
+
+        public override void PhysicsTick() => Move();
+        
+        public override void OnEnter()
         {
-            Move();
+            base.OnEnter();
+            _xVelocity = _rb.velocity.x;
         }
+
+        #endregion
+
+        #region Local Methods
 
         private void Move()
         {
@@ -46,12 +55,10 @@ namespace DenizYanar
             _rb.velocity = new Vector2(_xVelocity, _rb.velocity.y);
         }
 
+        #endregion
 
-        public override void OnEnter()
-        {
-            base.OnEnter();
-            _xVelocity = _rb.velocity.x;
-        }
+
+        
 
     }
 }

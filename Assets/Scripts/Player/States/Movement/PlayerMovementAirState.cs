@@ -4,7 +4,7 @@ using UnityEngine;
 using DenizYanar.FSM;
 
 
-namespace DenizYanar
+namespace DenizYanar.Player
 {
     public class PlayerMovementAirState : State
     {
@@ -16,6 +16,8 @@ namespace DenizYanar
         private readonly float _yAcceleration;
         private readonly float _maxYVelocity;
 
+        #region Constructor
+        
         public PlayerMovementAirState(Rigidbody2D rb, PlayerSettings settings, StringEventChannelSO nameInformerChannel = null, [CanBeNull] string stateName = null)
         {
             _stateName = stateName ?? GetType().Name;
@@ -26,15 +28,17 @@ namespace DenizYanar
             _maxXVelocity = settings.AirStrafeMaxXVelocity;
             _yAcceleration = settings.AirStrafeYAcceleration;
             _maxYVelocity = settings.AirStrafeMaxYVelocity;
-
         }
+
+        #endregion
         
+        #region State Callbacks
 
         public override void PhysicsTick()
         {
             base.PhysicsTick();
             
-            var sKeyInput = Input.GetAxisRaw("Vertical") == -1 ? 1 : 0;
+            var sKeyInput = Mathf.Sign(Input.GetAxisRaw("Vertical")) < 0 ? 1 : 0;
             var horizontalKeyInput = Input.GetAxisRaw("Horizontal");
             
             // X
@@ -64,5 +68,9 @@ namespace DenizYanar
             if(Mathf.Abs(_rb.velocity.y) < _maxYVelocity)
                 _rb.AddForce(new Vector2(0, sKeyInput * _yAcceleration), ForceMode2D.Force);
         }
+
+        #endregion
+        
+        
     }
 }

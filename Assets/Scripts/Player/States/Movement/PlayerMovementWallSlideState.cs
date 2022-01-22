@@ -4,39 +4,40 @@ using DenizYanar.FSM;
 using JetBrains.Annotations;
 using UnityEngine;
 
-namespace DenizYanar
+namespace DenizYanar.Player
 {
     public class PlayerMovementWallSlideState : State
     {
-        private const float _wallSlideGravityScale = 0.5f;
-        
         private readonly Rigidbody2D _rb;
         private readonly PlayerMovementController _playerMovementController;
-        private readonly float _defaultGravityScale;
         private readonly Collider2D _collider;
         private readonly PlayerSettings _settings;
+        private readonly float _defaultGravityScale;
+
+
+        #region Constructor
 
         public PlayerMovementWallSlideState(PlayerMovementController playerMovementController, PlayerSettings settings, StringEventChannelSO nameInformerEventChannel = null, [CanBeNull] string stateName = null)
         {
             _playerMovementController = playerMovementController;
-            _rb = playerMovementController.WallSlideDataInstance.RB;
+            _rb = playerMovementController.WallSlideDataInstance.Rb;
             _collider = playerMovementController.WallSlideDataInstance.Collider;
             _settings = settings;
             
-            
             _stateNameInformerEventChannel = nameInformerEventChannel;
             _stateName = stateName ?? GetType().Name;
-
-
-            _defaultGravityScale = _rb.gravityScale;
             
-
+            _defaultGravityScale = _rb.gravityScale;
         }
+
+        #endregion
+
+        #region Callback States
 
         public override void OnEnter()
         {
             base.OnEnter();
-            _rb.gravityScale = _wallSlideGravityScale;
+            _rb.gravityScale = _settings.WallSlideGravity;
             _rb.velocity /= 4.0f;
             _playerMovementController.JumpDataInstance.ResetJumpCount();
         }
@@ -56,21 +57,32 @@ namespace DenizYanar
             ExecuteJump(hitNormal);
         }
 
+        #endregion
+        
+        #region Local Methods
+
         private void ExecuteJump(Vector2? hitNormal)
         {
-            _rb.velocity = (Vector2) (hitNormal * 17 + Vector2.up * 20);
+
+            if (hitNormal != null)
+            {
+                var horizontal = _settings.WallSlideHorizontalBouncePower;
+                var vertical = _settings.WallSlideVerticalBouncePower;
+                _rb.velocity = (hitNormal.Value * horizontal) + (Vector2.up * vertical);
+            }
+            
             _playerMovementController.StartCoroutine(_playerMovementController.WallSlideDataInstance.StartCooldown(0.12f));
         }
 
         private Vector2? FindWallContactNormal()
         {
             const int horizontalRayCount = 2;
-            Bounds bounds = _collider.bounds;
+            var bounds = _collider.bounds;
             var horizontalRaySpacing = bounds.size.y;
 
 
-            Vector2 bottomLeft = new Vector2(bounds.min.x, bounds.min.y);
-            Vector2 bottomRight = new Vector2(bounds.max.x, bounds.min.y);
+            var bottomLeft = new Vector2(bounds.min.x, bounds.min.y);
+            var bottomRight = new Vector2(bounds.max.x, bounds.min.y);
 
             for (var i = 0; i < horizontalRayCount; i++)
             {
@@ -96,19 +108,20 @@ namespace DenizYanar
 
             return null;
         }
-        
 
+        #endregion
+       
     }
     
     public class WallSlideData
     {
         public bool HasCooldown;
-        public readonly Rigidbody2D RB;
+        public readonly Rigidbody2D Rb;
         public readonly Collider2D Collider;
 
         public WallSlideData(Rigidbody2D rb, Collider2D collider)
         {
-            RB = rb;
+            Rb = rb;
             Collider = collider;
         }
         

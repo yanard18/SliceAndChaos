@@ -4,7 +4,7 @@ using UnityEngine;
 using DenizYanar.FSM;
 
 
-namespace DenizYanar
+namespace DenizYanar.Player
 {
     public class PlayerMovementShiftState : State
     {
@@ -12,7 +12,9 @@ namespace DenizYanar
         private readonly float _originalGravity;
         private readonly float _speed;
         private readonly float _turnSpeed;
-        
+
+
+        #region Constructor
 
         public PlayerMovementShiftState(Rigidbody2D rb, PlayerSettings settings, StringEventChannelSO nameInformerEvent = null, [CanBeNull] string stateName = null)
         {
@@ -25,19 +27,17 @@ namespace DenizYanar
             _turnSpeed = settings.ShiftModeTurnSpeed;
         }
 
+        #endregion
+
+        #region State Callbacks
+
         public override void PhysicsTick()
         {
             base.PhysicsTick(); 
             MoveForward();
             SetAngle();
         }
-
-        private void MoveForward()
-        {
-            _rb.velocity = _rb.transform.right * (_speed * Time.fixedDeltaTime);
-        }
-
-
+        
         public override void OnEnter()
         {
             base.OnEnter();
@@ -49,7 +49,6 @@ namespace DenizYanar
             _rb.freezeRotation = false;
         }
         
-
         public override void OnExit()
         {
             base.OnExit();
@@ -58,12 +57,20 @@ namespace DenizYanar
             _rb.rotation = 0;
             _rb.freezeRotation = true;
         }
-        
+
+        #endregion
+
+        #region Local Methods
+
+        private void MoveForward()
+        {
+            _rb.velocity = _rb.transform.right * (_speed * Time.fixedDeltaTime);
+        }
         
         private void SetAngle()
         {
             if (Camera.main is null) return;
-            Vector3 dir = Input.mousePosition - Camera.main.WorldToScreenPoint(_rb.transform.position);
+            var dir = Input.mousePosition - Camera.main.WorldToScreenPoint(_rb.transform.position);
             var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
             _rb.rotation = Mathf.MoveTowardsAngle(_rb.rotation, angle, Time.fixedDeltaTime * _turnSpeed);
         }
@@ -71,10 +78,16 @@ namespace DenizYanar
         private void SetAngleInstant()
         {
             if (Camera.main is null) return;
-            Vector3 dir = Input.mousePosition - Camera.main.WorldToScreenPoint(_rb.transform.position);
+            var dir = Input.mousePosition - Camera.main.WorldToScreenPoint(_rb.transform.position);
             var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
             _rb.rotation = angle;
         }
+
+        #endregion
+        
+        
+        
+        
     }
     
 }

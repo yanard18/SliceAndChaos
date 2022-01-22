@@ -1,7 +1,6 @@
-using System;
 using System.Collections;
+using DenizYanar.Player;
 using UnityEngine;
-using Vector2 = System.Numerics.Vector2;
 
 namespace DenizYanar
 {
@@ -10,47 +9,44 @@ namespace DenizYanar
     {
         private Projectile _projectile;
 
-
-        private void Awake()
-        {
-            _projectile = GetComponent<Projectile>();
-        }
+        [SerializeField] private float _turnBackDuration = 0.3f; 
         
-        private void OnEnable()
-        {
-            _projectile.OnHit += Hit;
-        }
-
-        private void OnDisable()
-        {
-            _projectile.OnHit -= Hit;
-        }
+        #region Monobehaviour
+        
+        private void Awake() => _projectile = GetComponent<Projectile>();
+        private void OnEnable() => _projectile.OnHit += Hit;
+        private void OnDisable() => _projectile.OnHit -= Hit;
         
 
-        private void Hit()
-        {
-            _projectile.Stop();
-        }
+        #endregion
 
-        public void CallbackKatana()
-        {
-            StartCoroutine(KatanaCallback(0.2f));
-        }
+        #region Global Methods
+        
+        public void CallbackKatana() => StartCoroutine(KatanaCallback(_turnBackDuration));
 
-        private IEnumerator KatanaCallback(float callbackDuration)
+        #endregion
+
+        #region Local Methods
+        private void Hit(Collider2D other) => _projectile.Stop();
+
+        private IEnumerator KatanaCallback(float turnBackDuration)
         {
             float elapsedTime = 0;
-            Vector3 startPos = transform.position;
+            var startPos = transform.position;
             
-            while (elapsedTime < callbackDuration)
+            while (elapsedTime < turnBackDuration)
             {
                 elapsedTime += Time.deltaTime;
                 transform.Rotate(Vector3.forward * (Time.deltaTime * 2200f));
-                transform.position = Vector3.Lerp(startPos, _projectile.Author.transform.position, elapsedTime / callbackDuration);
+                transform.position = Vector3.Lerp(startPos, _projectile.Author.transform.position, elapsedTime / turnBackDuration);
                 yield return null;
             }
-            
+
+            _projectile.Author.GetComponent<PlayerAttackController>().IsSwordTurnedBack = true;
             Destroy(gameObject);
         }
+
+        #endregion
+        
     }
 }

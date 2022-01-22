@@ -13,12 +13,25 @@ namespace DenizYanar
 
         [SerializeField] private LayerMask _obstacleLayer;
 
-        public event Action OnHit;
+        public event Action<Collider2D> OnHit;
 
-        private void Awake()
-        {
-            _rb = GetComponent<Rigidbody2D>();
-        }
+        #region Monobehaviour
+
+            private void Awake()
+            {
+                _rb = GetComponent<Rigidbody2D>();
+            }
+            
+            private void OnTriggerEnter2D(Collider2D other)
+            {
+                if(other.gameObject == Author || other.transform.root.gameObject == Author)
+                    return;
+                
+                OnHit?.Invoke(other);
+            }
+
+
+        #endregion
 
         public void Init(Vector2 trajectory, float angularVelocity = 0, GameObject author = null)
         {
@@ -26,17 +39,7 @@ namespace DenizYanar
             _rb.velocity = trajectory;
             _rb.angularVelocity = angularVelocity;
         }
-
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-            if(other.gameObject == Author || other.transform.root.gameObject == Author)
-                return;
-            
-            Debug.Log(other.gameObject.name);
-            
-            OnHit?.Invoke();
-        }
-
+        
         public void Stop()
         {
             _rb.velocity = Vector2.zero;

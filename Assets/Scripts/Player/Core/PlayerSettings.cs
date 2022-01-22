@@ -1,11 +1,10 @@
 using UnityEngine;
 
-namespace DenizYanar
+namespace DenizYanar.Player
 {
     [CreateAssetMenu(menuName = "Slice And Chaos/Player/Player Settings")]
     public class PlayerSettings : ScriptableObject
     {
-        
         [Header("Movement Configurations")]
         
         [SerializeField] private float _desiredMovementVelocity = 17.0f;
@@ -25,6 +24,15 @@ namespace DenizYanar
         [SerializeField] private int _jumpCount;
         public int JumpCount => _jumpCount;
 
+        [Header("Wall Slide Settings")] 
+        [SerializeField] private float _wallSlideGravity = 0.5f;
+        public float WallSlideGravity => _wallSlideGravity;
+
+        [SerializeField] private float _wallSlideHorizontalBouncePower = 17.0f;
+        public float WallSlideHorizontalBouncePower => _wallSlideHorizontalBouncePower;
+
+        [SerializeField] private float _wallSlideVerticalBouncePower = 20.0f;
+        public float WallSlideVerticalBouncePower => _wallSlideVerticalBouncePower;
 
         [Header("Air Strafe Configurations")] 
         
@@ -49,6 +57,26 @@ namespace DenizYanar
         [SerializeField] private float _shiftModeTurnSpeed;
         public float ShiftModeTurnSpeed => _shiftModeTurnSpeed;
 
+        [Header("Slice Teleport Settings")] 
+        
+        [SerializeField] private float _sliceTeleportDistance = 15.0f;
+        public float SliceTeleportDistance => _sliceTeleportDistance;
+
+        [SerializeField] private float _sliceSpeedReductionAfterTeleport = 2.0f;
+        public float SliceSpeedReductionAfterTeleport => _sliceSpeedReductionAfterTeleport;
+
+        [Header("Sword Throw Settings")] 
+        
+        [SerializeField] private Projectile _swordProjectile;
+
+        public Projectile SwordProjectile => _swordProjectile;
+        
+        [SerializeField] private float _swordThrowSpeed = 50.0f;
+        public float SwordThrowSpeed => _swordThrowSpeed;
+
+        [SerializeField] private float _swordThrowAngularVelocity = 2000.0f;
+        public float SwordThrowAngularVelocity => _swordThrowAngularVelocity;
+        
 
         [Header("Layers")] 
         
