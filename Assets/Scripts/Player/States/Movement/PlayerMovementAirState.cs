@@ -2,7 +2,7 @@ using DenizYanar.Events;
 using JetBrains.Annotations;
 using UnityEngine;
 using DenizYanar.FSM;
-
+using DenizYanar.Inputs;
 
 namespace DenizYanar.Player
 {
@@ -10,6 +10,7 @@ namespace DenizYanar.Player
     {
 
         private readonly Rigidbody2D _rb;
+        private readonly PlayerInputs _inputs;
         
         private readonly float _xAcceleration;
         private readonly float _maxXVelocity;
@@ -18,11 +19,12 @@ namespace DenizYanar.Player
 
         #region Constructor
         
-        public PlayerMovementAirState(Rigidbody2D rb, PlayerSettings settings, StringEventChannelSO nameInformerChannel = null, [CanBeNull] string stateName = null)
+        public PlayerMovementAirState(Rigidbody2D rb, PlayerSettings settings, PlayerInputs inputs, StringEventChannelSO nameInformerChannel = null, [CanBeNull] string stateName = null)
         {
             _stateName = stateName ?? GetType().Name;
             _stateNameInformerEventChannel = nameInformerChannel;
             _rb = rb;
+            _inputs = inputs;
 
             _xAcceleration = settings.AirStrafeXAcceleration;
             _maxXVelocity = settings.AirStrafeMaxXVelocity;
@@ -34,12 +36,18 @@ namespace DenizYanar.Player
         
         #region State Callbacks
 
+        public override void OnEnter()
+        {
+            base.OnEnter();
+            _inputs.ResetAllInputs();
+        }
+
         public override void PhysicsTick()
         {
             base.PhysicsTick();
             
-            var sKeyInput = Mathf.Sign(Input.GetAxisRaw("Vertical")) < 0 ? 1 : 0;
-            var horizontalKeyInput = Input.GetAxisRaw("Horizontal");
+            //var sKeyInput = Mathf.Sign(Input.GetAxisRaw("Vertical")) < 0 ? 1 : 0;
+            var horizontalKeyInput = _inputs.HorizontalMovement;
             
             // X
 
@@ -65,8 +73,8 @@ namespace DenizYanar.Player
 
 
             // Y
-            if(Mathf.Abs(_rb.velocity.y) < _maxYVelocity)
-                _rb.AddForce(new Vector2(0, sKeyInput * _yAcceleration), ForceMode2D.Force);
+            if(Mathf.Abs(_rb.velocity.y) < _maxYVelocity && _inputs.Dive)
+                _rb.AddForce(new Vector2(0, _yAcceleration), ForceMode2D.Force);
         }
 
         #endregion

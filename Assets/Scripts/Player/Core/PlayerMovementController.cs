@@ -3,6 +3,7 @@ using System.Collections;
 using DenizYanar.Events;
 using DenizYanar.External.Sense_Engine.Scripts.Core;
 using DenizYanar.FSM;
+using DenizYanar.Inputs;
 using UnityEngine;
 
 
@@ -29,13 +30,19 @@ namespace DenizYanar.Player
         
         public JumpData JumpDataInstance { get; private set; }
         public WallSlideData WallSlideDataInstance { get; private set; }
+
+
+        
+        [SerializeField] private PlayerInputs _inputs;
+        
+
         
         
         
+
         #region Monobehaviour
         private void Awake()
         {
-
             _collider = GetComponentInChildren<Collider2D>();
             _rb = GetComponent<Rigidbody2D>();
             
@@ -45,13 +52,13 @@ namespace DenizYanar.Player
             _stateMachine = new StateMachine();
 
             var idle = new PlayerMovementIdleState(_rb, nameInformerEvent: _stateNameInformerEvent, stateName: "Idle");
-            var move = new PlayerMovementMoveState(_rb, _settings, nameInformerEvent: _stateNameInformerEvent, stateName: "Move");
+            var move = new PlayerMovementMoveState(_rb, _settings, _inputs, nameInformerEvent: _stateNameInformerEvent, stateName: "Move");
             var jump = new PlayerMovementJumpState(this, _jumpSense, nameInformerChannel: _stateNameInformerEvent, stateName: "Jump");
             var land = new PlayerMovementLandState(JumpDataInstance, nameInformerEvent: _stateNameInformerEvent, stateName: "Land");
             var wallSlide = new PlayerMovementWallSlideState(this, _settings,nameInformerEventChannel: _stateNameInformerEvent, stateName: "Wall Slide");
-            var air = new PlayerMovementAirState(_rb, _settings, nameInformerChannel: _stateNameInformerEvent, stateName: "At Air");
-            var shift = new PlayerMovementShiftState(_rb, _settings, nameInformerEvent: _stateNameInformerEvent, stateName: "Shift");
-            var slice = new PlayerMovementSliceState(_rb, _settings);
+            var air = new PlayerMovementAirState(_rb, _settings, _inputs, nameInformerChannel: _stateNameInformerEvent, stateName: "At Air");
+            var shift = new PlayerMovementShiftState(_rb, _settings, _inputs, nameInformerEvent: _stateNameInformerEvent, stateName: "Shift");
+            var slice = new PlayerMovementSliceState(_rb, _settings, _inputs);
 
             _stateMachine.InitState(idle);
 
@@ -75,16 +82,16 @@ namespace DenizYanar.Player
             
             void To(State from, State to, Func<bool> condition) => _stateMachine.AddTransition(from, to, condition);
             
-            Func<bool> HasMovementInput() => () => Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0;
-            Func<bool> HasNotMovementInput() => () => Input.GetAxisRaw("Horizontal") == 0;
+            Func<bool> HasMovementInput() => () => Mathf.Abs(_inputs.HorizontalMovement) > 0;
+            Func<bool> HasNotMovementInput() => () => _inputs.HorizontalMovement == 0;
             Func<bool> CanJump() => () =>  _rememberedJumpRequest && JumpDataInstance.CanJump;
             Func<bool> WhenJumpKeyTriggered() => () => _rememberedJumpRequest;
             Func<bool> OnFallToGround() => () => IsTouchingToGround() != null && _rb.velocity.y <= 0;
             Func<bool> NoMoreContactToGround() => () => IsTouchingToGround() == null;
             Func<bool> OnContactToWall() => () => AngleOfContact() == 0 && WallSlideDataInstance.HasCooldown == false;
             Func<bool> NoContactToWall() => () => AngleOfContact() == null || AngleOfContact() != 0;
-            Func<bool> OnPressedShift() => () => Input.GetKeyDown(KeyCode.LeftShift);
-            Func<bool> OnPressedLeftClick() => () => Input.GetMouseButtonDown(0);
+            Func<bool> OnPressedShift() => () => _inputs.Shift;
+            Func<bool> OnPressedLeftClick() => () => _inputs.Attack1;
             Func<bool> OnSliceFinished() => () => slice.HasFinished;
             Func<bool> AlwaysTrue() => () => true;
 
@@ -93,8 +100,8 @@ namespace DenizYanar.Player
         private void Update()
         {
             _stateMachine.Tick();
-
-            if (Input.GetKeyDown(KeyCode.W))
+            
+            if (_inputs.Jump)
                 StartCoroutine(RememberJumpRequest(0.15f));
         }
         private void FixedUpdate() => _stateMachine.PhysicsTick();
@@ -102,6 +109,8 @@ namespace DenizYanar.Player
         #endregion
 
         #region Local Methods
+
+
 
         private float? IsTouchingToGround()
         {
@@ -124,13 +133,13 @@ namespace DenizYanar.Player
         
         private RaycastHit2D? IsTouchingToWall()
         {
-            if(Input.GetAxisRaw("Horizontal") == 0)
+            if(_inputs.HorizontalMovement == 0)
                 return null;
 
-            Bounds bounds = _collider.bounds;
+            var bounds = _collider.bounds;
             const int horizontalRayCount = 2;
             var verticalRaySpace = bounds.size.y / (horizontalRayCount - 1);
-            var movementDirection = Input.GetAxisRaw("Horizontal") > 0 ? 1 : -1;
+            var movementDirection = _inputs.HorizontalMovement > 0 ? 1 : -1;
 
             var rayStartPosition = movementDirection == 1 ? new Vector2(bounds.max.x, bounds.min.y) : new Vector2(bounds.min.x, bounds.min.y);
 
@@ -167,6 +176,9 @@ namespace DenizYanar.Player
 
         private IEnumerator RememberJumpRequest(float duration)
         {
+            // Change jump input in a bad way, but that's prevent the holding jump key.
+            _inputs.Jump = false;
+            
             if (_rememberedJumpRequest)
                 yield return null;
 
@@ -178,6 +190,8 @@ namespace DenizYanar.Player
         #endregion
         
         
+        
 
     }
+    
 }

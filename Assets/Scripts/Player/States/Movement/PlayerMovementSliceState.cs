@@ -1,4 +1,5 @@
 ﻿using DenizYanar.FSM;
+using DenizYanar.Inputs;
 using UnityEngine;
 
 namespace DenizYanar.Player
@@ -7,6 +8,7 @@ namespace DenizYanar.Player
     {
 
         private readonly Rigidbody2D _rb;
+        private readonly PlayerInputs _inputs;
         private readonly float _teleportDistance;
         private readonly float _speedReductionAfterTeleport;
         
@@ -14,9 +16,10 @@ namespace DenizYanar.Player
 
         #region Constructor
 
-        public PlayerMovementSliceState(Rigidbody2D rb, PlayerSettings settings)
+        public PlayerMovementSliceState(Rigidbody2D rb, PlayerSettings settings, PlayerInputs inputs)
         {
             _rb = rb;
+            _inputs = inputs;
             _teleportDistance = settings.SliceTeleportDistance;
             _speedReductionAfterTeleport = settings.SliceSpeedReductionAfterTeleport;
         }
@@ -28,6 +31,7 @@ namespace DenizYanar.Player
         public override void OnEnter()
         {
             base.OnEnter();
+            _inputs.ResetAllInputs();
             var direction = _rb.velocity.normalized;
             _rb.MovePosition(_rb.position + direction * _teleportDistance);
             HasFinished = true;

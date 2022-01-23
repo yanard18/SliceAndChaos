@@ -1,5 +1,6 @@
 using DenizYanar.Events;
 using DenizYanar.FSM;
+using DenizYanar.Inputs;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -10,17 +11,19 @@ namespace DenizYanar.Player
         private readonly float _desiredXVelocity;
         private readonly float _acceleration;
         private readonly Rigidbody2D _rb;
+        private readonly PlayerInputs _inputs;
         
         private float _xVelocity;
 
 
         #region Constructor
 
-        public PlayerMovementMoveState(Rigidbody2D rb, PlayerSettings settings, StringEventChannelSO nameInformerEvent = null, [CanBeNull] string stateName = null)
+        public PlayerMovementMoveState(Rigidbody2D rb, PlayerSettings settings, PlayerInputs inputs, StringEventChannelSO nameInformerEvent = null, [CanBeNull] string stateName = null)
         {
             _stateName = stateName ?? GetType().Name;
             _stateNameInformerEventChannel = nameInformerEvent;
             _rb = rb;
+            _inputs = inputs;
 
             _desiredXVelocity = settings.DesiredMovementVelocity;
             _acceleration = settings.MovementAcceleration;
@@ -44,7 +47,7 @@ namespace DenizYanar.Player
 
         private void Move()
         {
-            var movementDirection = Mathf.Sign(Input.GetAxisRaw("Horizontal"));
+            var movementDirection = Mathf.Sign(_inputs.HorizontalMovement);
 
             _xVelocity = Mathf.MoveTowards(
                 _xVelocity,

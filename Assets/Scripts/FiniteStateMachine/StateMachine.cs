@@ -15,7 +15,7 @@ namespace DenizYanar.FSM
 
         public void Tick()
         {
-            Transition transition = GetTriggeredTransition();
+            var transition = GetTriggeredTransition();
             if(transition != null)
                 SetState(transition.To);
             
@@ -51,14 +51,23 @@ namespace DenizYanar.FSM
             CurrentState.OnEnter();
         }
 
+        public void TriggerState(State state)
+        {
+            foreach (var VARIABLE in CurrentState.Transitions)
+            {
+                if(VARIABLE.To == state)
+                    SetState(state);
+            }
+        }
+
         private Transition GetTriggeredTransition()
         {
             //Any transitions has priority
-            foreach (Transition anyTransition in _anyTransitions.Where(anyTransition => anyTransition.Condition()))
+            foreach (var anyTransition in _anyTransitions.Where(anyTransition => anyTransition.Condition()))
                 return anyTransition;
 
             
-            foreach (Transition transition in CurrentState.Transitions)
+            foreach (var transition in CurrentState.Transitions)
                 if(transition.Condition())
                     return transition;
 

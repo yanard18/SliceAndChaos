@@ -86,8 +86,8 @@ namespace DenizYanar.Player
 
             for (var i = 0; i < horizontalRayCount; i++)
             {
-                Vector2 rayDirection = Vector2.left;
-                RaycastHit2D hit = Physics2D.Raycast(bottomLeft, rayDirection, 0.1f, _settings.ObstacleLayerMask);
+                var rayDirection = Vector2.left;
+                var hit = Physics2D.Raycast(bottomLeft, rayDirection, 0.1f, _settings.ObstacleLayerMask);
                 Debug.DrawRay(bottomLeft, Vector2.left * 5, Color.red, 3);
                 
                 if(hit)
@@ -96,10 +96,10 @@ namespace DenizYanar.Player
 
             for (var i = 0; i < horizontalRayCount; i++)
             {
-                Vector2 rayStartPos = bottomRight + Vector2.up * (i * horizontalRaySpacing);
-                Vector2 rayDirection = Vector2.right;
+                var rayStartPos = bottomRight + Vector2.up * (i * horizontalRaySpacing);
+                var rayDirection = Vector2.right;
                 
-                RaycastHit2D hit = Physics2D.Raycast(rayStartPos, rayDirection, 0.1f, _settings.ObstacleLayerMask);
+                var hit = Physics2D.Raycast(rayStartPos, rayDirection, 0.1f, _settings.ObstacleLayerMask);
                 Debug.DrawRay(rayStartPos, Vector2.right * 5, Color.red, 3);
                 
                 if(hit)

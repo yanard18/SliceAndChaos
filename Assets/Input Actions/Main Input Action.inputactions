@@ -14,7 +14,7 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Transform",
+                    "name": "Shift Mode",
                     "type": "Button",
                     "id": "da2e7e00-9163-4654-bf43-58a871a5b076",
                     "expectedControlType": "Button",
@@ -28,6 +28,30 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Dive",
+                    "type": "Button",
+                    "id": "0c0123cb-97c3-44dc-9cc9-45ec9f8c6b17",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Attack1",
+                    "type": "Button",
+                    "id": "9db5c4c0-e4c5-41ee-af58-2a5dbf34fc07",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Attack2",
+                    "type": "Button",
+                    "id": "0435d058-44bf-4d32-b93c-ca6f46989103",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -38,7 +62,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Transform",
+                    "action": "Shift Mode",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -85,6 +109,39 @@
                     "action": "Horizontal Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "213e2eae-f1df-492f-876b-77ff57b5cbf6",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Dive",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7cd7bf2e-aecc-44e1-9bad-70fdabffb9e3",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Attack1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "06a329af-2e39-4368-8f3a-ef8076081561",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Attack2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

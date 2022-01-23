@@ -2,6 +2,8 @@
 using JetBrains.Annotations;
 using UnityEngine;
 using DenizYanar.FSM;
+using DenizYanar.Inputs;
+using UnityEngine.InputSystem;
 
 
 namespace DenizYanar.Player
@@ -9,6 +11,7 @@ namespace DenizYanar.Player
     public class PlayerMovementShiftState : State
     {
         private readonly Rigidbody2D _rb;
+        private readonly PlayerInputs _inputs;
         private readonly float _originalGravity;
         private readonly float _speed;
         private readonly float _turnSpeed;
@@ -16,12 +19,13 @@ namespace DenizYanar.Player
 
         #region Constructor
 
-        public PlayerMovementShiftState(Rigidbody2D rb, PlayerSettings settings, StringEventChannelSO nameInformerEvent = null, [CanBeNull] string stateName = null)
+        public PlayerMovementShiftState(Rigidbody2D rb, PlayerSettings settings, PlayerInputs inputs, StringEventChannelSO nameInformerEvent = null, [CanBeNull] string stateName = null)
         {
             _stateNameInformerEventChannel = nameInformerEvent;
             _stateName = stateName;
             
             _rb = rb;
+            _inputs = inputs;
             _originalGravity = rb.gravityScale;
             _speed = settings.ShiftModeSpeed;
             _turnSpeed = settings.ShiftModeTurnSpeed;
@@ -41,7 +45,8 @@ namespace DenizYanar.Player
         public override void OnEnter()
         {
             base.OnEnter();
-            
+
+            _inputs.ResetAllInputs();
 
             SetAngleInstant();
 
