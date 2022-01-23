@@ -6,8 +6,6 @@ namespace DenizYanar
     [InitializeOnLoad]
     public class CustomHierarchy : MonoBehaviour
     {
-        private static Vector2 offset = new Vector2(8, 1);
-
         static CustomHierarchy()
         {
             EditorApplication.hierarchyWindowItemOnGUI += HandleHierarchyWindowItemOnGUI;
@@ -15,37 +13,28 @@ namespace DenizYanar
 
 
         /// <summary>
-        /// An custom hierarchy editor for seperators.
+        /// A custom hierarchy editor for separators.
         /// </summary>
         /// <param name="instanceID"></param>
         /// <param name="selectionRect"></param>
 
         private static void HandleHierarchyWindowItemOnGUI(int instanceID, Rect selectionRect)
         {
-            Color textColor = Color.white;
-            Color backgroundColor = Color.black;
-
-            string seperatorDefiner = "[SEPERATOR]";
+            GameObject obj = EditorUtility.InstanceIDToObject(instanceID) as GameObject;
             
-            var obj = EditorUtility.InstanceIDToObject(instanceID);
-            if(obj != null)
+            if (obj == null) return;
+            if (obj.GetComponent<HierarchySeparator>() == null) return;
+            HierarchySeparator separator = obj.GetComponent<HierarchySeparator>();
+            if(separator.Profile == null) return;
+            
+            Rect offsetRect = new Rect(selectionRect.position + separator.Profile.TextOffset, selectionRect.size);
+            EditorGUI.DrawRect(selectionRect, separator.Profile.BackgroundColor);
+            EditorGUI.LabelField(offsetRect, obj.name, new GUIStyle()
             {
-                if (obj.name.Contains(seperatorDefiner))
-                {
-                    string newName = obj.name.Remove(0, seperatorDefiner.Length);
-
-                    
-                    Rect offsetRect = new Rect(selectionRect.position + offset, selectionRect.size);
-                    EditorGUI.DrawRect(selectionRect, backgroundColor);
-                    EditorGUI.LabelField(offsetRect, newName, new GUIStyle() 
-                    {
-                        normal = new GUIStyleState() { textColor = textColor },
-                        fontStyle = FontStyle.Bold
-                    });
-                }
-
- 
-            }
+                normal = new GUIStyleState() {textColor = separator.Profile.TextColor},
+                fontStyle = separator.Profile.FontStyle,
+                alignment = separator.Profile.TextAlignment
+            });
         }
     }
 }
