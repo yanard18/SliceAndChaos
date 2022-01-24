@@ -7,7 +7,9 @@ namespace DenizYanar
     {
         private Rigidbody2D _rb;
         private Vector2 _currentVelocity;
-        
+
+        [SerializeField] private float _maxDistanceDifference = 15.0f;
+
         private void Awake()
         {
             _rb = GetComponent<Rigidbody2D>();
@@ -16,7 +18,11 @@ namespace DenizYanar
 
         public void Force(Vector2 targetPos, float smoothTime)
         {
-            var desiredPos = Vector2.SmoothDamp(transform.position, targetPos, ref _currentVelocity, smoothTime);
+            var position = transform.position;
+            var dir = targetPos - (Vector2) position;
+            dir = Vector2.ClampMagnitude(dir, _maxDistanceDifference);
+            var modifiedTarget = dir + (Vector2) position;
+            var desiredPos = Vector2.SmoothDamp(position, modifiedTarget, ref _currentVelocity, smoothTime);
             _rb.AddTorque(Time.fixedDeltaTime * 25f);
             _rb.MovePosition(desiredPos);
         }

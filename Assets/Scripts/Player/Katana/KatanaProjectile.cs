@@ -40,8 +40,10 @@ namespace DenizYanar
         private void Hit(Collider2D other)
         {
             _projectile.Stop();
-
-            transform.SetParent(other.transform, true);
+            
+            if(other.gameObject.isStatic is false)
+                transform.SetParent(other.transform, true);
+            
             GetComponent<Rigidbody2D>().isKinematic = true;
 
             if (other.GetComponent<TelekinesisObject>() is null) return;
