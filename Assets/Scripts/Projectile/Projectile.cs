@@ -7,11 +7,9 @@ namespace DenizYanar
     public class Projectile : MonoBehaviour
     {
         private Rigidbody2D _rb;
+        private bool _disabled;
 
         public GameObject Author { get; private set; }
-        
-
-        [SerializeField] private LayerMask _obstacleLayer;
 
         public event Action<Collider2D> OnHit;
 
@@ -24,9 +22,10 @@ namespace DenizYanar
             
             private void OnTriggerEnter2D(Collider2D other)
             {
-                if(other.gameObject == Author || other.transform.root.gameObject == Author)
+                if(other.gameObject == Author || other.transform.root.gameObject == Author || _disabled)
                     return;
-                
+
+                _disabled = true;
                 OnHit?.Invoke(other);
             }
 

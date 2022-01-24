@@ -56,5 +56,23 @@ namespace DenizYanar.Inputs
             if (context.canceled)
                 _inputs.Attack2 = false;
         }
+
+        public void HandleTelekinesisInput(InputAction.CallbackContext context)
+        {
+            if (context.started)
+            {
+                _inputs.Telekinesis = true;
+                _inputs.OnTelekinesisStarted?.Invoke();
+            }
+
+            if (context.canceled)
+            {
+                _inputs.Telekinesis = false;
+                _inputs.OnTelekinesisCancelled?.Invoke();
+            }
+            
+
+
+        }
     }
 }

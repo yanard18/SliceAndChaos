@@ -14,14 +14,6 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Shift Mode",
-                    "type": "Button",
-                    "id": "da2e7e00-9163-4654-bf43-58a871a5b076",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
                     "name": "Jump",
                     "type": "Button",
                     "id": "09005422-e4bb-42a2-9379-3c2865832445",
@@ -33,6 +25,14 @@
                     "name": "Dive",
                     "type": "Button",
                     "id": "0c0123cb-97c3-44dc-9cc9-45ec9f8c6b17",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Shift Mode",
+                    "type": "Button",
+                    "id": "da2e7e00-9163-4654-bf43-58a871a5b076",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -52,6 +52,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Telekinesis",
+                    "type": "Button",
+                    "id": "b59a50f8-a36d-4447-af07-1811dfcf0d6c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(behavior=2)"
                 }
             ],
             "bindings": [
@@ -63,17 +71,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Shift Mode",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "cd36e441-fbc7-4108-a01e-c98f506f4e43",
-                    "path": "<Keyboard>/w",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -112,17 +109,6 @@
                 },
                 {
                     "name": "",
-                    "id": "213e2eae-f1df-492f-876b-77ff57b5cbf6",
-                    "path": "<Keyboard>/s",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Dive",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "7cd7bf2e-aecc-44e1-9bad-70fdabffb9e3",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
@@ -140,6 +126,39 @@
                     "processors": "",
                     "groups": "",
                     "action": "Attack2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cd36e441-fbc7-4108-a01e-c98f506f4e43",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "213e2eae-f1df-492f-876b-77ff57b5cbf6",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Dive",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9c35c5fa-2e68-48c9-88f0-bc2efa1b6dd8",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Telekinesis",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

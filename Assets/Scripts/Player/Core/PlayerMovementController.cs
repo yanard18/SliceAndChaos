@@ -3,8 +3,8 @@ using System.Collections;
 using DenizYanar.Events;
 using DenizYanar.External.Sense_Engine.Scripts.Core;
 using DenizYanar.FSM;
-using DenizYanar.Inputs;
 using UnityEngine;
+
 
 
 namespace DenizYanar.Player
@@ -32,7 +32,7 @@ namespace DenizYanar.Player
         public WallSlideData WallSlideDataInstance { get; private set; }
 
 
-        
+
         [SerializeField] private PlayerInputs _inputs;
         
 
@@ -177,7 +177,7 @@ namespace DenizYanar.Player
         private IEnumerator RememberJumpRequest(float duration)
         {
             // Change jump input in a bad way, but that's prevent the holding jump key.
-            _inputs.Jump = false;
+            //_inputs.Jump = false;
             
             if (_rememberedJumpRequest)
                 yield return null;

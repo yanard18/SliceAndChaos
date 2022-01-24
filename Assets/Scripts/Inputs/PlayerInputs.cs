@@ -1,4 +1,7 @@
+using System;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
 namespace DenizYanar
 {
@@ -11,6 +14,10 @@ namespace DenizYanar
         public bool Dive;
         public bool Attack1;
         public bool Attack2;
+        public bool Telekinesis;
+        public UnityAction OnTelekinesisStarted;
+        public UnityAction OnTelekinesisCancelled; 
+
 
         public void ResetAllInputs()
         {
@@ -19,6 +26,7 @@ namespace DenizYanar
             Dive = false;
             Attack1 = false;
             Attack2 = false;
+            Telekinesis = false;
         }
     }
 }
