@@ -15,11 +15,8 @@ namespace DenizYanar
 
         #region Monobehaviour
 
-            private void Awake()
-            {
-                _rb = GetComponent<Rigidbody2D>();
-            }
-            
+            private void Awake() => _rb = GetComponent<Rigidbody2D>();
+
             private void OnTriggerEnter2D(Collider2D other)
             {
                 if(other.gameObject == Author || other.transform.root.gameObject == Author || _disabled)
@@ -32,11 +29,12 @@ namespace DenizYanar
 
         #endregion
 
-        public void Init(Vector2 trajectory, float angularVelocity = 0, GameObject author = null)
+        public void Init(Vector2 trajectory, float angularVelocity = 0, float lifeTime = 5.0f, GameObject author = null)
         {
             Author = author != null ? author : null;
             _rb.velocity = trajectory;
             _rb.angularVelocity = angularVelocity;
+            Destroy(gameObject, lifeTime);
         }
         
         public void Stop()
