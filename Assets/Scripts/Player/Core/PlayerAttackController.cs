@@ -55,7 +55,7 @@ namespace DenizYanar.Player
         private KatanaProjectile ThrowKatana(Vector2 dir, float throwSpeed, float angularVelocity)
         {
             var p = Instantiate(_settings.SwordProjectile, transform.position, Quaternion.identity);
-            p.Init(dir.normalized * throwSpeed, angularVelocity: angularVelocity, author: gameObject);
+            p.Init(dir.normalized * throwSpeed, angularVelocity: angularVelocity, author: gameObject, lifeTime: 0f);
             var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
             p.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
             return p.GetComponent<KatanaProjectile>();

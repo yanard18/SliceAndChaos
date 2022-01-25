@@ -31,10 +31,12 @@ namespace DenizYanar
 
         public void Init(Vector2 trajectory, float angularVelocity = 0, float lifeTime = 5.0f, GameObject author = null)
         {
+        
             Author = author != null ? author : null;
             _rb.velocity = trajectory;
             _rb.angularVelocity = angularVelocity;
-            Destroy(gameObject, lifeTime);
+            if(lifeTime > 0f)
+                Destroy(gameObject, lifeTime);
         }
         
         public void Stop()
