@@ -3,50 +3,94 @@ using UnityEngine;
 using DenizYanar.FSM;
 
 
-
 namespace DenizYanar.Player
 {
     public class PlayerAttackController : MonoBehaviour
     {
+        #region Private Variables
+
         private StateMachine _stateMachine;
-        
+
+        private PlayerAttackSlashState _slash;
+        private PlayerAttackSwordThrowState _throw;
+        private PlayerAttackWaitSwordState _wait;
+        private PlayerAttackIdleState _idle;
+
+        #endregion
+
+        #region Serialized Variables
+
         [SerializeField] private GameObject _katanaGameObject;
         [SerializeField] private PlayerSettings _settings;
+        [SerializeField] private PlayerInputs _inputs;
+
+        #endregion
         
+        #region Public Variables
+
         public bool IsSwordTurnedBack { get; set; }
+
+        #endregion
 
 
         #region Monobehaviour
-        
+
+        private void OnEnable()
+        {
+            _inputs.OnAttack1Started += OnAttack1Started;
+            _inputs.OnAttack2Started += OnAttack2Started;
+        }
+
+        private void OnDisable()
+        {
+            _inputs.OnAttack1Started -= OnAttack1Started;
+            _inputs.OnAttack2Started -= OnAttack2Started;
+        }
+
         private void Awake()
         {
             _stateMachine = new StateMachine();
 
-            var idle = new PlayerAttackIdleState();
-            var slash = new PlayerAttackSlashState(this, _katanaGameObject);
-            var swordThrow = new PlayerAttackSwordThrowState(ThrowKatana, transform, _settings);
-            var waitSword = new PlayerAttackWaitSwordState(this);
+            _idle = new PlayerAttackIdleState();
+            _slash = new PlayerAttackSlashState(this, _katanaGameObject, _inputs);
+            _throw = new PlayerAttackSwordThrowState(ThrowKatana, transform, _settings, _inputs);
+            _wait = new PlayerAttackWaitSwordState(this);
 
-            _stateMachine.InitState(idle);
+            _stateMachine.InitState(_idle);
             
-            To(idle,slash,HasPressedMouse0());
-            To(slash, idle, IsSwordSlashFinished());
-            To(idle, swordThrow, HasPressedMouse1());
-            To(swordThrow, waitSword, HasPressedMouse1());
-            To(waitSword, idle, WhenSwordReturned());
-
-
+            To(_idle,_slash,() => false);
+            To(_idle, _throw, () => false);
+            To(_throw, _wait, () => false);
+            To(_wait, _idle, WhenSwordReturned());
+            To(_slash, _idle, IsSwordSlashFinished());
+            
             void To(State from, State to, Func<bool> condition) => _stateMachine.AddTransition(from, to, condition);
-
-            Func<bool> HasPressedMouse0() => () => Input.GetMouseButtonDown(0);
-            Func<bool> HasPressedMouse1() => () => Input.GetMouseButtonDown(1);
-            Func<bool> IsSwordSlashFinished() => () => slash.IsFinished;
+            
+            Func<bool> IsSwordSlashFinished() => () => _slash.IsFinished;
             Func<bool> WhenSwordReturned() => () => IsSwordTurnedBack;
-
         }
 
-        private void Update() => _stateMachine.Tick();
-        
+        private void Update()
+        {
+            _stateMachine.Tick();
+        }
+
+        #endregion
+
+        #region Inputs
+
+        private void OnAttack1Started()
+        {
+            _stateMachine.TriggerState(_slash);
+        }
+
+        private void OnAttack2Started()
+        {
+            if(_stateMachine.TriggerState(_wait))
+                return;
+
+            _stateMachine.TriggerState(_throw);
+        }
 
         #endregion
         

@@ -6,10 +6,9 @@ namespace DenizYanar.FSM
 {
     public class StateMachine
     {
-        public State CurrentState { get; private set; }
+        private State _currentState;
 
-        private List<State> _states = new List<State>();
-        private List<Transition> _anyTransitions = new List<Transition>();
+        private readonly List<Transition> _anyTransitions = new List<Transition>();
 
         
 
@@ -19,16 +18,17 @@ namespace DenizYanar.FSM
             if(transition != null)
                 SetState(transition.To);
             
-            CurrentState.Tick();
+            _currentState.Tick();
         }
         
-        public void PhysicsTick() => CurrentState?.PhysicsTick();
+        public void PhysicsTick() => _currentState?.PhysicsTick();
 
 
         public void AddTransition(State from, State to, Func<bool> condition)
         {
             from.Transitions.Add(new Transition(to, condition));
         }
+        
 
         public void AddAnyTransition(State to, Func<bool> condition)
         {
@@ -37,27 +37,29 @@ namespace DenizYanar.FSM
 
         private void SetState(State state)
         {
-            if (state == CurrentState)
+            if (state == _currentState)
                 return;
 
-            CurrentState.OnExit();
-            CurrentState = state;
-            CurrentState.OnEnter();
+            _currentState.OnExit();
+            _currentState = state;
+            _currentState.OnEnter();
         }
 
         public void InitState(State state)
         {
-            CurrentState = state;
-            CurrentState.OnEnter();
+            _currentState = state;
+            _currentState.OnEnter();
         }
 
-        public void TriggerState(State state)
+        public bool TriggerState(State state)
         {
-            foreach (var VARIABLE in CurrentState.Transitions)
+            foreach (var unused in _currentState.Transitions.Where(transition => transition.To == state))
             {
-                if(VARIABLE.To == state)
-                    SetState(state);
+                SetState(state);
+                return true;
             }
+
+            return false;
         }
 
         private Transition GetTriggeredTransition()
@@ -67,7 +69,7 @@ namespace DenizYanar.FSM
                 return anyTransition;
 
             
-            foreach (var transition in CurrentState.Transitions)
+            foreach (var transition in _currentState.Transitions)
                 if(transition.Condition())
                     return transition;
 

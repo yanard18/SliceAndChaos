@@ -12,15 +12,37 @@ namespace DenizYanar.Player
     [RequireComponent(typeof(Rigidbody2D))]
     public class PlayerMovementController : MonoBehaviour
     {
-        
+        #region Private Variables
+
         private Rigidbody2D _rb;
         private Collider2D _collider;
         private StateMachine _stateMachine;
         
         private bool _rememberedJumpRequest;
+        
+
+        #endregion
+
+        #region Private State Variables
+
+        private PlayerMovementIdleState _idle;
+        private PlayerMovementMoveState _move;
+        private PlayerMovementJumpState _jump;
+        private PlayerMovementShiftState _shift;
+        private PlayerMovementSliceState _slice;
+        private PlayerMovementAirState _air;
+        private PlayerMovementLandState _land;
+        private PlayerMovementWallSlideState _slide;
+
+        #endregion
+
+        #region Serialized Variables
 
         [Header("Player Settings")]
         [SerializeField] private PlayerSettings _settings;
+        
+        [Header("Player Inputs")]
+        [SerializeField] private PlayerInputs _inputs;
         
         [Header("Player State Informer Channel")]
         [SerializeField] private StringEventChannelSO _stateNameInformerEvent;
@@ -28,19 +50,34 @@ namespace DenizYanar.Player
         [Header("Senses")]
         [SerializeField] private SenseEnginePlayer _jumpSense;
         
+
+        #endregion
+
+        #region Public Variables
+
         public JumpData JumpDataInstance { get; private set; }
         public WallSlideData WallSlideDataInstance { get; private set; }
 
-
-
-        [SerializeField] private PlayerInputs _inputs;
-        
-
+        #endregion
         
         
         
-
         #region Monobehaviour
+
+        private void OnEnable()
+        {
+            _inputs.OnJumpStarted += OnJumpStarted;
+            _inputs.OnShiftStarted += OnShiftStarted;
+            _inputs.OnAttack1Started += OnAttack1Started;
+        }
+
+        private void OnDisable()
+        {
+            _inputs.OnJumpStarted -= OnJumpStarted;
+            _inputs.OnShiftStarted -= OnShiftStarted;
+            _inputs.OnAttack1Started -= OnAttack1Started;
+        }
+
         private void Awake()
         {
             _collider = GetComponentInChildren<Collider2D>();
@@ -51,34 +88,34 @@ namespace DenizYanar.Player
             
             _stateMachine = new StateMachine();
 
-            var idle = new PlayerMovementIdleState(_rb, nameInformerEvent: _stateNameInformerEvent, stateName: "Idle");
-            var move = new PlayerMovementMoveState(_rb, _settings, _inputs, nameInformerEvent: _stateNameInformerEvent, stateName: "Move");
-            var jump = new PlayerMovementJumpState(this, _jumpSense, nameInformerChannel: _stateNameInformerEvent, stateName: "Jump");
-            var land = new PlayerMovementLandState(JumpDataInstance, nameInformerEvent: _stateNameInformerEvent, stateName: "Land");
-            var wallSlide = new PlayerMovementWallSlideState(this, _settings,nameInformerEventChannel: _stateNameInformerEvent, stateName: "Wall Slide");
-            var air = new PlayerMovementAirState(_rb, _settings, _inputs, nameInformerChannel: _stateNameInformerEvent, stateName: "At Air");
-            var shift = new PlayerMovementShiftState(_rb, _settings, _inputs, nameInformerEvent: _stateNameInformerEvent, stateName: "Shift");
-            var slice = new PlayerMovementSliceState(_rb, _settings, _inputs);
+            _idle = new PlayerMovementIdleState(_rb, nameInformerEvent: _stateNameInformerEvent, stateName: "Idle");
+            _move = new PlayerMovementMoveState(_rb, _settings, _inputs, nameInformerEvent: _stateNameInformerEvent, stateName: "Move");
+            _jump = new PlayerMovementJumpState(this, _jumpSense, nameInformerChannel: _stateNameInformerEvent, stateName: "Jump");
+            _land = new PlayerMovementLandState(JumpDataInstance, nameInformerEvent: _stateNameInformerEvent, stateName: "Land");
+            _slide = new PlayerMovementWallSlideState(this, _settings,nameInformerEventChannel: _stateNameInformerEvent, stateName: "Wall Slide");
+            _air = new PlayerMovementAirState(_rb, _settings, _inputs, nameInformerChannel: _stateNameInformerEvent, stateName: "At Air");
+            _shift = new PlayerMovementShiftState(_rb, _settings, _inputs, nameInformerEvent: _stateNameInformerEvent, stateName: "Shift");
+            _slice = new PlayerMovementSliceState(_rb, _settings, _inputs);
 
-            _stateMachine.InitState(idle);
+            _stateMachine.InitState(_idle);
 
-            To(idle, move, HasMovementInput());
-            To(move,idle, HasNotMovementInput());
-            To(idle, jump, CanJump());
-            To(move, jump, CanJump());
-            To(jump, air, AlwaysTrue());
-            To(idle, air, NoMoreContactToGround());
-            To(move, air, NoMoreContactToGround());
-            To(air, land, OnFallToGround());
-            To(air, jump, CanJump());
-            To(land, idle, AlwaysTrue());
-            To(air, wallSlide, OnContactToWall());
-            To(wallSlide, air, WhenJumpKeyTriggered());
-            To(wallSlide, air, NoContactToWall());
-            To(air, shift, OnPressedShift());
-            To(shift, air, OnPressedShift());
-            To(shift, slice, OnPressedLeftClick());
-            To(slice, air, OnSliceFinished());
+            To(_idle, _move, HasMovementInput());
+            To(_move,_idle, HasNotMovementInput());
+            To(_idle, _jump, CanJump());
+            To(_move, _jump, CanJump());
+            To(_idle, _air, NoMoreContactToGround());
+            To(_move, _air, NoMoreContactToGround());
+            To(_air, _land, OnFallToGround());
+            To(_air, _jump, CanJump());
+            To(_land, _idle, AlwaysTrue());
+            To(_air, _slide, OnContactToWall());
+            To(_slide, _air, WhenJumpKeyTriggered());
+            To(_slide, _air, NoContactToWall());
+            To(_slice, _air, OnSliceFinished());
+            To(_air, _shift, () => false);
+            To(_shift, _air, () => false);
+            To(_shift, _slice, () => false);
+            To(_jump, _air, () => true);
             
             void To(State from, State to, Func<bool> condition) => _stateMachine.AddTransition(from, to, condition);
             
@@ -90,28 +127,34 @@ namespace DenizYanar.Player
             Func<bool> NoMoreContactToGround() => () => IsTouchingToGround() == null;
             Func<bool> OnContactToWall() => () => AngleOfContact() == 0 && WallSlideDataInstance.HasCooldown == false;
             Func<bool> NoContactToWall() => () => AngleOfContact() == null || AngleOfContact() != 0;
-            Func<bool> OnPressedShift() => () => _inputs.Shift;
-            Func<bool> OnPressedLeftClick() => () => _inputs.Attack1;
-            Func<bool> OnSliceFinished() => () => slice.HasFinished;
+            Func<bool> OnSliceFinished() => () => _slice.HasFinished;
             Func<bool> AlwaysTrue() => () => true;
 
         }
 
-        private void Update()
-        {
-            _stateMachine.Tick();
-            
-            if (_inputs.Jump)
-                StartCoroutine(RememberJumpRequest(0.15f));
-        }
+        private void Update() => _stateMachine.Tick();
         private void FixedUpdate() => _stateMachine.PhysicsTick();
 
         #endregion
 
+        #region Inputs
+
+        private void OnJumpStarted() => StartCoroutine(RememberJumpRequest(0.15f));
+
+        private void OnAttack1Started() => _stateMachine.TriggerState(_slice);
+        
+        private void OnShiftStarted()
+        {
+            if(_stateMachine.TriggerState(_shift))
+                return;
+            
+            _stateMachine.TriggerState(_air);
+        }
+        
+        #endregion
+
         #region Local Methods
-
-
-
+        
         private float? IsTouchingToGround()
         {
             const int rayCount = 8;
@@ -189,9 +232,6 @@ namespace DenizYanar.Player
 
         #endregion
         
-        
-        
-
     }
     
 }

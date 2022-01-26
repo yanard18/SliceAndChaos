@@ -1,6 +1,7 @@
 using System;
 using DenizYanar.FSM;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 
 namespace DenizYanar.Player
@@ -11,13 +12,15 @@ namespace DenizYanar.Player
         private readonly Func<Vector2, float, float, KatanaProjectile> _throwKatana;
         private readonly Transform _playerTransform;
         private readonly PlayerSettings _settings;
+        private readonly PlayerInputs _inputs;
         
         private KatanaProjectile _katana;
 
         #region Constructor
 
-        public PlayerAttackSwordThrowState(Func<Vector2, float, float, KatanaProjectile> throwKatana, Transform playerTransform, PlayerSettings settings)
+        public PlayerAttackSwordThrowState(Func<Vector2, float, float, KatanaProjectile> throwKatana, Transform playerTransform, PlayerSettings settings, PlayerInputs inputs)
         {
+            _inputs = inputs;
             _throwKatana = throwKatana;
             _playerTransform = playerTransform;
             _settings = settings;
@@ -32,13 +35,16 @@ namespace DenizYanar.Player
             base.OnExit();
             if(_katana != null)
                 _katana.CallbackKatana();
+
+            _inputs.Attack2 = false;
         }
 
         public override void OnEnter()
         {
             base.OnEnter();
+            _inputs.Attack2 = false;
             if (Camera.main is null) return;
-            var dir = Input.mousePosition - Camera.main.WorldToScreenPoint(_playerTransform.position);
+            var dir = Mouse.current.position.ReadValue() - (Vector2)Camera.main.WorldToScreenPoint(_playerTransform.position);
 
 
             _katana = _throwKatana(dir, _settings.SwordThrowSpeed, _settings.SwordThrowAngularVelocity);

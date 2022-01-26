@@ -2298,6 +2298,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _katanaGameObject: {fileID: 1377435456}
   _settings: {fileID: 11400000, guid: d938edc4172181545985124f4fb0933a, type: 2}
+  _inputs: {fileID: 11400000, guid: 19cff4123c4ee15498d6229cf530e6b2, type: 2}
 --- !u!50 &1721258329
 Rigidbody2D:
   serializedVersion: 4
@@ -2351,9 +2352,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _settings: {fileID: 11400000, guid: d938edc4172181545985124f4fb0933a, type: 2}
+  _inputs: {fileID: 11400000, guid: 19cff4123c4ee15498d6229cf530e6b2, type: 2}
   _stateNameInformerEvent: {fileID: 11400000, guid: a4f433397220c1345b68ba4e43bd55ee, type: 2}
   _jumpSense: {fileID: 1096442848}
-  _inputs: {fileID: 11400000, guid: 19cff4123c4ee15498d6229cf530e6b2, type: 2}
 --- !u!114 &1721258332
 MonoBehaviour:
   m_ObjectHideFlags: 0

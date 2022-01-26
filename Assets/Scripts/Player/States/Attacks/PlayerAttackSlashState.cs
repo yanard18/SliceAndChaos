@@ -8,6 +8,7 @@ namespace DenizYanar.Player
     {
         private readonly PlayerAttackController _player;
         private readonly GameObject _katana;
+        private readonly PlayerInputs _inputs;
         
         private float _startAngle;
         private float _direction;
@@ -17,10 +18,11 @@ namespace DenizYanar.Player
 
         #region Constructor
 
-        public PlayerAttackSlashState(PlayerAttackController player, GameObject katana)
+        public PlayerAttackSlashState(PlayerAttackController player, GameObject katana, PlayerInputs inputs)
         {
             _player = player;
             _katana = katana;
+            _inputs = inputs;
         }
 
         #endregion
@@ -31,6 +33,7 @@ namespace DenizYanar.Player
         {
             base.OnEnter();
             IsFinished = false;
+            _inputs.Attack1 = false;
             _katana.SetActive(true);
             if (Camera.main is { })
             {

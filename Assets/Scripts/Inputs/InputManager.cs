@@ -10,7 +10,10 @@ namespace DenizYanar.Inputs
         public void HandleJumpInput(InputAction.CallbackContext context)
         {
             if (context.started)
+            {
                 _inputs.Jump = true;
+                _inputs.OnJumpStarted?.Invoke();
+            }
 
             if (context.canceled)
                 _inputs.Jump = false;
@@ -19,16 +22,25 @@ namespace DenizYanar.Inputs
         public void HandleDiveInput(InputAction.CallbackContext context)
         {
             if (context.started)
+            {
                 _inputs.Dive = true;
+                _inputs.OnDiveStarted?.Invoke();
+            }
 
             if (context.canceled)
+            {
                 _inputs.Dive = false;
+                _inputs.OnDiveCancelled?.Invoke();
+            }
         }
 
         public void HandleShiftModeInput(InputAction.CallbackContext context)
         {
             if (context.started)
+            {
                 _inputs.Shift = true;
+                _inputs.OnShiftStarted?.Invoke();
+            }
 
             if (context.canceled)
                 _inputs.Shift = false;
@@ -42,7 +54,10 @@ namespace DenizYanar.Inputs
         public void HandleAttack1Input(InputAction.CallbackContext context)
         {
             if (context.started)
+            {
                 _inputs.Attack1 = true;
+                _inputs.OnAttack1Started?.Invoke();
+            }
 
             if (context.canceled)
                 _inputs.Attack1 = false;
@@ -51,7 +66,10 @@ namespace DenizYanar.Inputs
         public void HandleAttack2Input(InputAction.CallbackContext context)
         {
             if (context.started)
+            {
                 _inputs.Attack2 = true;
+                _inputs.OnAttack2Started?.Invoke();
+            }
 
             if (context.canceled)
                 _inputs.Attack2 = false;
@@ -70,9 +88,6 @@ namespace DenizYanar.Inputs
                 _inputs.Telekinesis = false;
                 _inputs.OnTelekinesisCancelled?.Invoke();
             }
-            
-
-
         }
     }
 }
