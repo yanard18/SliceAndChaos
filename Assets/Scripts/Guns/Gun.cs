@@ -15,6 +15,8 @@ namespace DenizYanar.Guns
         
         [SerializeField] private float _fireCooldown = 1.0f;
 
+        #region Monobehaviour
+        
         private void OnEnable()
         {
             _input.OnFireStarted += FireStarted;
@@ -37,6 +39,8 @@ namespace DenizYanar.Guns
             _magazine = GetComponentInChildren<GunMagazine>();
             _launcher = GetComponentInChildren<GunLauncher>();
         }
+        
+        #endregion
 
         private void FireStarted()
         {
