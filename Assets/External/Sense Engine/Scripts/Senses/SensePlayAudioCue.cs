@@ -1,4 +1,3 @@
-using System;
 using DenizYanar.External.Sense_Engine.Scripts.Core;
 using UnityEngine;
 using DenizYanar.Audio;
