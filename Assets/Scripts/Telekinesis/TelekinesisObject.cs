@@ -14,7 +14,7 @@ namespace DenizYanar
         {
             _rb = GetComponent<Rigidbody2D>();
         }
-        
+
 
         public void Force(Vector2 targetPos, float smoothTime)
         {
@@ -29,7 +29,10 @@ namespace DenizYanar
 
         public void OnRelease()
         {
+            if(_currentVelocity == Vector2.zero) return;
+            
             _rb.velocity = _currentVelocity * 2;
+            _currentVelocity = Vector2.zero;
             _rb.AddTorque(360.0f);
         }
     }

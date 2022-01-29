@@ -13,20 +13,9 @@ namespace DenizYanar
 
         #region Monobehaviour
         
-        private void Awake()
-        {
-            _projectile = GetComponent<Projectile>();
-        }
-
-        private void OnEnable()
-        {
-            _projectile.OnHit += Hit;
-        }
-
-        private void OnDisable()
-        {
-            _projectile.OnHit -= Hit;
-        }
+        private void Awake() => _projectile = GetComponent<Projectile>();
+        private void OnEnable() => _projectile.OnHit += Hit;
+        private void OnDisable() => _projectile.OnHit -= Hit;
 
         #endregion
 

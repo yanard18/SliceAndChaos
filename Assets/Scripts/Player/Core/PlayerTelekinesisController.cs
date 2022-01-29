@@ -8,10 +8,11 @@ namespace DenizYanar
         private bool _isEnable;
        
         [SerializeField] private PlayerInputs _inputs;
-        
         [SerializeField] private float _smoothTime = 0.4f;
         
         public TelekinesisObject MarkedObject;
+
+        #region Monobehaviour
 
         private void FixedUpdate()
         {
@@ -35,6 +36,8 @@ namespace DenizYanar
             _inputs.OnTelekinesisStarted -= OnTelekinesisStarted;
             _inputs.OnTelekinesisCancelled -= OnTelekinesisCancelled;
         }
+
+        #endregion
 
         private void OnTelekinesisStarted()
         {
