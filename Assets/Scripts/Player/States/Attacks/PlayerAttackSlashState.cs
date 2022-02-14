@@ -33,7 +33,6 @@ namespace DenizYanar.Player
         {
             base.OnEnter();
             IsFinished = false;
-            _inputs.Attack1 = false;
             _katana.SetActive(true);
             if (Camera.main is { })
             {

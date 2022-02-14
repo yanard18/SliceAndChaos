@@ -31,7 +31,6 @@ namespace DenizYanar.Player
         public override void OnEnter()
         {
             base.OnEnter();
-            _inputs.ResetAllInputs();
             var direction = _rb.velocity.normalized;
             _rb.MovePosition(_rb.position + direction * _teleportDistance);
             HasFinished = true;

@@ -35,14 +35,11 @@ namespace DenizYanar.Player
             base.OnExit();
             if(_katana != null)
                 _katana.CallbackKatana();
-
-            _inputs.Attack2 = false;
         }
 
         public override void OnEnter()
         {
             base.OnEnter();
-            _inputs.Attack2 = false;
             if (Camera.main is null) return;
             var dir = Mouse.current.position.ReadValue() - (Vector2)Camera.main.WorldToScreenPoint(_playerTransform.position);
 

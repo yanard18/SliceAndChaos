@@ -46,8 +46,6 @@ namespace DenizYanar.Player
         {
             base.OnEnter();
 
-            _inputs.ResetAllInputs();
-
             SetAngleInstant();
 
             _rb.gravityScale = 0;

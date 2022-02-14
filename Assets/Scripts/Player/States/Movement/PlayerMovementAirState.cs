@@ -17,7 +17,10 @@ namespace DenizYanar.Player
         private readonly float _yAcceleration;
         private readonly float _maxYVelocity;
 
+        private bool _dive;
+
         #region Constructor
+        
         
         public PlayerMovementAirState(Rigidbody2D rb, PlayerSettings settings, PlayerInputs inputs, StringEventChannelSO nameInformerChannel = null, [CanBeNull] string stateName = null)
         {
@@ -39,7 +42,15 @@ namespace DenizYanar.Player
         public override void OnEnter()
         {
             base.OnEnter();
-            _inputs.ResetAllInputs();
+            _inputs.OnDiveStarted += OnDiveStarted;
+            _inputs.OnDiveCancelled += OnDiveCancelled;
+        }
+
+        public override void OnExit()
+        {
+            _inputs.OnDiveStarted -= OnDiveStarted;
+            _inputs.OnDiveCancelled -= OnDiveCancelled;
+            _dive = false;
         }
 
         public override void PhysicsTick()
@@ -73,12 +84,15 @@ namespace DenizYanar.Player
 
 
             // Y
-            if(Mathf.Abs(_rb.velocity.y) < _maxYVelocity && _inputs.Dive)
+            if(Mathf.Abs(_rb.velocity.y) < _maxYVelocity && _dive)
                 _rb.AddForce(new Vector2(0, _yAcceleration), ForceMode2D.Force);
         }
 
         #endregion
-        
-        
+
+
+        private void OnDiveStarted() => _dive = true;
+        private void OnDiveCancelled() => _dive = false;
+
     }
 }

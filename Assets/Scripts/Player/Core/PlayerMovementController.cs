@@ -20,7 +20,6 @@ namespace DenizYanar.Player
         
         private bool _rememberedJumpRequest;
         
-
         #endregion
 
         #region Private State Variables
@@ -46,7 +45,7 @@ namespace DenizYanar.Player
         
         [Header("Player State Informer Channel")]
         [SerializeField] private StringEventChannelSO _stateNameInformerEvent;
-
+        
         [Header("Senses")]
         [SerializeField] private SenseEnginePlayer _jumpSense;
         
@@ -59,9 +58,7 @@ namespace DenizYanar.Player
         public WallSlideData WallSlideDataInstance { get; private set; }
 
         #endregion
-        
-        
-        
+
         #region Monobehaviour
 
         private void OnEnable()
