@@ -53,8 +53,6 @@ namespace DenizYanar.Turret
             if(target is {})
                 _rotor.LookPosition(target.position);
 
-
-
         }
 
         

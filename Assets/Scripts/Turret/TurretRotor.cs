@@ -4,8 +4,6 @@ namespace DenizYanar.Turret
 {
     public class TurretRotor : MonoBehaviour
     {
-
-        [SerializeField] private float _maxSpeed = 50.0f;
         [SerializeField] private float _speed;
         
         private float _velocity;
