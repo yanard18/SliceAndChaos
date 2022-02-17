@@ -25,7 +25,7 @@ MonoBehaviour:
   _airStrafeYAcceleration: -200
   _airStrafeMaxYVelocity: 25
   _shiftModeSpeed: 1300
-  _shiftModeTurnSpeed: 400
+  _shiftModeTurnSpeed: 500
   _sliceTeleportDistance: 15
   _sliceSpeedReductionAfterTeleport: 2
   _swordProjectile: {fileID: 5749834705407631703, guid: 63a8c24c9a15dfc408344c350f89c1ec, type: 3}
