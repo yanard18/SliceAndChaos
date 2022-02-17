@@ -48,6 +48,10 @@ namespace DenizYanar.Player
         
         [Header("Senses")]
         [SerializeField] private SenseEnginePlayer _jumpSense;
+
+        [SerializeField] private SenseEnginePlayer _landSense;
+        [SerializeField] private SenseEnginePlayer _enterShiftSense;
+        [SerializeField] private SenseEnginePlayer _leaveShiftSense;
         
 
         #endregion
@@ -88,10 +92,10 @@ namespace DenizYanar.Player
             _idle = new PlayerMovementIdleState(_rb, nameInformerEvent: _stateNameInformerEvent, stateName: "Idle");
             _move = new PlayerMovementMoveState(_rb, _settings, _inputs, nameInformerEvent: _stateNameInformerEvent, stateName: "Move");
             _jump = new PlayerMovementJumpState(this, _jumpSense, nameInformerChannel: _stateNameInformerEvent, stateName: "Jump");
-            _land = new PlayerMovementLandState(JumpDataInstance, nameInformerEvent: _stateNameInformerEvent, stateName: "Land");
+            _land = new PlayerMovementLandState(JumpDataInstance, _landSense, nameInformerEvent: _stateNameInformerEvent, stateName: "Land");
             _slide = new PlayerMovementWallSlideState(this, _settings,nameInformerEventChannel: _stateNameInformerEvent, stateName: "Wall Slide");
             _air = new PlayerMovementAirState(_rb, _settings, _inputs, nameInformerChannel: _stateNameInformerEvent, stateName: "At Air");
-            _shift = new PlayerMovementShiftState(_rb, _settings, _inputs, nameInformerEvent: _stateNameInformerEvent, stateName: "Shift");
+            _shift = new PlayerMovementShiftState(_rb, _settings, _enterShiftSense, _leaveShiftSense, nameInformerEvent: _stateNameInformerEvent, stateName: "Shift");
             _slice = new PlayerMovementSliceState(_rb, _settings, _inputs);
 
             _stateMachine.InitState(_idle);

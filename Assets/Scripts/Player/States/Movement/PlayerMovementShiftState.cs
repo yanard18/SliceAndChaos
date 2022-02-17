@@ -1,9 +1,9 @@
 ﻿using DenizYanar.Events;
+using DenizYanar.External.Sense_Engine.Scripts.Core;
 using JetBrains.Annotations;
 using UnityEngine;
 using DenizYanar.FSM;
-using DenizYanar.Inputs;
-using UnityEngine.InputSystem;
+
 
 
 namespace DenizYanar.Player
@@ -11,7 +11,8 @@ namespace DenizYanar.Player
     public class PlayerMovementShiftState : State
     {
         private readonly Rigidbody2D _rb;
-        private readonly PlayerInputs _inputs;
+        private readonly SenseEnginePlayer _enterShiftSense;
+        private readonly SenseEnginePlayer _leaveShiftSense;
         private readonly float _originalGravity;
         private readonly float _speed;
         private readonly float _turnSpeed;
@@ -19,15 +20,16 @@ namespace DenizYanar.Player
 
         #region Constructor
 
-        public PlayerMovementShiftState(Rigidbody2D rb, PlayerSettings settings, PlayerInputs inputs, StringEventChannelSO nameInformerEvent = null, [CanBeNull] string stateName = null)
+        public PlayerMovementShiftState(Rigidbody2D rb, PlayerSettings settings, SenseEnginePlayer enterShiftSense, SenseEnginePlayer leaveShiftSense, StringEventChannelSO nameInformerEvent = null, [CanBeNull] string stateName = null)
         {
             _stateNameInformerEventChannel = nameInformerEvent;
             _stateName = stateName;
             
             _rb = rb;
-            _inputs = inputs;
             _originalGravity = rb.gravityScale;
             _speed = settings.ShiftModeSpeed;
+            _enterShiftSense = enterShiftSense;
+            _leaveShiftSense = leaveShiftSense;
             _turnSpeed = settings.ShiftModeTurnSpeed;
         }
 
@@ -47,6 +49,7 @@ namespace DenizYanar.Player
             base.OnEnter();
 
             SetAngleInstant();
+            _enterShiftSense.Play();
 
             _rb.gravityScale = 0;
             _rb.freezeRotation = false;
@@ -59,6 +62,7 @@ namespace DenizYanar.Player
             _rb.velocity *= 1.5f;
             _rb.rotation = 0;
             _rb.freezeRotation = true;
+            _leaveShiftSense.Play();
         }
 
         #endregion
