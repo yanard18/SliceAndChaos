@@ -3,9 +3,9 @@ using UnityEngine;
 
 namespace DenizYanar
 {
-    public class Box : MonoBehaviour, IDamage
+    public class Box : MonoBehaviour, IDamageable
     {
-        public void TakeDamage()
+        public void TakeDamage(Damage damage)
         {
             Destroy(gameObject);
         }

@@ -1466,6 +1466,7 @@ Transform:
   - {fileID: 2023905605}
   - {fileID: 1472855182}
   - {fileID: 131686849}
+  - {fileID: 1571965695}
   m_Father: {fileID: 0}
   m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1482,6 +1483,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Default Entity
+  _deathSense: {fileID: 1571965697}
 --- !u!1 &795696020
 GameObject:
   m_ObjectHideFlags: 0
@@ -2640,6 +2642,118 @@ Transform:
   m_Father: {fileID: 1721258330}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1571965694
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1571965695}
+  - component: {fileID: 1571965697}
+  - component: {fileID: 1571965696}
+  - component: {fileID: 1571965698}
+  m_Layer: 0
+  m_Name: Death Sense
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1571965695
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1571965694}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 772188636}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1571965696
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1571965694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84ae5971962a27041aae3daa1dbbc69e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Label: Instantiate Object
+  Color: {r: 0.36695367, g: 0.06915272, b: 0.6981132, a: 1}
+  InstantiateObject: {fileID: 1727686741996075410, guid: 3610309c468aaba47bf2f6b9e7e5295b, type: 3}
+  InstantiateTransform: {fileID: 772188636}
+  InstantiatePosition: {x: 0, y: 0, z: 0}
+  InstantiateRotation: {x: 0, y: 0, z: 0, w: 0}
+  MakeChildOfTransform: 0
+--- !u!114 &1571965697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1571965694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7871e262f45be1748a8fe5d425934826, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SenseList:
+  - {fileID: 1571965696}
+  - {fileID: 1571965698}
+--- !u!114 &1571965698
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1571965694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8775d6dc5fd9ac44bad04e2c5fadd850, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Label: Cinemachine Impulse
+  Color: {r: 0.1, g: 0.1, b: 0.1, a: 1}
+  _impulseEventChannel: {fileID: 11400000, guid: 56794f31dd993924bad642f603ee886c, type: 2}
+  _impulseDefinition:
+    m_ImpulseChannel: 1
+    m_RawSignal: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
+    m_AmplitudeGain: 3
+    m_FrequencyGain: 1
+    m_RepeatMode: 0
+    m_Randomize: 1
+    m_TimeEnvelope:
+      m_AttackShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      m_DecayShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      m_AttackTime: 0
+      m_SustainTime: 0.15
+      m_DecayTime: 0.2
+      m_ScaleWithImpact: 1
+      m_HoldForever: 0
+    m_ImpactRadius: 100
+    m_DirectionMode: 0
+    m_DissipationMode: 2
+    m_DissipationDistance: 1000
+    m_PropagationSpeed: 343
 --- !u!1 &1608041453
 GameObject:
   m_ObjectHideFlags: 0

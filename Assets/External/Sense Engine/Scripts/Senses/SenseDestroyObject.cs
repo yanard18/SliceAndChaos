@@ -7,12 +7,10 @@ namespace DenizYanar.External.Sense_Engine.Scripts.Senses
     public class SenseDestroyObject : Sense
     {
         [Header("Destroy Settings")]
-
-        [SerializeField]
-        private GameObject TargetObject;
-
-		[SerializeField]
-		private float DurationToDestroy = 0.0f;
+        
+        public GameObject TargetObject;
+        
+		public float DurationToDestroy;
 
 		private void Awake()
 		{
@@ -21,7 +19,7 @@ namespace DenizYanar.External.Sense_Engine.Scripts.Senses
 
 		public override void Play()
 		{
-			GameObject objectToDestroy = TargetObject != null 
+			var objectToDestroy = TargetObject != null 
 				? TargetObject 
 				: transform.root.gameObject;
 

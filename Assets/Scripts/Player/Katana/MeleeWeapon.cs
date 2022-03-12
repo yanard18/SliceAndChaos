@@ -7,8 +7,10 @@ namespace DenizYanar
     {
         private void OnTriggerEnter2D(Collider2D other)
         {
-            var target = other.transform.root.GetComponent<IDamage>();
-            target?.TakeDamage();
+            var target = other.transform.root.GetComponent<IDamageable>();
+            var player = transform.root.gameObject;
+            var damage = new Damage(player);
+            target?.TakeDamage(damage);
         }
     }
 }
