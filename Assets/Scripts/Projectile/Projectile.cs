@@ -7,8 +7,11 @@ namespace DenizYanar
     public class Projectile : MonoBehaviour
     {
         private Rigidbody2D _rb;
+        private bool _hit = false;
 
         [SerializeField] private LayerMask _hitBoxLayer;
+        
+        [SerializeField] private bool _enableDebug;
 
         public GameObject Author { get; private set; }
 
@@ -26,19 +29,55 @@ namespace DenizYanar
 
             private void DetectHit()
             {
+                if(_hit) return;
+                
                 var velocity = _rb.velocity;
                 var currentPosition = _rb.position;
                 var desiredVelocityVector = velocity * Time.fixedDeltaTime;
-                var hit = Physics2D.CircleCast(
+                RaycastHit2D[] hit = Physics2D.CircleCastAll(
                     currentPosition,
-                    0.12f,
+                    0.4f,
                     desiredVelocityVector.normalized,
                     desiredVelocityVector.magnitude,
                     _hitBoxLayer);
+                
+                
+                #if UNITY_EDITOR
+                if(_enableDebug)
+                    Debug.DrawRay(currentPosition, desiredVelocityVector, Color.magenta, 5.0f);
+                #endif
+               
+                
 
-                if (!hit) return;
+                if(hit.Length <= 0) return;
 
-                OnHit?.Invoke(hit.collider);
+                foreach (var t in hit)
+                {
+                    #if UNITY_EDITOR
+                    if(_enableDebug)
+                        Debug.Log(t.transform.name);
+                    #endif
+                    
+                    
+                    
+                    if (t.transform.gameObject == Author) continue;
+
+                    _hit = true;
+                    transform.position = t.point;
+                    OnHit?.Invoke(t.collider);
+                    
+                    
+                    
+                    
+                    #if UNITY_EDITOR
+                    if(_enableDebug)
+                        Debug.Log("Hit to: " + t.transform.name);
+                    #endif
+                    
+                    
+                    
+                    return;
+                }
             }
 
             #endregion
@@ -48,6 +87,7 @@ namespace DenizYanar
             Author = author != null ? author : null;
             _rb.velocity = trajectory;
             _rb.angularVelocity = angularVelocity;
+            DetectHit();
             if(lifeTime > 0f)
                 Destroy(gameObject, lifeTime);
         }

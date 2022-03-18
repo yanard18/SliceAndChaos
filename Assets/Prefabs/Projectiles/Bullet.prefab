@@ -258,4 +258,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _hitBoxLayer:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 320
