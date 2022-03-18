@@ -10,7 +10,9 @@ namespace DenizYanar
             var target = other.transform.root.GetComponent<IDamageable>();
             var player = transform.root.gameObject;
             var damage = new Damage(player);
+
             target?.TakeDamage(damage);
+
         }
     }
 }

@@ -7,31 +7,44 @@ namespace DenizYanar
     public class Projectile : MonoBehaviour
     {
         private Rigidbody2D _rb;
-        private bool _disabled;
+
+        [SerializeField] private LayerMask _hitBoxLayer;
 
         public GameObject Author { get; private set; }
 
         public event Action<Collider2D> OnHit;
+        
 
         #region Monobehaviour
 
             private void Awake() => _rb = GetComponent<Rigidbody2D>();
 
-            private void OnTriggerEnter2D(Collider2D other)
+            private void FixedUpdate()
             {
-                if(other.gameObject == Author || other.transform.root.gameObject == Author || _disabled)
-                    return;
-
-                _disabled = true;
-                OnHit?.Invoke(other);
+                DetectHit();
             }
 
+            private void DetectHit()
+            {
+                var velocity = _rb.velocity;
+                var currentPosition = _rb.position;
+                var desiredVelocityVector = velocity * Time.fixedDeltaTime;
+                var hit = Physics2D.CircleCast(
+                    currentPosition,
+                    0.12f,
+                    desiredVelocityVector.normalized,
+                    desiredVelocityVector.magnitude,
+                    _hitBoxLayer);
 
-        #endregion
+                if (!hit) return;
+
+                OnHit?.Invoke(hit.collider);
+            }
+
+            #endregion
 
         public void Init(Vector2 trajectory, float angularVelocity = 0, float lifeTime = 5.0f, GameObject author = null)
         {
-        
             Author = author != null ? author : null;
             _rb.velocity = trajectory;
             _rb.angularVelocity = angularVelocity;
