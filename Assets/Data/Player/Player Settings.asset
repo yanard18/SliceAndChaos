@@ -29,7 +29,7 @@ MonoBehaviour:
   _sliceTeleportDistance: 15
   _sliceSpeedReductionAfterTeleport: 2
   _swordProjectile: {fileID: 5749834705407631703, guid: 63a8c24c9a15dfc408344c350f89c1ec, type: 3}
-  _swordThrowSpeed: 500
+  _swordThrowSpeed: 300
   _swordThrowAngularVelocity: 0
   _obstacleLayerMask:
     serializedVersion: 2

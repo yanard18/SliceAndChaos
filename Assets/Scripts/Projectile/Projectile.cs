@@ -7,7 +7,7 @@ namespace DenizYanar
     public class Projectile : MonoBehaviour
     {
         private Rigidbody2D _rb;
-        private bool _hit = false;
+        private bool _hit;
 
         [SerializeField] private LayerMask _hitBoxLayer;
         
@@ -34,9 +34,11 @@ namespace DenizYanar
                 var velocity = _rb.velocity;
                 var currentPosition = _rb.position;
                 var desiredVelocityVector = velocity * Time.fixedDeltaTime;
+                
+                // ReSharper disable once Unity.PreferNonAllocApi
                 RaycastHit2D[] hit = Physics2D.CircleCastAll(
                     currentPosition,
-                    0.4f,
+                    0.1f,
                     desiredVelocityVector.normalized,
                     desiredVelocityVector.magnitude,
                     _hitBoxLayer);

@@ -118,7 +118,7 @@ namespace DenizYanar.Player
             To(_shift, _air, () => false);
             To(_shift, _slice, () => false);
             To(_jump, _air, () => true);
-            
+
             void To(State from, State to, Func<bool> condition) => _stateMachine.AddTransition(from, to, condition);
             
             Func<bool> HasMovementInput() => () => Mathf.Abs(_inputs.HorizontalMovement) > 0;
