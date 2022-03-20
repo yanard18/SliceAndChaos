@@ -10,7 +10,7 @@ namespace DenizYanar
 
 
         public void SetMagnetController(MagnetController m) => _magnetController = m;
-        
+
         private void OnEnable()
         {
             _inputs.OnTelekinesisStarted += OnMagnetInputPressed;
@@ -25,12 +25,13 @@ namespace DenizYanar
 
         private void OnMagnetInputPressed()
         {
+            if(_magnetController == null) return;
             _magnetController.ActivateMagnet(true);
         }
 
         private void OnMagnetInputReleased()
         {
-            Debug.Log("Released");
+            if(_magnetController == null) return;
             _magnetController.ImpulseMagnet(EMagnetPolar.PUSH, 1000f, 0.05f);
         }
     }

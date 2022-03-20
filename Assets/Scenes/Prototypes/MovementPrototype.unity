@@ -2387,6 +2387,7 @@ MonoBehaviour:
   Label: Play Particle
   Color: {r: 0.1, g: 0.1, b: 0.1, a: 1}
   _particle: {fileID: 1740107910}
+  _playMode: 0
 --- !u!1001 &1455673906
 PrefabInstance:
   m_ObjectHideFlags: 0
