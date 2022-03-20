@@ -14,6 +14,15 @@ namespace DenizYanar
         #region Monobehaviour
         
         private void Awake() => _projectile = GetComponent<Projectile>();
+
+        private void Start()
+        {
+            var magnetPlayerController = _projectile.Author.GetComponent<PlayerMagnetInput>();
+            var magnet = GetComponentInChildren<MagnetController>();
+            magnetPlayerController.SetMagnetController(magnet);
+
+        }
+
         private void OnEnable() => _projectile.OnHit += Hit;
         private void OnDisable() => _projectile.OnHit -= Hit;
 
@@ -34,7 +43,12 @@ namespace DenizYanar
                 transform.SetParent(other.transform, true);
             
             GetComponent<Rigidbody2D>().isKinematic = true;
-
+            
+            
+            
+            
+            
+            /*
             if (other.GetComponent<TelekinesisObject>() is null) return;
             if (_projectile.Author.GetComponent<PlayerTelekinesisController>() is null) return;
             
@@ -42,7 +56,7 @@ namespace DenizYanar
             var player = _projectile.Author.GetComponent<PlayerTelekinesisController>();
             
             player.MarkedObject = telekinesisObject;
-
+*/
 
 
 
