@@ -461,7 +461,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bulletStartPositions:
   - {fileID: 1771611214263172048}
-  _projectile: {fileID: 6173948878674239914, guid: b5a3f54666e78254380ab6a9102e9424, type: 3}
+  _projectile: {fileID: 1047641192188529287, guid: b5a3f54666e78254380ab6a9102e9424, type: 3}
   _projectileSpeed: 150
 --- !u!1 &1771611214972681202
 GameObject:

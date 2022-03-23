@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 using DenizYanar.FSM;
-
+using DenizYanar.Projectiles;
 
 namespace DenizYanar.Player
 {
@@ -70,10 +70,7 @@ namespace DenizYanar.Player
             Func<bool> WhenSwordReturned() => () => IsSwordTurnedBack;
         }
 
-        private void Update()
-        {
-            _stateMachine.Tick();
-        }
+        private void Update() => _stateMachine.Tick();
 
         #endregion
 

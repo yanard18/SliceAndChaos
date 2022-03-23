@@ -1,65 +1,47 @@
 using System.Collections;
 using DenizYanar.Player;
 using UnityEngine;
+using DenizYanar.Projectiles;
 
 namespace DenizYanar
 {
-    [RequireComponent(typeof(Projectile))]
-    public class KatanaProjectile : MonoBehaviour
+    public class KatanaProjectile : Projectile
     {
-        private Projectile _projectile;
-
+        private MagnetController _magnet;
+        
         [SerializeField] private float _turnBackDuration = 0.3f;
 
-        #region Monobehaviour
-        
-        private void Awake() => _projectile = GetComponent<Projectile>();
+        #region Global Methods
 
-        private void Start()
-        {
-            var magnetPlayerController = _projectile.Author.GetComponent<PlayerMagnetInput>();
-            var magnet = GetComponentInChildren<MagnetController>();
-            magnetPlayerController.SetMagnetController(magnet);
-
-        }
-
-        private void OnEnable() => _projectile.OnHit += Hit;
-        private void OnDisable() => _projectile.OnHit -= Hit;
+        public void CallbackKatana() => StartCoroutine(KatanaCallback(_turnBackDuration));
 
         #endregion
-
-        #region Global Methods
         
-        public void CallbackKatana() => StartCoroutine(KatanaCallback(_turnBackDuration));
+        #region Monobehaviour
+
+        protected override void Awake()
+        {
+            base.Awake();
+            FindMagnetController();
+        }
+        private void Start() => ConfigurePlayerInputForMagnet();
 
         #endregion
 
         #region Local Methods
-        private void Hit(Collider2D other)
+
+        private void FindMagnetController()
         {
-            _projectile.Stop();
-            
-            if(other.gameObject.isStatic is false)
-                transform.SetParent(other.transform, true);
-            
-            GetComponent<Rigidbody2D>().isKinematic = true;
-            
-            
-            
-            
-            
-            /*
-            if (other.GetComponent<TelekinesisObject>() is null) return;
-            if (_projectile.Author.GetComponent<PlayerTelekinesisController>() is null) return;
-            
-            var telekinesisObject = other.GetComponent<TelekinesisObject>();
-            var player = _projectile.Author.GetComponent<PlayerTelekinesisController>();
-            
-            player.MarkedObject = telekinesisObject;
-*/
+            var magnet = GetComponentInChildren<MagnetController>();
+
+            _magnet = magnet;
+        }
 
 
-
+        private void ConfigurePlayerInputForMagnet()
+        {
+            var magnetPlayerController = Author.GetComponent<PlayerMagnetInput>();
+            magnetPlayerController.SetMagnetController(_magnet);
         }
 
         private IEnumerator KatanaCallback(float turnBackDuration)
@@ -67,27 +49,31 @@ namespace DenizYanar
             float elapsedTime = 0;
             var startPos = transform.position;
 
-            ReleaseTelekinesisObject();
-            
+
             while (elapsedTime < turnBackDuration)
             {
                 elapsedTime += Time.deltaTime;
                 transform.Rotate(Vector3.forward * (Time.deltaTime * 2200f));
-                transform.position = Vector3.Lerp(startPos, _projectile.Author.transform.position, elapsedTime / turnBackDuration);
+                transform.position = Vector3.Lerp(startPos, Author.transform.position,
+                    elapsedTime / turnBackDuration);
                 yield return null;
             }
 
-            _projectile.Author.GetComponent<PlayerAttackController>().IsSwordTurnedBack = true;
+            var playerAttackController = Author.GetComponent<PlayerAttackController>();
+            playerAttackController.IsSwordTurnedBack = true;
             Destroy(gameObject);
-        }
-
-        private void ReleaseTelekinesisObject()
-        {
-            if (_projectile.Author.GetComponent<PlayerTelekinesisController>() is { })
-                _projectile.Author.GetComponent<PlayerTelekinesisController>().ReleaseTelekinesis();
         }
 
         #endregion
         
+        protected override void Hit(Collider2D col)
+        {
+            StopProjectile();
+
+            if (col.gameObject.isStatic is false)
+                transform.SetParent(col.transform, true);
+
+            GetComponent<Rigidbody2D>().isKinematic = true;
+        }
     }
 }

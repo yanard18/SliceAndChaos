@@ -28,9 +28,9 @@ MonoBehaviour:
   _shiftModeTurnSpeed: 500
   _sliceTeleportDistance: 15
   _sliceSpeedReductionAfterTeleport: 2
-  _swordProjectile: {fileID: 5749834705407631703, guid: 63a8c24c9a15dfc408344c350f89c1ec, type: 3}
+  _swordProjectile: {fileID: -2035979234861334917, guid: 63a8c24c9a15dfc408344c350f89c1ec, type: 3}
   _swordThrowSpeed: 300
   _swordThrowAngularVelocity: 0
   _obstacleLayerMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 1088

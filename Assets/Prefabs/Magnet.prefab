@@ -285,6 +285,7 @@ GameObject:
   - component: {fileID: 4595047551303920825}
   - component: {fileID: 6929000452602456505}
   - component: {fileID: 6397535432031091784}
+  - component: {fileID: 8361608873182585034}
   m_Layer: 0
   m_Name: Impulse Sense
   m_TagString: Untagged
@@ -320,6 +321,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SenseList:
   - {fileID: 6397535432031091784}
+  - {fileID: 8361608873182585034}
 --- !u!114 &6397535432031091784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -339,6 +341,51 @@ MonoBehaviour:
   InstantiatePosition: {x: 0, y: 0, z: 0}
   InstantiateRotation: {x: 0, y: 0, z: 0, w: 0}
   MakeChildOfTransform: 0
+--- !u!114 &8361608873182585034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8020436625523263041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8775d6dc5fd9ac44bad04e2c5fadd850, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Label: Cinemachine Impulse
+  Color: {r: 0.1, g: 0.1, b: 0.1, a: 1}
+  _impulseEventChannel: {fileID: 11400000, guid: 56794f31dd993924bad642f603ee886c, type: 2}
+  _impulseDefinition:
+    m_ImpulseChannel: 1
+    m_RawSignal: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
+    m_AmplitudeGain: 3.32
+    m_FrequencyGain: 1
+    m_RepeatMode: 0
+    m_Randomize: 1
+    m_TimeEnvelope:
+      m_AttackShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      m_DecayShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      m_AttackTime: 0
+      m_SustainTime: 0.16
+      m_DecayTime: 0.31
+      m_ScaleWithImpact: 1
+      m_HoldForever: 0
+    m_ImpactRadius: 100
+    m_DirectionMode: 0
+    m_DissipationMode: 2
+    m_DissipationDistance: 1000
+    m_PropagationSpeed: 343
 --- !u!1001 &4662731439398062410
 PrefabInstance:
   m_ObjectHideFlags: 0

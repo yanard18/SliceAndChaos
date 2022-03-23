@@ -149,7 +149,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7957236824680957079}
   - component: {fileID: -1428965427472651071}
-  - component: {fileID: 5749834705407631703}
   - component: {fileID: -2035979234861334917}
   m_Layer: 0
   m_Name: Projectile Katana
@@ -196,22 +195,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
---- !u!114 &5749834705407631703
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7957236824680957077}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a27c58a95d450546a96d6a483fa6edb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _hitBoxLayer:
-    serializedVersion: 2
-    m_Bits: 320
-  _enableDebug: 0
 --- !u!114 &-2035979234861334917
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -224,6 +207,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9a04a7af9d1a014fa11a15c26436508, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _hitBoxLayer:
+    serializedVersion: 2
+    m_Bits: 320
+  _enableDebug: 0
   _turnBackDuration: 0.3
 --- !u!1001 &7109202679901245000
 PrefabInstance:

@@ -39,7 +39,6 @@ namespace DenizYanar
 
         public void ImpulseMagnet(EMagnetPolar polar, float impulsePower, float impulseDecay, float usageCooldown = 1.0f)
         {
-            if(!_effector.isActiveAndEnabled) return; 
             if(_impulseCoroutine is { }) return;
             _impulseCoroutine = StartCoroutine(ImpulseMagnetEnumerator(polar, impulsePower, impulseDecay, usageCooldown));
         }
@@ -72,9 +71,9 @@ namespace DenizYanar
         {
             var conf = _conf;
             SetMagnet(new MagnetConfigurations(polar, impulsePower, 15f));
+            ActivateMagnet(true);
             StartCoroutine(StartUsageCooldown(usageCooldown));
             PlayEffect(_magnetImpulseSense);
-            
             yield return new WaitForSeconds(impulseDecay);
             SetMagnet(conf);
             ActivateMagnet(false);

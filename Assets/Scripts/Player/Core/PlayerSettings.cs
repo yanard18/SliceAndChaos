@@ -1,3 +1,4 @@
+using DenizYanar.Projectiles;
 using UnityEngine;
 
 namespace DenizYanar.Player
