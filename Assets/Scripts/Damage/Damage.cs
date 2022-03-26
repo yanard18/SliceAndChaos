@@ -6,11 +6,6 @@ namespace DenizYanar.Core
     {
         public readonly GameObject Author;
 
-        public Damage()
-        {
-            
-        }
-
         public Damage(GameObject author)
         {
             Author = author;

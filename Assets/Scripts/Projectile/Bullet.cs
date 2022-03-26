@@ -1,4 +1,6 @@
+using DenizYanar.Core;
 using UnityEngine;
+using DenizYanar.Player;
 
 namespace DenizYanar.Projectiles
 {
@@ -6,8 +8,13 @@ namespace DenizYanar.Projectiles
     {
         protected override void Hit(Collider2D col)
         {
-            if(col.transform.root.CompareTag("Player"))
-                Debug.Log("Player");
+            var target = col.GetComponentInParent<IDamageable>();
+            
+            if(target is null) return;
+
+            var damage = new Damage(Author);
+            target.TakeDamage(damage);
+            
         }
     }
 }
