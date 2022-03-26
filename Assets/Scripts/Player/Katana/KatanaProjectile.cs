@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using DenizYanar.Player;
 using UnityEngine;
@@ -7,13 +8,21 @@ namespace DenizYanar
 {
     public class KatanaProjectile : Projectile
     {
-        private MagnetController _magnet;
+        private Magnet _magnet;
         
         [SerializeField] private float _turnBackDuration = 0.3f;
+
+        private Action _onSwordCalled;
+        private Action _onSwordReturned;
+
 
         #region Global Methods
 
         public void CallbackKatana() => StartCoroutine(KatanaCallback(_turnBackDuration));
+
+        public void SetOnSwordCalled(Action a) => _onSwordCalled = a;
+        public void SetOnSwordReturned(Action a) => _onSwordReturned = a;
+
 
         #endregion
         
@@ -32,7 +41,7 @@ namespace DenizYanar
 
         private void FindMagnetController()
         {
-            var magnet = GetComponentInChildren<MagnetController>();
+            var magnet = GetComponentInChildren<Magnet>();
 
             _magnet = magnet;
         }
@@ -40,12 +49,15 @@ namespace DenizYanar
 
         private void ConfigurePlayerInputForMagnet()
         {
-            var magnetPlayerController = Author.GetComponent<PlayerMagnetInput>();
+            var magnetPlayerController = Author.GetComponent<PlayerMagnetController>();
             magnetPlayerController.SetMagnetController(_magnet);
+            magnetPlayerController.SetKatana(this);
+            magnetPlayerController.SetReadyToUse(true);
         }
 
         private IEnumerator KatanaCallback(float turnBackDuration)
         {
+            _onSwordCalled?.Invoke();
             float elapsedTime = 0;
             var startPos = transform.position;
 
@@ -59,8 +71,9 @@ namespace DenizYanar
                 yield return null;
             }
 
-            var playerAttackController = Author.GetComponent<PlayerAttackController>();
-            playerAttackController.IsSwordTurnedBack = true;
+            
+            _onSwordReturned?.Invoke();
+            
             Destroy(gameObject);
         }
 

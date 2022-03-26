@@ -7,6 +7,8 @@ namespace DenizYanar
     {
         private void OnTriggerEnter2D(Collider2D other)
         {
+            if(other.transform.root == transform.root) return;
+            
             var target = other.transform.root.GetComponent<IDamageable>();
             var player = transform.root.gameObject;
             var damage = new Damage(player);

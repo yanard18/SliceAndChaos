@@ -28,6 +28,11 @@ MonoBehaviour:
   _shiftModeTurnSpeed: 500
   _sliceTeleportDistance: 15
   _sliceSpeedReductionAfterTeleport: 2
+  _magnetPullStrength: 500
+  _magnetPushStrength: 1500
+  _magnetAffectRadius: 15
+  _magnetPullDistanceScale: 1
+  _magnetPushDistanceScale: 1
   _swordProjectile: {fileID: -2035979234861334917, guid: 63a8c24c9a15dfc408344c350f89c1ec, type: 3}
   _swordThrowSpeed: 300
   _swordThrowAngularVelocity: 0

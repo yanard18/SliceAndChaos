@@ -66,6 +66,24 @@ namespace DenizYanar.Player
         [SerializeField] private float _sliceSpeedReductionAfterTeleport = 2.0f;
         public float SliceSpeedReductionAfterTeleport => _sliceSpeedReductionAfterTeleport;
 
+        [Header("Magnet Settings")] 
+        
+        [SerializeField] private float _magnetPullStrength = 500.0f;
+        public float MagnetPullStrength => _magnetPullStrength;
+
+        [SerializeField] private float _magnetPushStrength = 1500.0f;
+        public float MagnetPushStrength => _magnetPushStrength;
+        
+        [SerializeField] private float _magnetAffectRadius = 15.0f;
+        public float MagnetAffectRadius => _magnetAffectRadius;
+        
+        [SerializeField] private float _magnetPullDistanceScale = 1.0f;
+        public float MagnetPullDistanceScale => _magnetPullDistanceScale;
+
+        [SerializeField] private float _magnetPushDistanceScale = 1.0f;
+        public float MagnetPushDistanceScale => _magnetPushDistanceScale;
+        
+        
         [Header("Sword Throw Settings")] 
         
         [SerializeField] private Projectile _swordProjectile;
@@ -77,6 +95,7 @@ namespace DenizYanar.Player
 
         [SerializeField] private float _swordThrowAngularVelocity = 2000.0f;
         public float SwordThrowAngularVelocity => _swordThrowAngularVelocity;
+        
         
 
         [Header("Layers")] 

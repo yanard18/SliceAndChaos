@@ -27,14 +27,14 @@ namespace DenizYanar
 
         private void OnEnable()
         {
-            _inputs.OnTelekinesisStarted += OnTelekinesisStarted;
-            _inputs.OnTelekinesisCancelled += OnTelekinesisCancelled;
+            _inputs.OnMagnetPullStarted += OnTelekinesisStarted;
+            _inputs.OnMagnetPullCancelled += OnTelekinesisCancelled;
         }
 
         private void OnDisable()
         {
-            _inputs.OnTelekinesisStarted -= OnTelekinesisStarted;
-            _inputs.OnTelekinesisCancelled -= OnTelekinesisCancelled;
+            _inputs.OnMagnetPullStarted -= OnTelekinesisStarted;
+            _inputs.OnMagnetPullCancelled -= OnTelekinesisCancelled;
         }
 
         #endregion

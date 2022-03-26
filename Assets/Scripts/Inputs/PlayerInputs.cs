@@ -13,8 +13,9 @@ namespace DenizYanar
         public UnityAction OnJumpStarted;
         public UnityAction OnAttack1Started;
         public UnityAction OnAttack2Started;
-        public UnityAction OnTelekinesisStarted;
-        public UnityAction OnTelekinesisCancelled;
-        
+        public UnityAction OnMagnetPullStarted;
+        public UnityAction OnMagnetPullCancelled;
+        public UnityAction OnMagnetPushPressed;
+
     }
 }

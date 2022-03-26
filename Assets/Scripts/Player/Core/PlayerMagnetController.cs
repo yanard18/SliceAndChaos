@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace DenizYanar
 {
-    public class PlayerMagnetInput : MonoBehaviour
+    public class PlayerMagnetController : MonoBehaviour
     {
         [SerializeField] private PlayerInputs _inputs;
         [SerializeField] private PlayerSettings _settings;

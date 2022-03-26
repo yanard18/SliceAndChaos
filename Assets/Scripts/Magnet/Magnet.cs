@@ -5,7 +5,7 @@ using UnityEngine;
 namespace DenizYanar
 {
     [RequireComponent(typeof(CircleCollider2D), typeof(PointEffector2D))]
-    public class MagnetController : MonoBehaviour
+    public class Magnet : MonoBehaviour
     {
         private Coroutine _impulseCoroutine;
 

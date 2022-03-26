@@ -267,6 +267,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Magnet
       objectReference: {fileID: 0}
+    - target: {fileID: 6860396047580323667, guid: a17ace11d4ae6cb448fa9d1fcbc2ac21, type: 3}
+      propertyPath: m_ForceMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6860396047580323667, guid: a17ace11d4ae6cb448fa9d1fcbc2ac21, type: 3}
+      propertyPath: m_ForceTarget
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6860396047580323667, guid: a17ace11d4ae6cb448fa9d1fcbc2ac21, type: 3}
+      propertyPath: m_DistanceScale
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6860396047580323667, guid: a17ace11d4ae6cb448fa9d1fcbc2ac21, type: 3}
+      propertyPath: m_ForceMagnitude
+      value: -500
+      objectReference: {fileID: 0}
+    - target: {fileID: 6860396047580323667, guid: a17ace11d4ae6cb448fa9d1fcbc2ac21, type: 3}
+      propertyPath: m_UseColliderMask
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a17ace11d4ae6cb448fa9d1fcbc2ac21, type: 3}
 --- !u!4 &2369215394457684683 stripped

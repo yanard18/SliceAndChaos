@@ -1,7 +1,6 @@
 using System;
 using UnityEngine;
 using DenizYanar.FSM;
-using DenizYanar.Projectiles;
 
 namespace DenizYanar.Player
 {
@@ -28,8 +27,6 @@ namespace DenizYanar.Player
         
         #region Public Variables
 
-        public bool IsSwordTurnedBack { get; set; }
-
         #endregion
 
 
@@ -37,14 +34,14 @@ namespace DenizYanar.Player
 
         private void OnEnable()
         {
-            _inputs.OnAttack1Started += OnAttack1Started;
-            _inputs.OnAttack2Started += OnAttack2Started;
+            _inputs.OnAttack1Started += OnAttack1Pressed;
+            _inputs.OnAttack2Started += OnAttack2Pressed;
         }
 
         private void OnDisable()
         {
-            _inputs.OnAttack1Started -= OnAttack1Started;
-            _inputs.OnAttack2Started -= OnAttack2Started;
+            _inputs.OnAttack1Started -= OnAttack1Pressed;
+            _inputs.OnAttack2Started -= OnAttack2Pressed;
         }
 
         private void Awake()
@@ -53,21 +50,20 @@ namespace DenizYanar.Player
 
             _idle = new PlayerAttackIdleState();
             _slash = new PlayerAttackSlashState(this, _katanaGameObject, _inputs);
-            _throw = new PlayerAttackSwordThrowState(ThrowKatana, transform, _settings, _inputs);
-            _wait = new PlayerAttackWaitSwordState(this);
+            _throw = new PlayerAttackSwordThrowState(ThrowKatana, OnSwordCalled, OnSwordReturned, transform, _settings, _inputs);
+            _wait = new PlayerAttackWaitSwordState();
 
             _stateMachine.InitState(_idle);
             
             To(_idle,_slash,() => false);
             To(_idle, _throw, () => false);
             To(_throw, _wait, () => false);
-            To(_wait, _idle, WhenSwordReturned());
+            To(_wait, _idle, () => false);
             To(_slash, _idle, IsSwordSlashFinished());
             
             void To(State from, State to, Func<bool> condition) => _stateMachine.AddTransition(from, to, condition);
             
             Func<bool> IsSwordSlashFinished() => () => _slash.IsFinished;
-            Func<bool> WhenSwordReturned() => () => IsSwordTurnedBack;
         }
 
         private void Update() => _stateMachine.Tick();
@@ -76,17 +72,27 @@ namespace DenizYanar.Player
 
         #region Inputs
 
-        private void OnAttack1Started()
+        private void OnAttack1Pressed()
         {
             _stateMachine.TriggerState(_slash);
         }
 
-        private void OnAttack2Started()
+        private void OnAttack2Pressed()
         {
-            if(_stateMachine.TriggerState(_wait))
-                return;
+           /* if(_stateMachine.TriggerState(_wait))
+                return;*/
 
             _stateMachine.TriggerState(_throw);
+        }
+
+        private void OnSwordCalled()
+        {
+            _stateMachine.TriggerState(_wait);
+        }
+
+        private void OnSwordReturned()
+        {
+            _stateMachine.TriggerState(_idle);
         }
 
         #endregion

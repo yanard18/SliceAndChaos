@@ -46,13 +46,19 @@ namespace DenizYanar.Inputs
                 _inputs.OnAttack2Started?.Invoke();
         }
 
-        public void HandleTelekinesisInput(InputAction.CallbackContext context)
+        public void HandleMagnetPullInput(InputAction.CallbackContext context)
         {
             if (context.started)
-                _inputs.OnTelekinesisStarted?.Invoke();
+                _inputs.OnMagnetPullStarted?.Invoke();
 
             if (context.canceled)
-                _inputs.OnTelekinesisCancelled?.Invoke();
+                _inputs.OnMagnetPullCancelled?.Invoke();
+        }
+
+        public void HandleMagnetPushInput(InputAction.CallbackContext context)
+        {
+            if(context.started)
+                _inputs.OnMagnetPushPressed?.Invoke();
         }
     }
 }

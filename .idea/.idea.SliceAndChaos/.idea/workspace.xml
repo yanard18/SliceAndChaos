@@ -2,21 +2,29 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ff8d2e12-2b4a-4fab-8f24-02aceb228cc7" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Core/PlayerMagnetController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.SliceAndChaos/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SliceAndChaos/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Data/Player/Player Settings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Data/Player/Player Settings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Input Actions/Main Input Action.inputactions" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Input Actions/Main Input Action.inputactions" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Magnet.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Magnet.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Projectiles/Bullet.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Projectiles/Bullet.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Projectiles/Projectile Katana.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Projectiles/Projectile Katana.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Turret.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Turret.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Prototypes/MovementPrototype.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Prototypes/MovementPrototype.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Guns/GunLauncher.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Guns/GunLauncher.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Magnet/MagnetController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Magnet/MagnetController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Damage/Damage.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Damage/Damage.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Inputs/InputManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Inputs/InputManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Inputs/PlayerInputs.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Inputs/PlayerInputs.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Magnet/MagnetConfigurations.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Magnet/MagnetConfigurations.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Magnet/MagnetController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Magnet/Magnet.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Magnet/MagnetController.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Magnet/Magnet.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Core/PlayerAttackController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Core/PlayerAttackController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Core/PlayerMagnetInput.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Core/PlayerMagnetInput.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Core/PlayerMagnetController.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Core/PlayerSettings.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Core/PlayerSettings.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Core/PlayerTelekinesisController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Core/PlayerTelekinesisController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Katana/KatanaProjectile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Katana/KatanaProjectile.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Projectile/Projectile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Projectile/Projectile.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/Physics2DSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/Physics2DSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Katana/MeleeWeapon.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Katana/MeleeWeapon.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/States/Attacks/PlayerAttackSwordThrowState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/States/Attacks/PlayerAttackSwordThrowState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/States/Attacks/PlayerAttackWaitSwordState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/States/Attacks/PlayerAttackWaitSwordState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Projectile/Bullet.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Projectile/Bullet.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,6 +51,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/External/Sense Engine/Scripts/Senses/SenseTriggerAnimation.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/ObjectPooling/ObjectPool.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Inputs/PlayerInputs.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Core/Character.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Turret/TurretRotor.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Box/Box.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Telekinesis/TelekinesisObject.cs" root0="FORCE_HIGHLIGHTING" />
@@ -51,6 +60,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/Core/PlayerAttackController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/BehaviourTree/RobberBehaviour.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/BehaviourTree/Leaf.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/Core/Player.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Turret/TurretBrain.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/External/Sense Engine/Scripts/Senses/SenseInstantiateCorpse.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/Core/PlayerTelekinesisController.cs" root0="FORCE_HIGHLIGHTING" />
@@ -60,12 +70,13 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/States/Attacks/PlayerAttackSwordThrowState.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Inputs/InputManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/External/Sense Engine/Scripts/Other/CinemachineSenseManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Managers/GameManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Guns/Gun.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/BehaviourTree/Selector.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Turret/PrototypeTurret.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Turret/TurretGunInputReader.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/BehaviourTree/Sequence.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/Core/PlayerMagnetInput.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/Core/PlayerMagnetController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/Katana/KatanaProjectile.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/FiniteStateMachine/Transition.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Turret/PlayerSensor.cs" root0="FORCE_HIGHLIGHTING" />
@@ -85,7 +96,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.C#" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
@@ -173,6 +184,9 @@
       <workItem from="1647792819719" duration="4880000" />
       <workItem from="1647948119357" duration="4035000" />
       <workItem from="1648040504216" duration="2788000" />
+      <workItem from="1648119012391" duration="654000" />
+      <workItem from="1648290747674" duration="1942000" />
+      <workItem from="1648292750176" duration="7723000" />
     </task>
     <servers />
   </component>
