@@ -9,9 +9,9 @@ namespace DenizYanar
         {
             if(other.transform.root == transform.root) return;
             
-            var target = other.transform.root.GetComponent<IDamageable>();
+            var target = other.transform.root.GetComponent<Health>();
             var player = transform.root.gameObject;
-            var damage = new Damage(player);
+            var damage = new Damage(10, player);
 
             target?.TakeDamage(damage);
 

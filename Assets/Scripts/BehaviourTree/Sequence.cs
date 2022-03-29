@@ -1,3 +1,4 @@
+using System;
 using DenizYanar.BehaviourTreeAI;
 
 namespace DenizYanar
@@ -12,10 +13,21 @@ namespace DenizYanar
         public override EStatus Process()
         {
             var childStatus = Children[CurrentChild].Process();
-            if (childStatus == EStatus.RUNNING) return EStatus.RUNNING;
-            if (childStatus == EStatus.FAILURE) return childStatus;
+            switch (childStatus)
+            {
+                case EStatus.RUNNING:
+                    return EStatus.RUNNING;
+                case EStatus.FAILURE:
+                    return EStatus.FAILURE;
+                case EStatus.SUCCESS:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
 
             CurrentChild++;
+            
+            // ReSharper disable once InvertIf
             if (CurrentChild >= Children.Count)
             {
                 CurrentChild = 0;

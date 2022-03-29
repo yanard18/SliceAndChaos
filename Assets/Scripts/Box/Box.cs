@@ -3,11 +3,7 @@ using UnityEngine;
 
 namespace DenizYanar
 {
-    public class Box : MonoBehaviour, IDamageable
+    public class Box : MonoBehaviour
     {
-        public void TakeDamage(Damage damage)
-        {
-            Destroy(gameObject);
-        }
     }
 }

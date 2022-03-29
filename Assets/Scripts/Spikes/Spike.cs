@@ -14,8 +14,8 @@ namespace DenizYanar
                 if(!other.transform.root.CompareTag("Player")) return;
             
             
-            var target = other.transform.root.GetComponent<IDamageable>();
-            target?.TakeDamage(new Damage(gameObject));
+            var target = other.transform.root.GetComponent<Health>();
+            target?.TakeDamage(new Damage(9999.9f, gameObject));
         }
     }
 }

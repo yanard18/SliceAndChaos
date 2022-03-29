@@ -12,8 +12,8 @@ namespace DenizYanar
 
         public override EStatus Process()
         {
-            var childStatus = Children[CurrentChild].Process();
-            switch (childStatus)
+            var currentChildStatus = Children[CurrentChild].Process();
+            switch (currentChildStatus)
             {
                 case EStatus.RUNNING:
                     return EStatus.RUNNING;

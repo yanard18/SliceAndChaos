@@ -150,6 +150,7 @@ GameObject:
   - component: {fileID: 6332055643085021122}
   - component: {fileID: 6332055643514665085}
   - component: {fileID: 6332055643514665084}
+  - component: {fileID: 9059378964775797654}
   m_Layer: 0
   m_Name: Nezuko Dummy
   m_TagString: Untagged
@@ -210,6 +211,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Default Entity
   _deathSense: {fileID: 6332055643649140595}
+--- !u!114 &9059378964775797654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6332055643514665083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c2797a9c15260f45a2ca1dae53a57b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _health: 10
+  _maxHealth: 100
+  _immunityDuration: 0
 --- !u!1 &6332055643649140594
 GameObject:
   m_ObjectHideFlags: 0
@@ -364,8 +380,8 @@ MonoBehaviour:
   Label: Instantiate Corpse
   Color: {r: 0.25129455, g: 0.23028658, b: 0.7075472, a: 1}
   _corpseGameObjects:
-  - {fileID: 3217010545352544802, guid: ebef46affdaf89d4082587c4bc1285a0, type: 3}
-  - {fileID: 5310446541713257618, guid: a11f1f060350a4342a1ba280a743728f, type: 3}
+  - {fileID: 6987455316914819875, guid: 94cba6a884ab8c947a9fa764920e9565, type: 3}
+  - {fileID: 6108479145944743860, guid: 367b7b934d2777642980885f1f4a7af0, type: 3}
   _spawnPosition: {fileID: 6332055643085021122}
   _explosionForce: 50
   _spawnRadius: 1

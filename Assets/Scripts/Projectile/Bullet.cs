@@ -8,11 +8,11 @@ namespace DenizYanar.Projectiles
     {
         protected override void Hit(Collider2D col)
         {
-            var target = col.GetComponentInParent<IDamageable>();
+            var target = col.GetComponentInParent<Health>();
             
             if(target is null) return;
 
-            var damage = new Damage(Author);
+            var damage = new Damage(10, Author);
             target.TakeDamage(damage);
             
         }

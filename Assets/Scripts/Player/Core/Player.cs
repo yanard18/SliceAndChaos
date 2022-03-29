@@ -5,24 +5,21 @@ using UnityEngine;
 
 namespace DenizYanar.Player
 {
-    public class Player : Character, IDamageable
+    [RequireComponent(typeof(Health))]
+    public class Player : Character
     {
         [SerializeField] private SenseEnginePlayer _deathSense;
         [SerializeField] private VoidEventChannelSO _gameOverEvent;
-        
-        public void TakeDamage(Damage damage)
-        {
-            Death();
-        }
 
-        public override void Death()
+
+
+
+
+        protected override void Death(Damage damage)
         {
-            if(IsDeath) return;
-            
+            Debug.Log("Player killed by " + damage.Author.name);
             _deathSense.Play();
             _gameOverEvent.Invoke();
-            
-            IsDeath = true;
             Destroy(this.gameObject);
         }
     }

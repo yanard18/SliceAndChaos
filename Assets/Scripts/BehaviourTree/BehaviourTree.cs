@@ -5,6 +5,8 @@ namespace DenizYanar.BehaviourTreeAI
 {
     public class BehaviourTree : Node
     {
+        private EStatus _currentStatus = EStatus.RUNNING;
+        
         public BehaviourTree()
         {
             Name = "Tree";
@@ -45,6 +47,12 @@ namespace DenizYanar.BehaviourTreeAI
             }
             
             Debug.Log(treePrintOut);
+        }
+
+        public void Tick()
+        {
+            if (_currentStatus != EStatus.SUCCESS)
+                _currentStatus = Process();
         }
     }
 }

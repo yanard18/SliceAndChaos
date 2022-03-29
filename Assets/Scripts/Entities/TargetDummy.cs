@@ -1,3 +1,4 @@
+using DenizYanar.BehaviourTreeAI;
 using DenizYanar.Core;
 using DenizYanar.External.Sense_Engine.Scripts.Core;
 using DenizYanar.External.Sense_Engine.Scripts.Senses;
@@ -5,16 +6,17 @@ using UnityEngine;
 
 namespace DenizYanar
 {
-    public class TargetDummy : Entity, IDamageable
+    public class TargetDummy : Agent
     {
         [SerializeField] private SenseEnginePlayer _deathSense;
 
-        public void TakeDamage(Damage damage)
+        protected override void Awake()
         {
-            if(_isDeath) return;
+            base.Awake();
             
-            ConfigureAndPlayDeathSense(damage);
-            Die();
+            var wait = new Leaf("Waiting Like A Dummy!", JustWait);
+            
+            Tree.AddChild(wait);
         }
 
         private void ConfigureAndPlayDeathSense(Damage damage)
@@ -24,6 +26,14 @@ namespace DenizYanar
             var rot = Quaternion.Euler(angle, -90, 90);
             _deathSense.GetComponent<SenseInstantiateObject>().InstantiateRotation = rot;
             _deathSense.Play();
+        }
+        
+        private Node.EStatus JustWait() => Node.EStatus.SUCCESS;
+
+        protected override void Death(Damage damage)
+        {
+            ConfigureAndPlayDeathSense(damage);
+            Destroy(gameObject);
         }
     }
 }
