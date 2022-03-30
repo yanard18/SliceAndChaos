@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 
-namespace DenizYanar.Player
+namespace DenizYanar.PlayerSystem
 {
     public class PlayerAttackSwordThrowState : State
     {

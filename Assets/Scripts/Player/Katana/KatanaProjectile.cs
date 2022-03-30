@@ -1,6 +1,6 @@
 using System;
 using System.Collections;
-using DenizYanar.Player;
+using DenizYanar.PlayerSystem;
 using UnityEngine;
 using DenizYanar.Projectiles;
 

@@ -5,7 +5,7 @@ using JetBrains.Annotations;
 using UnityEngine;
 using DenizYanar.FSM;
 
-namespace DenizYanar.Player
+namespace DenizYanar.PlayerSystem
 {
     public class PlayerMovementJumpState : State
     {

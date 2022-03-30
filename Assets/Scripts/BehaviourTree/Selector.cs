@@ -12,13 +12,13 @@ namespace DenizYanar
 
         public override EStatus Process()
         {
-            var currentChildStatus = Children[CurrentChild].Process();
+            var currentChildStatus = Children[CurrentChildIndex].Process();
             switch (currentChildStatus)
             {
                 case EStatus.RUNNING:
                     return EStatus.RUNNING;
                 case EStatus.SUCCESS:
-                    CurrentChild = 0;
+                    CurrentChildIndex = 0;
                     return EStatus.SUCCESS;
                 case EStatus.FAILURE:
                     break;
@@ -26,12 +26,12 @@ namespace DenizYanar
                     throw new ArgumentOutOfRangeException();
             }
 
-            CurrentChild++;
+            CurrentChildIndex++;
             
             // ReSharper disable once InvertIf
-            if (CurrentChild >= Children.Count)
+            if (CurrentChildIndex >= Children.Count)
             {
-                CurrentChild = 0;
+                CurrentChildIndex = 0;
                 return EStatus.FAILURE;
             }
 

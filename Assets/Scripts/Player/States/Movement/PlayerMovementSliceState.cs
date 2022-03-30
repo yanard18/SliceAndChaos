@@ -2,7 +2,7 @@
 using DenizYanar.Inputs;
 using UnityEngine;
 
-namespace DenizYanar.Player
+namespace DenizYanar.PlayerSystem
 {
     public class PlayerMovementSliceState : State
     {

@@ -1,5 +1,5 @@
 using DenizYanar.Core;
-using UnityEngine;
+
 
 namespace DenizYanar.BehaviourTreeAI
 {
@@ -11,8 +11,10 @@ namespace DenizYanar.BehaviourTreeAI
         {
             base.Awake();
             Tree = new BehaviourTree();
+            StartCoroutine(Tree.Behave());
         }
-        protected virtual void Update() => Tree.Tick();
+        
+        
         
     }
 }

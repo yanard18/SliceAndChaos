@@ -13,7 +13,7 @@ namespace DenizYanar.BehaviourTreeAI
 
         public EStatus Status;
         public List<Node> Children = new List<Node>(); 
-        public int CurrentChild = 0;
+        public int CurrentChildIndex = 0;
         public string Name;
         
         public Node() {}
@@ -25,7 +25,7 @@ namespace DenizYanar.BehaviourTreeAI
 
         public virtual EStatus Process()
         {
-            return Children[CurrentChild].Process(); 
+            return Children[CurrentChildIndex].Process(); 
         }
 
         public void AddChild(Node node)

@@ -4,7 +4,7 @@ using DenizYanar.Inputs;
 using JetBrains.Annotations;
 using UnityEngine;
 
-namespace DenizYanar.Player
+namespace DenizYanar.PlayerSystem
 {
     public class PlayerMovementMoveState : State
     {

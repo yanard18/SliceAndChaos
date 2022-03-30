@@ -7,7 +7,7 @@ using UnityEngine;
 
 
 
-namespace DenizYanar.Player
+namespace DenizYanar.PlayerSystem
 {
     [RequireComponent(typeof(Rigidbody2D))]
     public class PlayerMovementController : MonoBehaviour

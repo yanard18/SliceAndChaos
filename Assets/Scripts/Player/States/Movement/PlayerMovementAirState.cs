@@ -4,7 +4,7 @@ using UnityEngine;
 using DenizYanar.FSM;
 using DenizYanar.Inputs;
 
-namespace DenizYanar.Player
+namespace DenizYanar.PlayerSystem
 {
     public class PlayerMovementAirState : State
     {

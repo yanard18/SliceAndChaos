@@ -3,7 +3,7 @@ using DenizYanar.Events;
 using DenizYanar.External.Sense_Engine.Scripts.Core;
 using UnityEngine;
 
-namespace DenizYanar.Player
+namespace DenizYanar.PlayerSystem
 {
     [RequireComponent(typeof(Health))]
     public class Player : Character

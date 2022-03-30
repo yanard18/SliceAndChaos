@@ -2,6 +2,7 @@ using DenizYanar.BehaviourTreeAI;
 using DenizYanar.Core;
 using DenizYanar.External.Sense_Engine.Scripts.Core;
 using DenizYanar.External.Sense_Engine.Scripts.Senses;
+using DenizYanar.PlayerSystem;
 using UnityEngine;
 
 namespace DenizYanar
@@ -15,8 +16,17 @@ namespace DenizYanar
             base.Awake();
             
             var wait = new Leaf("Waiting Like A Dummy!", JustWait);
+            var go = new Leaf("GO", GoToPlayer);
+            var act = new Sequence("Action");
             
-            Tree.AddChild(wait);
+            act.AddChild(wait);
+            act.AddChild(go);
+            
+            Tree.AddChild(act);
+            
+            Tree.PrintTree();
+            
+            
         }
 
         private void ConfigureAndPlayDeathSense(Damage damage)
@@ -29,6 +39,24 @@ namespace DenizYanar
         }
         
         private Node.EStatus JustWait() => Node.EStatus.SUCCESS;
+
+        private Node.EStatus GoToPlayer()
+        {
+            Debug.Log(Tree.Status);
+            var destination = (Vector2)FindObjectOfType<Player>().transform.position;
+            var distanceToTarget = Vector2.Distance(transform.position, destination);
+            var dir = destination - (Vector2)transform.position;
+            dir.Normalize();
+            if (distanceToTarget >= 1f)
+            {
+                transform.Translate(dir);
+                return Node.EStatus.RUNNING;
+            }
+
+            return Node.EStatus.SUCCESS;
+
+
+        }
 
         protected override void Death(Damage damage)
         {

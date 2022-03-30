@@ -1,6 +1,6 @@
 using DenizYanar.Core;
 using UnityEngine;
-using DenizYanar.Player;
+using DenizYanar.PlayerSystem;
 
 namespace DenizYanar.Projectiles
 {

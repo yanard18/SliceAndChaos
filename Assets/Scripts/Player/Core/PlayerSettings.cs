@@ -1,7 +1,7 @@
 using DenizYanar.Projectiles;
 using UnityEngine;
 
-namespace DenizYanar.Player
+namespace DenizYanar.PlayerSystem
 {
     [CreateAssetMenu(menuName = "Slice And Chaos/Player/Player Settings")]
     public class PlayerSettings : ScriptableObject

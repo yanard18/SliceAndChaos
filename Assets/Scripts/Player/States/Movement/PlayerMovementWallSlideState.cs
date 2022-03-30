@@ -4,7 +4,7 @@ using DenizYanar.FSM;
 using JetBrains.Annotations;
 using UnityEngine;
 
-namespace DenizYanar.Player
+namespace DenizYanar.PlayerSystem
 {
     public class PlayerMovementWallSlideState : State
     {

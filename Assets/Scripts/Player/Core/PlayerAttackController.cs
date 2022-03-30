@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using DenizYanar.FSM;
 
-namespace DenizYanar.Player
+namespace DenizYanar.PlayerSystem
 {
     public class PlayerAttackController : MonoBehaviour
     {

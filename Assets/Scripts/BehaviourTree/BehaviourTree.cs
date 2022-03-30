@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,20 +7,23 @@ namespace DenizYanar.BehaviourTreeAI
     public class BehaviourTree : Node
     {
         private EStatus _currentStatus = EStatus.RUNNING;
-        
-        public BehaviourTree()
-        {
-            Name = "Tree";
-        }
+        private readonly WaitForSeconds _tickRate;
 
-        public BehaviourTree(string name)
+        public BehaviourTree(string name = "Tree", float? tickRate = null)
         {
             Name = name;
+            _tickRate = tickRate.HasValue ? new WaitForSeconds(tickRate.Value) : new WaitForSeconds(Random.Range(0.1f, 0.5f));
         }
+        
+        
 
         public override EStatus Process()
         {
-            return Children[CurrentChild].Process();
+            // ReSharper disable once ConvertIfStatementToReturnStatement
+            Debug.Log(CurrentChildIndex);
+            if (Children.Count == 0) return EStatus.SUCCESS;
+            Debug.Log("WOW");
+            return Children[CurrentChildIndex].Process();
         }
         
         private struct NodeLevel
@@ -49,10 +53,16 @@ namespace DenizYanar.BehaviourTreeAI
             Debug.Log(treePrintOut);
         }
 
-        public void Tick()
+        public IEnumerator Behave()
         {
-            if (_currentStatus != EStatus.SUCCESS)
+
+            while (true)
+            {
                 _currentStatus = Process();
+                yield return _tickRate;
+            }
+            
+            // ReSharper disable once IteratorNeverReturns
         }
     }
 }

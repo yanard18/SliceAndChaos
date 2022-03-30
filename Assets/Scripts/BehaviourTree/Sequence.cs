@@ -1,5 +1,6 @@
 using System;
 using DenizYanar.BehaviourTreeAI;
+using UnityEngine;
 
 namespace DenizYanar
 {
@@ -12,7 +13,8 @@ namespace DenizYanar
 
         public override EStatus Process()
         {
-            var childStatus = Children[CurrentChild].Process();
+            Debug.Log("SEQUENCER WORKS NOW!");
+            var childStatus = Children[CurrentChildIndex].Process();
             switch (childStatus)
             {
                 case EStatus.RUNNING:
@@ -20,21 +22,20 @@ namespace DenizYanar
                 case EStatus.FAILURE:
                     return EStatus.FAILURE;
                 case EStatus.SUCCESS:
-                    break;
+                    CurrentChildIndex++;
+            
+                    // ReSharper disable once InvertIf
+                    if (CurrentChildIndex >= Children.Count)
+                    {
+                        CurrentChildIndex = 0;
+                        return EStatus.SUCCESS;
+                    }
+                    
+                    return EStatus.RUNNING;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
 
-            CurrentChild++;
-            
-            // ReSharper disable once InvertIf
-            if (CurrentChild >= Children.Count)
-            {
-                CurrentChild = 0;
-                return EStatus.SUCCESS;
-            }
-            
-            return EStatus.RUNNING;
         }
     }
 }

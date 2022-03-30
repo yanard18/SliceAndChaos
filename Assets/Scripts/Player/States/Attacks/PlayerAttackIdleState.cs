@@ -1,6 +1,6 @@
 ﻿using DenizYanar.FSM;
 
-namespace DenizYanar.Player
+namespace DenizYanar.PlayerSystem
 {
     public class PlayerAttackIdleState : State
     {

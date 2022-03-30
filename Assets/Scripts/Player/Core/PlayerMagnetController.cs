@@ -1,4 +1,4 @@
-using DenizYanar.Player;
+using DenizYanar.PlayerSystem;
 using UnityEngine;
 
 namespace DenizYanar

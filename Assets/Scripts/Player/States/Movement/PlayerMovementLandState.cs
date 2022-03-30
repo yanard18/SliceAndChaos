@@ -3,7 +3,7 @@ using DenizYanar.External.Sense_Engine.Scripts.Core;
 using DenizYanar.FSM;
 using JetBrains.Annotations;
 
-namespace DenizYanar.Player
+namespace DenizYanar.PlayerSystem
 {
     public class PlayerMovementLandState : State
     {

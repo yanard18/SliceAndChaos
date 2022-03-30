@@ -2,7 +2,7 @@
 using DenizYanar.FSM;
 using UnityEngine;
 
-namespace DenizYanar.Player
+namespace DenizYanar.PlayerSystem
 {
     public class PlayerAttackSlashState : State
     {
