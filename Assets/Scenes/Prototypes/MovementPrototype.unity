@@ -3888,6 +3888,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Nezuko Dummy
       objectReference: {fileID: 0}
+    - target: {fileID: 6332055643514665085, guid: 76333b0ed2839ab469e8cd6b9ae5b4ff, type: 3}
+      propertyPath: m_Constraints
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 76333b0ed2839ab469e8cd6b9ae5b4ff, type: 3}
 --- !u!1 &6643785730033387065
