@@ -13,7 +13,6 @@ namespace DenizYanar
 
         public override EStatus Process()
         {
-            Debug.Log("SEQUENCER WORKS NOW!");
             var childStatus = Children[CurrentChildIndex].Process();
             switch (childStatus)
             {

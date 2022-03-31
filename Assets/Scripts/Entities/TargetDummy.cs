@@ -42,7 +42,6 @@ namespace DenizYanar
 
         private Node.EStatus GoToPlayer()
         {
-            Debug.Log(Tree.Status);
             var destination = (Vector2)FindObjectOfType<Player>().transform.position;
             var distanceToTarget = Vector2.Distance(transform.position, destination);
             var dir = destination - (Vector2)transform.position;

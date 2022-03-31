@@ -20,9 +20,7 @@ namespace DenizYanar.BehaviourTreeAI
         public override EStatus Process()
         {
             // ReSharper disable once ConvertIfStatementToReturnStatement
-            Debug.Log(CurrentChildIndex);
             if (Children.Count == 0) return EStatus.SUCCESS;
-            Debug.Log("WOW");
             return Children[CurrentChildIndex].Process();
         }
         
