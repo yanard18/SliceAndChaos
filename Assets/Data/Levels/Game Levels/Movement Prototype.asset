@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6787a946369a04c488f9d0d7c63b2298, type: 3}
+  m_Script: {fileID: 11500000, guid: ac74077ef92e6064ab20c3eca1079669, type: 3}
   m_Name: Movement Prototype
   m_EditorClassIdentifier: 
   LevelName: MovementPrototype
-  Dependencies: {fileID: 0}
   Description: An primal area to test first mechanics of the game. Also first developed
     scene.
-  LoadDescription: Movement Prototype Loading
+  LoadDescription: Movement Prototype Loading!
+  DependencyList: {fileID: 11400000, guid: 752c48131c3faca44b896fc87e3cc7ba, type: 2}

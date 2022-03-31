@@ -4,11 +4,18 @@ namespace DenizYanar.LevelManagement
 {
     public class LevelLoader : MonoBehaviour
     {
-        [SerializeField] private Level _level;
+        [SerializeField] private MasterLevel _level;
         [SerializeField] private LoadLevelEvent _loadLevelEvent;
 
-        private void Start() => LoadLevel();
+        [SerializeField] private bool _loadAtStart;
         
+        private void Start()
+        {
+            if(!_loadAtStart) return;
+            
+            LoadLevel();
+        }
+
         public void LoadLevel() => _loadLevelEvent.Invoke(_level);
     }
 }

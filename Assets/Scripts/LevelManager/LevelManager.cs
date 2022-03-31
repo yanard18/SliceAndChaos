@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using DenizYanar.Events;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -9,81 +10,69 @@ namespace DenizYanar.LevelManagement
     {
         [SerializeField] private LoadLevelEvent _loadLevelEvent;
         [SerializeField] private VoidEventChannelSO _levelReadyEvent;
-
-        private Level _currentLevel;
         
+        private readonly List<AsyncOperation> _loadingOperations = new List<AsyncOperation>();
+
+        private MasterLevel _currentLevel;
+        
+        public float LoadingProgress { get; private set; }
+
         private void OnEnable() => _loadLevelEvent.OnLoadLevelRequested += LoadLevel;
         private void OnDisable() => _loadLevelEvent.OnLoadLevelRequested -= LoadLevel;
 
-        private void LoadLevel(Level level)
+        private void LoadLevel(MasterLevel masterLevel)
         {
-            if (_currentLevel != null && _currentLevel != level)
-                UnloadLevel(level);
+            //Unload Current Level
+            if (_currentLevel != null)
+            {
+                _loadingOperations.Add(SceneManager.UnloadSceneAsync(_currentLevel.LevelName));
+                
+                foreach (var dependencyLevel in _currentLevel.DependencyList.LevelList)
+                {
+                    _loadingOperations.Add(SceneManager.UnloadSceneAsync(dependencyLevel.LevelName));
+                }
+            }
+
+
+            //Load Dependency Levels
+            foreach (var dependencyLevel in masterLevel.DependencyList.LevelList)
+            {
+                if(!SceneManager.GetSceneByName(dependencyLevel.LevelName).isLoaded) 
+                    _loadingOperations.Add(SceneManager.LoadSceneAsync(dependencyLevel.LevelName, LoadSceneMode.Additive));
+            }
+            //Load Master Level
+            _loadingOperations.Add(SceneManager.LoadSceneAsync(masterLevel.LevelName, LoadSceneMode.Additive));
+
+            StartCoroutine(nameof(GetSceneLoadProgress));
             
-            if (SceneManager.GetSceneByName(level.LevelName).isLoaded) return;
+            _currentLevel = masterLevel;
+            LoadingProgress = 0;
 
-            if (level.Dependencies != null && level.Dependencies.LevelList.Length > 0)
-                LoadLevelDependencies(level.Dependencies);
-
-            StartCoroutine(GetLoadProgress(level, setActiveScene: true));
-
-            _currentLevel = level;
         }
         
-        private void UnloadLevel(Level level)
-        {
-            if (!SceneManager.GetSceneByName(level.LevelName).isLoaded) return;
-            
-            if (level.Dependencies != null && level.Dependencies.LevelList.Length > 0)
-                UnloadLevelDependencies(level.Dependencies);
-            
-            StartCoroutine(GetUnloadProgress(level));
-        }
 
-        private void LoadLevelDependencies(LevelDependencies dependencies)
+        private IEnumerator GetSceneLoadProgress()
         {
-            foreach (var level in dependencies.LevelList)
+            foreach (var op in _loadingOperations)
             {
-                if (SceneManager.GetSceneByName(level.LevelName).isLoaded) continue;
+                while (!op.isDone)
+                {
+                    LoadingProgress = 0;
+                    foreach (var operation in _loadingOperations)
+                    {
+                        LoadingProgress += operation.progress;
+                    }
 
-                StartCoroutine(GetLoadProgress(level));
+                    LoadingProgress = (LoadingProgress / _loadingOperations.Count) * 100f;
+
+                    yield return null;
+                }
             }
         }
-
-        private void UnloadLevelDependencies(LevelDependencies dependencies)
-        {
-            foreach (var level in dependencies.LevelList)
-            {
-                if (!SceneManager.GetSceneByName(level.LevelName).isLoaded) continue;
-
-                StartCoroutine(GetUnloadProgress(level));
-            }
-        }
-
-
-        private IEnumerator GetLoadProgress(Level level, bool setActiveScene = false)
-        {
-            var operation = SceneManager.LoadSceneAsync(level.LevelName, LoadSceneMode.Additive);
-            Debug.Log(level.LoadDescription);
-            while (!operation.isDone)
-            {
-                var progress = Mathf.Clamp01(operation.progress / 0.9f);
-                yield return null;
-            }
-
-            if (setActiveScene)
-                SceneManager.SetActiveScene(SceneManager.GetSceneByName(level.LevelName));
-        }
-
-        private IEnumerator GetUnloadProgress(Level level)
-        {
-            var operation = SceneManager.UnloadSceneAsync(level.LevelName);
-            Debug.Log("Unloading Level: " + level.LevelName);
-            while (!operation.isDone)
-            {
-                yield return null;
-            }
-        }
+        
+        
+        
+        
 
         
     }

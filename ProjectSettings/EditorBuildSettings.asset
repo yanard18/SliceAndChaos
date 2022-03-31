@@ -11,4 +11,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Prototypes/MovementPrototype.unity
     guid: 92f4789030f98ef44b3810a259ca4046
+  - enabled: 1
+    path: Assets/Scenes/Prototypes/EnemyTestArea.unity
+    guid: d327d6ce70b2a314382159fe0f8d47d8
+  - enabled: 1
+    path: Assets/Scenes/Dependencies/_Player.unity
+    guid: 28dd91aab905cba458f03bc0f9fc1fa9
+  - enabled: 1
+    path: Assets/Scenes/Dependencies/_Managers.unity
+    guid: c5207000960324c4e80d1d6a77a5ecfb
   m_configObjects: {}

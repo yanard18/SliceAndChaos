@@ -24,7 +24,6 @@ namespace DenizYanar
             
             Tree.AddChild(act);
             
-            Tree.PrintTree();
             
             
         }
