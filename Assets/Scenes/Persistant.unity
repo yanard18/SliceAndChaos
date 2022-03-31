@@ -347,6 +347,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3095351758103089026, guid: 860eee5664786e54f9287725b07773ea, type: 3}
+      propertyPath: LoadingProgress
+      value: 
+      objectReference: {fileID: 11400000, guid: 659530a767d4a5148a0f3104fe787077, type: 2}
     - target: {fileID: 3095351758103089027, guid: 860eee5664786e54f9287725b07773ea, type: 3}
       propertyPath: m_RootOrder
       value: 2

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Enemy Test Area
   m_EditorClassIdentifier: 
   LevelName: EnemyTestArea
-  Description: 
-  LoadDescription: 
-  DependencyList: {fileID: 11400000, guid: cff19a0cddbfc9a42a30a8bba6d7ce0f, type: 2}
+  Description: This is brand new area to test different kind enemies
+  LoadDescription: Enemy Test Area Loading!
+  DependencyList: {fileID: 11400000, guid: 752c48131c3faca44b896fc87e3cc7ba, type: 2}
