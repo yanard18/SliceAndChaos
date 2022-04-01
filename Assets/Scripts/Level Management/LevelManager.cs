@@ -23,7 +23,7 @@ namespace DenizYanar.LevelManagement
 
         private void LoadLevel(MasterLevel masterLevel)
         {
-            UnloadCurrentLevel();
+            UnloadLevel(_currentLevel);
             LoadNewLevel(masterLevel);
             HandleLoadingProgress(masterLevel);
             
@@ -35,13 +35,11 @@ namespace DenizYanar.LevelManagement
             LoadingProgress.Value = 0;
             SceneManager.SetActiveScene(SceneManager.GetSceneByName(level.LevelName));
 
-            //_levelReadyEvent.Invoke();
+            Debug.Log("TEST");
+            _levelReadyEvent.Invoke();
         }
 
-        private void HandleLoadingProgress(MasterLevel level)
-        {
-            StartCoroutine(GetSceneLoadProgress(level));
-        }
+        private void HandleLoadingProgress(Level level) => StartCoroutine(GetSceneLoadProgress(level));
 
         private void LoadNewLevel(MasterLevel masterLevel)
         {
@@ -51,49 +49,46 @@ namespace DenizYanar.LevelManagement
 
         private void LoadMasterLevel(Level masterLevel)
         {
-            _loadingOperations.Add(SceneManager.LoadSceneAsync(masterLevel.LevelName, LoadSceneMode.Additive));
+            if(!LevelExist(masterLevel))
+                _loadingOperations.Add(SceneManager.LoadSceneAsync(masterLevel.LevelName, LoadSceneMode.Additive));
         }
 
         private void LoadLevelDependencies(MasterLevel masterLevel)
         {
             foreach (var dependencyLevel in masterLevel.DependencyList.LevelList)
             {
-                //if (!LevelExist(dependencyLevel))
+                if (!LevelExist(dependencyLevel))
                     _loadingOperations.Add(SceneManager.LoadSceneAsync(dependencyLevel.LevelName, LoadSceneMode.Additive));
             }
         }
 
-        private static bool LevelExist(Level dependencyLevel)
-        {
-            return SceneManager.GetSceneByName(dependencyLevel.LevelName).isLoaded;
-        }
-
-        private void UnloadCurrentLevel()
+        private void UnloadLevel(MasterLevel level)
         {
             if (ThereAreNoActiveLevel) return;
             
-            UnloadMasterLevel();
-            UnloadLevelDependencies();
+            UnloadMasterLevel(level);
+            UnloadLevelDependencies(level);
         }
 
-        private void UnloadMasterLevel()
+        private void UnloadMasterLevel(Level level)
         {
-            _loadingOperations.Add(SceneManager.UnloadSceneAsync(_currentLevel.LevelName));
+            _loadingOperations.Add(SceneManager.UnloadSceneAsync(level.LevelName));
         }
 
-        private void UnloadLevelDependencies()
+        private void UnloadLevelDependencies(MasterLevel level)
         {
-            foreach (var dependencyLevel in _currentLevel.DependencyList.LevelList)
+            foreach (var dependencyLevel in level.DependencyList.LevelList)
                 _loadingOperations.Add(SceneManager.UnloadSceneAsync(dependencyLevel.LevelName));
         }
 
-        private bool ThereAreNoActiveLevel => _currentLevel == null;
+        
 
 
         private IEnumerator GetSceneLoadProgress(Level level)
         {
             foreach (var op in _loadingOperations)
             {
+
                 while (!op.isDone)
                 {
                     LoadingProgress.Value = 0;
@@ -113,8 +108,9 @@ namespace DenizYanar.LevelManagement
         
         
         
-        
+        private static bool LevelExist(Level dependencyLevel) => SceneManager.GetSceneByName(dependencyLevel.LevelName).isLoaded;
 
+        private bool ThereAreNoActiveLevel => _currentLevel == null;
         
     }
 }
