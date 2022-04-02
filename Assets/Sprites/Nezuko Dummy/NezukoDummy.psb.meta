@@ -21,10 +21,13 @@ ScriptedImporter:
     convertToNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
+    swizzle: 50462976
     isReadable: 0
     streamingMipmaps: 1
     streamingMipmapsPriority: 0
     vTOnly: 0
+    ignoreMasterTextureLimit: 0
     nPOTScale: 1
     sRGBTexture: 1
     spriteMode: 2
@@ -79,7 +82,6 @@ ScriptedImporter:
       width: 0
       height: 0
     spriteID: 
-    internalID: 0
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -87,7 +89,6 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    parentGroupIndex: -1
     uvTransform: {x: 0, y: 0}
   mosaicSpriteImportData: []
   rigSpriteImportData:
@@ -103,7 +104,6 @@ ScriptedImporter:
       width: 241
       height: 275
     spriteID: 76f33ad7054f6c040b0336eaedf138e6
-    internalID: 0
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -111,7 +111,6 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    parentGroupIndex: -1
     uvTransform: {x: 253, y: -187}
   - name: Nezuko Corpse Lower
     originalName: 
@@ -125,7 +124,6 @@ ScriptedImporter:
       width: 163
       height: 167
     spriteID: 5130a70a87e97534ab54eadfc60a5f74
-    internalID: 0
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -133,7 +131,6 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    parentGroupIndex: -1
     uvTransform: {x: 199, y: 258}
   - name: Nezuko Dummy
     originalName: 
@@ -147,7 +144,6 @@ ScriptedImporter:
       width: 241
       height: 363
     spriteID: 4042916109677dc44ac6fb590f47e66b
-    internalID: 0
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -155,8 +151,22 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    parentGroupIndex: -1
     uvTransform: {x: -237, y: -25}
+  characterData:
+    bones: []
+    parts: []
+    dimension: {x: 0, y: 0}
+    characterGroups: []
+    pivot: {x: 0, y: 0}
+    boneReadOnly: 0
+  sharedRigSpriteImportData: []
+  sharedRigCharacterData:
+    bones: []
+    parts: []
+    dimension: {x: 0, y: 0}
+    characterGroups: []
+    pivot: {x: 0, y: 0}
+    boneReadOnly: 0
   platformSettings:
   - name: DefaultTexturePlatform
     overridden: 0
@@ -181,21 +191,20 @@ ScriptedImporter:
     allowsAlphaSplitting: 0
     androidETC2FallbackOverride: 0
   mosaicLayers: 1
+  characterMode: 1
   documentPivot: {x: 0, y: 0}
   documentAlignment: 7
   importHiddenLayers: 0
-  importedTextureWidth: 512
-  importedTextureHeight: 512
-  documentSize: {x: 493, y: 475}
+  layerMappingOption: 2
+  generatePhysicsShape: 0
   paperDollMode: 0
   keepDupilcateSpriteName: 0
+  skeletonAssetReferenceID: 
+  padding: 4
   spriteCategoryList:
     categories: []
-  textureActualWidth: 512
-  textureActualHeight: 512
   spritePackingTag: 
   resliceFromLayer: 0
-  characterMode: 1
   mosaicPSDLayers: []
   rigPSDLayers:
   - name: Nezuko Corpse Upper
@@ -205,6 +214,9 @@ ScriptedImporter:
     spriteID: 76f33ad7054f6c040b0336eaedf138e6
     layerID: 16
     mosaicPosition: {x: 253, y: 4}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
   - name: Nezuko Corpse Lower
     spriteName: Nezuko Corpse Lower
     isGroup: 0
@@ -212,6 +224,9 @@ ScriptedImporter:
     spriteID: 5130a70a87e97534ab54eadfc60a5f74
     layerID: 15
     mosaicPosition: {x: 253, y: 287}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
   - name: Nezuko Dummy
     spriteName: Nezuko Dummy
     isGroup: 0
@@ -219,13 +234,15 @@ ScriptedImporter:
     spriteID: 4042916109677dc44ac6fb590f47e66b
     layerID: 8
     mosaicPosition: {x: 4, y: 4}
-  characterData:
-    bones: []
-    parts: []
-    dimension: {x: 0, y: 0}
-    characterGroups: []
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  sharedRigPSDLayers: []
+  pSDLayerImportSetting: []
+  importFileNodeState: 1
   generateGOHierarchy: 0
   textureAssetName: NezukoDummy Texture
   prefabAssetName: NezukoDummy Prefab
   spriteLibAssetName: NezukoDummy Sprite Lib
+  skeletonAssetName: 
   secondarySpriteTextures: []
