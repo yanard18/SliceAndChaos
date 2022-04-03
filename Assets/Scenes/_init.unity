@@ -320,7 +320,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _level: {fileID: 11400000, guid: f14601b1c04caa54897b2d2f0e9dd6c3, type: 2}
   _loadLevelEvent: {fileID: 11400000, guid: ab374e04be2f6184d99178f6bb578691, type: 2}
-  _loadAtStart: 1
+  _loadAtStart: 0
 --- !u!4 &1586015403
 Transform:
   m_ObjectHideFlags: 0
