@@ -163,7 +163,7 @@ namespace DenizYanar.PlayerSystem
             var bounds = _collider.bounds;
             var spaceBetweenRays = bounds.size.x / (rayCount - 1);
             var bottomLeft = new Vector2(bounds.min.x, bounds.min.y);
-            for (int i = 0; i < 8; i++)
+            for (var i = 0; i < 8; i++)
             {
                 var hit = Physics2D.Raycast(
                     bottomLeft + Vector2.right * (spaceBetweenRays * i), 
