@@ -24,14 +24,13 @@ namespace DenizYanar.PlayerSystem
         private void Update()
         {
             HandleAnimator();
-            HandleDirection();
         }
 
         private void HandleAnimator()
         {
             _animator.SetFloat(Speed, Mathf.Abs(_rb.velocity.x));
         }
-        private void HandleDirection()
+        public void HandleDirection()
         {
             if (_lookingRight)
             {
