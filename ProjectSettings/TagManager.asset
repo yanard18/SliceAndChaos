@@ -16,9 +16,9 @@ TagManager:
   - Hitbox
   - NoCollisionWithEffects
   - OnlyCollideWithPlayer
-  - 
-  - 
-  - 
+  - Background
+  - Midleground
+  - Foreground
   - 
   - 
   - 

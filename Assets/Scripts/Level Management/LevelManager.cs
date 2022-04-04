@@ -34,8 +34,7 @@ namespace DenizYanar.LevelManagement
         {
             LoadingProgress.Value = 0;
             SceneManager.SetActiveScene(SceneManager.GetSceneByName(level.LevelName));
-
-            Debug.Log("TEST");
+            
             _levelReadyEvent.Invoke();
         }
 
@@ -98,7 +97,6 @@ namespace DenizYanar.LevelManagement
                     }
 
                     LoadingProgress.Value = (LoadingProgress.Value / _loadingOperations.Count) * 100f;
-                    Debug.Log(LoadingProgress.Value);
 
                     yield return null;
                 }
