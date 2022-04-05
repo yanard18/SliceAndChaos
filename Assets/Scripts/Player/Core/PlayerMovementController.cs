@@ -17,7 +17,6 @@ namespace DenizYanar.PlayerSystem
         private Rigidbody2D _rb;
         private Collider2D _collider;
         private StateMachine _stateMachine;
-        private PlayerAnimationController _animationController;
         
         private bool _rememberedJumpRequest;
         
@@ -85,7 +84,6 @@ namespace DenizYanar.PlayerSystem
         {
             _collider = GetComponentInChildren<Collider2D>();
             _rb = GetComponent<Rigidbody2D>();
-            _animationController = GetComponent<PlayerAnimationController>();
             
             JumpDataInstance = new JumpData(2, 20, _rb);
             WallSlideDataInstance = new WallSlideData(_rb, _collider);
@@ -93,7 +91,7 @@ namespace DenizYanar.PlayerSystem
             _stateMachine = new StateMachine();
 
             _idle = new PlayerMovementIdleState(_rb, nameInformerEvent: _stateNameInformerEvent, stateName: "Idle");
-            _move = new PlayerMovementMoveState(_rb, _settings, _inputs, _animationController, nameInformerEvent: _stateNameInformerEvent, stateName: "Move");
+            _move = new PlayerMovementMoveState(_rb, _settings, _inputs, nameInformerEvent: _stateNameInformerEvent, stateName: "Move");
             _jump = new PlayerMovementJumpState(this, _jumpSense, nameInformerChannel: _stateNameInformerEvent, stateName: "Jump");
             _land = new PlayerMovementLandState(JumpDataInstance, _landSense, nameInformerEvent: _stateNameInformerEvent, stateName: "Land");
             _slide = new PlayerMovementWallSlideState(this, _settings,nameInformerEventChannel: _stateNameInformerEvent, stateName: "Wall Slide");
@@ -223,6 +221,9 @@ namespace DenizYanar.PlayerSystem
 
         private IEnumerator RememberJumpRequest(float duration)
         {
+            // Change jump input in a bad way, but that's prevent the holding jump key.
+            //_inputs.Jump = false;
+            
             if (_rememberedJumpRequest)
                 yield return null;
 
