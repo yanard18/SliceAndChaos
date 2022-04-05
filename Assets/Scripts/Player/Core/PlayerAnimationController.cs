@@ -30,16 +30,16 @@ namespace DenizYanar.PlayerSystem
         {
             _animator.SetFloat(Speed, Mathf.Abs(_rb.velocity.x));
         }
-        public void HandleDirection()
+        public void HandleDirection(float horizontalSpeed)
         {
             if (_lookingRight)
             {
-                if(_rb.velocity.x < 0)
+                if(horizontalSpeed < 0)
                     TurnLeft();
             }
             else
             {
-                if(_rb.velocity.x > 0)
+                if(horizontalSpeed > 0)
                     TurnRight();
             }
         }
