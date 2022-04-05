@@ -19,6 +19,7 @@ namespace DenizYanar.PlayerSystem
         {
             _animator = GetComponent<Animator>();
             _rb = GetComponent<Rigidbody2D>();
+            
         }
 
         private void Update()
@@ -30,16 +31,16 @@ namespace DenizYanar.PlayerSystem
         {
             _animator.SetFloat(Speed, Mathf.Abs(_rb.velocity.x));
         }
-        public void HandleDirection()
+        public void HandleDirection(float horizontalVelocity)
         {
             if (_lookingRight)
             {
-                if(_rb.velocity.x < 0)
+                if(horizontalVelocity < 0)
                     TurnLeft();
             }
             else
             {
-                if(_rb.velocity.x > 0)
+                if(horizontalVelocity > 0)
                     TurnRight();
             }
         }

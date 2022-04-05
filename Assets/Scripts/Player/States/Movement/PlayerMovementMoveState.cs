@@ -12,18 +12,22 @@ namespace DenizYanar.PlayerSystem
         private readonly float _acceleration;
         private readonly Rigidbody2D _rb;
         private readonly PlayerInputs _inputs;
-        
+        private readonly PlayerAnimationController _animation;
+
         private float _xVelocity;
 
 
         #region Constructor
 
-        public PlayerMovementMoveState(Rigidbody2D rb, PlayerSettings settings, PlayerInputs inputs, StringEventChannelSO nameInformerEvent = null, [CanBeNull] string stateName = null)
+        public PlayerMovementMoveState(Rigidbody2D rb, PlayerSettings settings, PlayerInputs inputs,
+            PlayerAnimationController animation, StringEventChannelSO nameInformerEvent = null,
+            [CanBeNull] string stateName = null)
         {
             _stateName = stateName ?? GetType().Name;
             _stateNameInformerEventChannel = nameInformerEvent;
             _rb = rb;
             _inputs = inputs;
+            _animation = animation;
 
             _desiredXVelocity = settings.DesiredMovementVelocity;
             _acceleration = settings.MovementAcceleration;
@@ -34,7 +38,7 @@ namespace DenizYanar.PlayerSystem
         #region State Callbacks
 
         public override void PhysicsTick() => Move();
-        
+
         public override void OnEnter()
         {
             base.OnEnter();
@@ -47,21 +51,20 @@ namespace DenizYanar.PlayerSystem
 
         private void Move()
         {
+
             var movementDirection = Mathf.Sign(_inputs.HorizontalMovement);
+            
 
             _xVelocity = Mathf.MoveTowards(
                 _xVelocity,
                 _desiredXVelocity * movementDirection,
                 Time.fixedDeltaTime * _acceleration);
 
-
+            _animation.HandleDirection(_xVelocity);
+            
             _rb.velocity = new Vector2(_xVelocity, _rb.velocity.y);
         }
 
         #endregion
-
-
-        
-
     }
 }
