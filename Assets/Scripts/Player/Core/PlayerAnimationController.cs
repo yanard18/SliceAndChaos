@@ -44,6 +44,11 @@ namespace DenizYanar.PlayerSystem
             }
         }
 
+        public void TriggerAnimation(string triggerName)
+        {
+            _animator.SetTrigger(triggerName);
+        }
+
         private void TurnRight()
         {
             _playerBody.transform.rotation = _right;

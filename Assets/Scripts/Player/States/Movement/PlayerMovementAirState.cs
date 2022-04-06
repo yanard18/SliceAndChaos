@@ -2,7 +2,6 @@ using DenizYanar.Events;
 using JetBrains.Annotations;
 using UnityEngine;
 using DenizYanar.FSM;
-using DenizYanar.Inputs;
 
 namespace DenizYanar.PlayerSystem
 {
@@ -11,7 +10,8 @@ namespace DenizYanar.PlayerSystem
 
         private readonly Rigidbody2D _rb;
         private readonly PlayerInputs _inputs;
-        
+        private readonly PlayerAnimationController _animationController;
+
         private readonly float _xAcceleration;
         private readonly float _maxXVelocity;
         private readonly float _yAcceleration;
@@ -22,12 +22,13 @@ namespace DenizYanar.PlayerSystem
         #region Constructor
         
         
-        public PlayerMovementAirState(Rigidbody2D rb, PlayerSettings settings, PlayerInputs inputs, StringEventChannelSO nameInformerChannel = null, [CanBeNull] string stateName = null)
+        public PlayerMovementAirState(Rigidbody2D rb, PlayerSettings settings, PlayerInputs inputs, PlayerAnimationController animationController, StringEventChannelSO nameInformerChannel = null, [CanBeNull] string stateName = null)
         {
             _stateName = stateName ?? GetType().Name;
             _stateNameInformerEventChannel = nameInformerChannel;
             _rb = rb;
             _inputs = inputs;
+            _animationController = animationController;
 
             _xAcceleration = settings.AirStrafeXAcceleration;
             _maxXVelocity = settings.AirStrafeMaxXVelocity;
@@ -59,6 +60,7 @@ namespace DenizYanar.PlayerSystem
             
             //var sKeyInput = Mathf.Sign(Input.GetAxisRaw("Vertical")) < 0 ? 1 : 0;
             var horizontalKeyInput = _inputs.HorizontalMovement;
+            _animationController.HandleDirection(horizontalKeyInput);
             
             // X
 
@@ -86,6 +88,8 @@ namespace DenizYanar.PlayerSystem
             // Y
             if(Mathf.Abs(_rb.velocity.y) < _maxYVelocity && _dive)
                 _rb.AddForce(new Vector2(0, _yAcceleration), ForceMode2D.Force);
+            
+            
         }
 
         #endregion

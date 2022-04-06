@@ -96,8 +96,8 @@ namespace DenizYanar.PlayerSystem
             _move = new PlayerMovementMoveState(_rb, _settings, _inputs, _animationController, nameInformerEvent: _stateNameInformerEvent, stateName: "Move");
             _jump = new PlayerMovementJumpState(this, _jumpSense, nameInformerChannel: _stateNameInformerEvent, stateName: "Jump");
             _land = new PlayerMovementLandState(JumpDataInstance, _landSense, nameInformerEvent: _stateNameInformerEvent, stateName: "Land");
-            _slide = new PlayerMovementWallSlideState(this, _settings,nameInformerEventChannel: _stateNameInformerEvent, stateName: "Wall Slide");
-            _air = new PlayerMovementAirState(_rb, _settings, _inputs, nameInformerChannel: _stateNameInformerEvent, stateName: "At Air");
+            _slide = new PlayerMovementWallSlideState(this, _settings, _animationController, nameInformerEventChannel: _stateNameInformerEvent, stateName: "Wall Slide");
+            _air = new PlayerMovementAirState(_rb, _settings, _inputs, _animationController, nameInformerChannel: _stateNameInformerEvent, stateName: "At Air");
             _shift = new PlayerMovementShiftState(_rb, _settings, _enterShiftSense, _leaveShiftSense, nameInformerEvent: _stateNameInformerEvent, stateName: "Shift");
             _slice = new PlayerMovementSliceState(_rb, _settings, _inputs);
 

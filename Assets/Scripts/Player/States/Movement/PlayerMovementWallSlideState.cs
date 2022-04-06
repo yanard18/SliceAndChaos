@@ -10,6 +10,7 @@ namespace DenizYanar.PlayerSystem
     {
         private readonly Rigidbody2D _rb;
         private readonly PlayerMovementController _playerMovementController;
+        private readonly PlayerAnimationController _animationController;
         private readonly Collider2D _collider;
         private readonly PlayerSettings _settings;
         private readonly float _defaultGravityScale;
@@ -17,10 +18,11 @@ namespace DenizYanar.PlayerSystem
 
         #region Constructor
 
-        public PlayerMovementWallSlideState(PlayerMovementController playerMovementController, PlayerSettings settings, StringEventChannelSO nameInformerEventChannel = null, [CanBeNull] string stateName = null)
+        public PlayerMovementWallSlideState(PlayerMovementController playerMovementController, PlayerSettings settings, PlayerAnimationController animationController, StringEventChannelSO nameInformerEventChannel = null, [CanBeNull] string stateName = null)
         {
             _playerMovementController = playerMovementController;
             _rb = playerMovementController.WallSlideDataInstance.Rb;
+            _animationController = animationController;
             _collider = playerMovementController.WallSlideDataInstance.Collider;
             _settings = settings;
             
@@ -37,9 +39,12 @@ namespace DenizYanar.PlayerSystem
         public override void OnEnter()
         {
             base.OnEnter();
+            Vector2? hitNormal = FindWallContactNormal();
             _rb.gravityScale = _settings.WallSlideGravity;
             _rb.velocity /= 4.0f;
             _playerMovementController.JumpDataInstance.ResetJumpCount();
+            _animationController.TriggerAnimation("Enter Wall Slide");
+            if (hitNormal != null) _animationController.HandleDirection(hitNormal.Value.x);
         }
 
         public override void OnExit()
@@ -47,6 +52,8 @@ namespace DenizYanar.PlayerSystem
             base.OnExit();
 
             _rb.gravityScale = _defaultGravityScale;
+            _animationController.TriggerAnimation("Leave Wall Slide");
+
 
 
             Vector2? hitNormal = FindWallContactNormal();
@@ -55,6 +62,7 @@ namespace DenizYanar.PlayerSystem
                 return;
             
             ExecuteJump(hitNormal);
+            _animationController.HandleDirection(hitNormal.Value.x);
         }
 
         #endregion
