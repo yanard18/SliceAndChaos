@@ -9,6 +9,7 @@ namespace DenizYanar.PlayerSystem
         #region Private Variables
 
         private StateMachine _stateMachine;
+        private PlayerAnimationController _animationController;
 
         private PlayerAttackSlashState _slash;
         private PlayerAttackSwordThrowState _throw;
@@ -47,9 +48,10 @@ namespace DenizYanar.PlayerSystem
         private void Awake()
         {
             _stateMachine = new StateMachine();
+            _animationController = GetComponent<PlayerAnimationController>();
 
             _idle = new PlayerAttackIdleState();
-            _slash = new PlayerAttackSlashState(this, _katanaGameObject, _inputs);
+            _slash = new PlayerAttackSlashState(this, _katanaGameObject, _inputs, _animationController);
             _throw = new PlayerAttackSwordThrowState(ThrowKatana, OnSwordCalled, OnSwordReturned, transform, _settings, _inputs);
             _wait = new PlayerAttackWaitSwordState();
 

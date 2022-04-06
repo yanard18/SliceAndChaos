@@ -9,6 +9,7 @@ namespace DenizYanar.PlayerSystem
         private readonly PlayerAttackController _player;
         private readonly GameObject _katana;
         private readonly PlayerInputs _inputs;
+        private readonly PlayerAnimationController _animationController;
         
         private float _startAngle;
         private float _direction;
@@ -18,11 +19,12 @@ namespace DenizYanar.PlayerSystem
 
         #region Constructor
 
-        public PlayerAttackSlashState(PlayerAttackController player, GameObject katana, PlayerInputs inputs)
+        public PlayerAttackSlashState(PlayerAttackController player, GameObject katana, PlayerInputs inputs, PlayerAnimationController animationController)
         {
             _player = player;
             _katana = katana;
             _inputs = inputs;
+            _animationController = animationController;
         }
 
         #endregion
@@ -33,7 +35,10 @@ namespace DenizYanar.PlayerSystem
         {
             base.OnEnter();
             IsFinished = false;
-            _katana.SetActive(true);
+           // _katana.SetActive(true);
+            _animationController.TriggerAnimation("Slash");
+           
+           
             if (Camera.main is { })
             {
                 var dir = Input.mousePosition - Camera.main.WorldToScreenPoint(_player.transform.position);
