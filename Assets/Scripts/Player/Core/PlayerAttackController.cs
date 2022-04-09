@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using DenizYanar.FSM;
 
@@ -10,6 +11,8 @@ namespace DenizYanar.PlayerSystem
 
         private StateMachine _stateMachine;
         private PlayerAnimationController _animationController;
+        private bool _hasAttackCooldown;
+        
 
         private PlayerAttackSlashState _slash;
         private PlayerAttackSwordThrowState _throw;
@@ -19,8 +22,7 @@ namespace DenizYanar.PlayerSystem
         #endregion
 
         #region Serialized Variables
-
-        [SerializeField] private GameObject _katanaGameObject;
+        
         [SerializeField] private PlayerSettings _settings;
         [SerializeField] private PlayerInputs _inputs;
 
@@ -51,7 +53,7 @@ namespace DenizYanar.PlayerSystem
             _animationController = GetComponent<PlayerAnimationController>();
 
             _idle = new PlayerAttackIdleState();
-            _slash = new PlayerAttackSlashState(this, _katanaGameObject, _inputs, _animationController);
+            _slash = new PlayerAttackSlashState(this, _settings, CreateAttackCooldown);
             _throw = new PlayerAttackSwordThrowState(ThrowKatana, OnSwordCalled, OnSwordReturned, transform, _settings, _inputs);
             _wait = new PlayerAttackWaitSwordState();
 
@@ -65,7 +67,7 @@ namespace DenizYanar.PlayerSystem
             
             void To(State from, State to, Func<bool> condition) => _stateMachine.AddTransition(from, to, condition);
             
-            Func<bool> IsSwordSlashFinished() => () => _slash.IsFinished;
+            Func<bool> IsSwordSlashFinished() => () => _hasAttackCooldown;
         }
 
         private void Update() => _stateMachine.Tick();
@@ -108,6 +110,15 @@ namespace DenizYanar.PlayerSystem
             var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
             p.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
             return p.GetComponent<KatanaProjectile>();
+        }
+
+        private void CreateAttackCooldown(float duration) => StartCoroutine(AttackCooldownCoroutine(duration));
+        
+        private IEnumerator AttackCooldownCoroutine(float duration)
+        {
+            _hasAttackCooldown = true;
+            yield return new WaitForSeconds(duration);
+            _hasAttackCooldown = false;
         }
 
         #endregion

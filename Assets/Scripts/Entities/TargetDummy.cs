@@ -23,9 +23,7 @@ namespace DenizYanar
             act.AddChild(go);
             
             Tree.AddChild(act);
-            
-            
-            
+        
         }
 
         private void ConfigureAndPlayDeathSense(Damage damage)

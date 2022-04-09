@@ -11,21 +11,29 @@ namespace DenizYanar.Turret
         
         public Transform Detect()
         {
-            var t = Physics2D.OverlapCircle(transform.position, _range, _targetLayerMask);
+            var target = Physics2D.OverlapCircle(transform.position, _range, _targetLayerMask);
 
-            if (t is null)
+            if (target is null)
                 return null;
+
+            var turretPosition = transform.position;
+            var dir = target.transform.position - turretPosition;
+
+            var isThereAnyObstacleBetweenRotorAndTarget = Physics2D.Raycast
+                (
+                turretPosition, 
+                dir.normalized, 
+                dir.magnitude, 
+                _obstacleLayerMask
+                );
             
-            var dir = t.transform.position - transform.position;
-
-            var obstacleHit = Physics2D.Raycast(transform.position, dir.normalized, dir.magnitude, _obstacleLayerMask);
-            if (obstacleHit)
-                return null;
+            
+            if (isThereAnyObstacleBetweenRotorAndTarget) return null;
             
             var angle = Vector2.Angle(dir, transform.right);
             
 
-            return Mathf.Abs(angle) <= _angle ? t.transform : null;
+            return Mathf.Abs(angle) <= _angle ? target.transform : null;
         }
         
         

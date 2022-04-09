@@ -82,6 +82,16 @@ namespace DenizYanar.PlayerSystem
 
         [SerializeField] private float _magnetPushDistanceScale = 1.0f;
         public float MagnetPushDistanceScale => _magnetPushDistanceScale;
+
+        [Header("Attack Settings")] 
+        [SerializeField] private float _attackDamage;
+        public float AttackDamage => _attackDamage;
+
+        [SerializeField] private float _attackRadius;
+        public float AttackRadius => _attackRadius;
+
+        [SerializeField] private float _attackCooldownDuration;
+        public float AttackCooldownDuration => _attackCooldownDuration;
         
         
         [Header("Sword Throw Settings")] 
@@ -102,6 +112,9 @@ namespace DenizYanar.PlayerSystem
         
         [SerializeField] private LayerMask _obstacleLayerMask;
         public LayerMask ObstacleLayerMask => _obstacleLayerMask;
+
+        [SerializeField] private LayerMask _enemyLayerMask;
+        public LayerMask EnemyLayerMask => _enemyLayerMask;
 
 
     }
