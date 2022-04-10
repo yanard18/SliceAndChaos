@@ -36,6 +36,8 @@ MonoBehaviour:
   _attackDamage: 1000
   _attackRadius: 4
   _attackCooldownDuration: 0.5
+  _attackPushForce: 25
+  _maxSpeedForPush: 10
   _swordProjectile: {fileID: -2035979234861334917, guid: 63a8c24c9a15dfc408344c350f89c1ec, type: 3}
   _swordThrowSpeed: 300
   _swordThrowAngularVelocity: 0

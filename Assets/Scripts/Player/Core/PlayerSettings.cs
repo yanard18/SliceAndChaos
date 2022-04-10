@@ -84,6 +84,7 @@ namespace DenizYanar.PlayerSystem
         public float MagnetPushDistanceScale => _magnetPushDistanceScale;
 
         [Header("Attack Settings")] 
+        
         [SerializeField] private float _attackDamage;
         public float AttackDamage => _attackDamage;
 
@@ -92,6 +93,12 @@ namespace DenizYanar.PlayerSystem
 
         [SerializeField] private float _attackCooldownDuration;
         public float AttackCooldownDuration => _attackCooldownDuration;
+
+        [SerializeField] private float _attackPushForce;
+        public float AttackPushForce => _attackPushForce;
+
+        [SerializeField] private float _maxSpeedForPush;
+        public float MaxSpeedForPush => _maxSpeedForPush;
         
         
         [Header("Sword Throw Settings")] 

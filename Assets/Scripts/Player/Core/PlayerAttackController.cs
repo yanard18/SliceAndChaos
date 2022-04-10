@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using DenizYanar.External.Sense_Engine.Scripts.Core;
 using UnityEngine;
 using DenizYanar.FSM;
 
@@ -11,6 +12,7 @@ namespace DenizYanar.PlayerSystem
 
         private StateMachine _stateMachine;
         private PlayerAnimationController _animationController;
+        private Rigidbody2D _rb;
         private bool _hasAttackCooldown;
         
 
@@ -25,6 +27,10 @@ namespace DenizYanar.PlayerSystem
         
         [SerializeField] private PlayerSettings _settings;
         [SerializeField] private PlayerInputs _inputs;
+
+        [Header("Slash Sense Players")]
+        [SerializeField] private SenseEnginePlayer _attackSensePlayer;
+        [SerializeField] private SenseEnginePlayer _hitSensePlayer;
 
         #endregion
         
@@ -51,9 +57,10 @@ namespace DenizYanar.PlayerSystem
         {
             _stateMachine = new StateMachine();
             _animationController = GetComponent<PlayerAnimationController>();
+            _rb = GetComponent<Rigidbody2D>();
 
             _idle = new PlayerAttackIdleState();
-            _slash = new PlayerAttackSlashState(this, _settings, CreateAttackCooldown);
+            _slash = new PlayerAttackSlashState(this, _settings, CreateAttackCooldown, _rb, _attackSensePlayer, _hitSensePlayer);
             _throw = new PlayerAttackSwordThrowState(ThrowKatana, OnSwordCalled, OnSwordReturned, transform, _settings, _inputs);
             _wait = new PlayerAttackWaitSwordState();
 
@@ -63,11 +70,11 @@ namespace DenizYanar.PlayerSystem
             To(_idle, _throw, () => false);
             To(_throw, _wait, () => false);
             To(_wait, _idle, () => false);
-            To(_slash, _idle, IsSwordSlashFinished());
+            To(_slash, _idle, HasNotAttackCooldown());
             
             void To(State from, State to, Func<bool> condition) => _stateMachine.AddTransition(from, to, condition);
             
-            Func<bool> IsSwordSlashFinished() => () => _hasAttackCooldown;
+            Func<bool> HasNotAttackCooldown() => () => !_hasAttackCooldown;
         }
 
         private void Update() => _stateMachine.Tick();

@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1858
     height: 1037
   m_ShowMode: 4
-  m_Title: Scene
+  m_Title: Game
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -121,7 +121,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 200}
   m_MaxSize: {x: 32384, y: 16192}
   vertical: 0
-  controlID: 153
+  controlID: 64
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -221,8 +221,8 @@ MonoBehaviour:
     y: 0
     width: 182
     height: 987
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 202, y: 221}
+  m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 17}
   m_Panes:
   - {fileID: 17}
@@ -273,8 +273,8 @@ MonoBehaviour:
     y: 0
     width: 329
     height: 987
-  m_MinSize: {x: 275, y: 50}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 276, y: 71}
+  m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 19}
   m_Panes:
   - {fileID: 19}
@@ -391,7 +391,7 @@ MonoBehaviour:
     m_SaveData: []
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: 45032
+  m_LastSelectedObjectID: 61128
 --- !u!114 &14
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -694,9 +694,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 1.466773, y: 3.653307, z: 3.1688943}
+    m_Target: {x: -10.974014, y: -8.163696, z: 3.1243477}
     speed: 2
-    m_Value: {x: 1.466773, y: 3.653307, z: 3.1688943}
+    m_Value: {x: -10.974014, y: -8.163696, z: 3.1243477}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -746,9 +746,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 15.368693
+    m_Target: 22.550198
     speed: 2
-    m_Value: 15.368693
+    m_Value: 22.550198
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -931,9 +931,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 92670000
+      m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: f0d8fdff6adefdff84e3fdffe8e4fdffb2eefdff16f0fdff86f6fdffeaf7fdff72fdfdffd6fefdff6cddfeffd0defeff5ae4feffbee5feff4ceefeffb0effeff22f6feff86f7feff5612ffffba13ffff141affff781bffff0a3cffff6e3dffff0849fffff44effff2c54ffffac60ffffe063ffff4465ffff6e66ffffb471ffff08fbffff68a0000030a20000dea20000faa50000b4a90000a8ae0000a4af0000b4b20000b4b30000b8b40000b4b50000fee50000fae60000fae700000aea0000
+      m_ExpandedIDs: 181bfeffbe1bfeffac1efeff661ffeff8c1ffeff6620feff9020feff0a60ffffb060ffff9e63ffff5864ffff7e64ffff5a65ffff8465ffff08fbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -998,7 +998,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Prefabs/Enemies/Nezuko Dummy
+    - Assets/Prefabs/Effects
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 0
@@ -1013,7 +1013,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: aeb10000
     m_LastClickedID: 45486
-    m_ExpandedIDs: 000000003e63000040630000426300004463000046630000486300004a6300004c6300004e6300005063000052630000546300005663000058630000
+    m_ExpandedIDs: 00000000866b0000886b00008a6b00008c6b00008e6b0000906b0000926b0000946b0000966b0000986b00009a6b00009c6b00009e6b0000a06b0000a26b0000a46b0000a66b0000a86b0000aa6b0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1041,7 +1041,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: ffffffff000000003e630000426300004463000046630000486300004c6300004e630000506300005263000054630000566300002c6700003c6700004067000066670000c86900002275000080760000487e0000
+    m_ExpandedIDs: ffffffff00000000866b0000886b00008a6b00008c6b00008e6b0000926b0000966b0000986b00009a6b00009c6b00009e6b0000a26b0000a46b0000a66b0000a86b0000aa6b0000ea6b0000026c00002a6c0000747b0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 

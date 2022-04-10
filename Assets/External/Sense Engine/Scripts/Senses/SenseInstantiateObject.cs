@@ -25,12 +25,12 @@ namespace DenizYanar.External.Sense_Engine.Scripts.Senses
 
         public override void Play()
         {
-            if (InstantiateTransform is { })
+            if (InstantiateTransform != null)
                 InstantiatePosition = InstantiateTransform.position;
 
             var obj = Instantiate(InstantiateObject, InstantiatePosition, InstantiateRotation);
             
-            if(MakeChildOfTransform is true && InstantiateTransform is { })
+            if(MakeChildOfTransform is true && InstantiateTransform != null)
                 obj.transform.SetParent(InstantiateTransform);
         }
     }

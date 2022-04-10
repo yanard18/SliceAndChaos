@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using DenizYanar.Core;
+using DenizYanar.External.Sense_Engine.Scripts.Core;
+using DenizYanar.External.Sense_Engine.Scripts.Senses;
 using DenizYanar.FSM;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -13,16 +15,30 @@ namespace DenizYanar.PlayerSystem
         private readonly PlayerAttackController _player;
         private readonly PlayerSettings _settings;
         private readonly Action<float> _startAttackCooldown;
+        private readonly Rigidbody2D _rb;
+        private readonly SenseEnginePlayer _attackSensePlayer;
+        private readonly SenseEnginePlayer _hitSensePlayer;
 
 
         #region Constructor
 
-        public PlayerAttackSlashState(PlayerAttackController player, PlayerSettings settings,
-            Action<float> startAttackCooldown)
+        public PlayerAttackSlashState
+        (
+            PlayerAttackController player,
+            PlayerSettings settings,
+            Action<float> startAttackCooldown,
+            Rigidbody2D rb,
+            SenseEnginePlayer attackSense,
+            SenseEnginePlayer hitSense
+        )
+
         {
             _player = player;
             _settings = settings;
             _startAttackCooldown = startAttackCooldown;
+            _rb = rb;
+            _attackSensePlayer = attackSense;
+            _hitSensePlayer = hitSense;
         }
 
         #endregion
@@ -37,10 +53,9 @@ namespace DenizYanar.PlayerSystem
             _startAttackCooldown.Invoke(_settings.AttackCooldownDuration);
 
 
-            var mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
             var playerPosition = _player.transform.position;
-            Vector2 attackDir = mousePos - playerPosition;
-            attackDir.Normalize();
+
+            var attackDir = CalculateAttackDirection(playerPosition);
 
 
             var boxDistance = _settings.AttackRadius * Mathf.Sqrt(2);
@@ -50,28 +65,61 @@ namespace DenizYanar.PlayerSystem
 
 
             Collider2D[] enemiesInRectangleArea =
+                // ReSharper disable once Unity.PreferNonAllocApi
                 Physics2D.OverlapBoxAll(boxStartPos, boxSize, boxAngle, _settings.EnemyLayerMask);
 
             Collider2D[] enemiesInCircleArea =
+                // ReSharper disable once Unity.PreferNonAllocApi
                 Physics2D.OverlapCircleAll(playerPosition, _settings.AttackRadius, _settings.EnemyLayerMask);
 
             IEnumerable<Collider2D> enemies = enemiesInRectangleArea.Intersect(enemiesInCircleArea);
 
+
+            PushPlayerAlongAttackDir(attackDir);
+
             foreach (var enemy in enemies)
             {
-                Debug.Log(enemy.transform.root.name);
                 if (IsTargetEqualToPlayer(enemy.transform)) continue;
                 if (IsThereWallBetween(playerPosition, enemy.transform.position, _settings.ObstacleLayerMask)) continue;
                 if (HasNotHealth(enemy, out var health)) continue;
 
-                Debug.Log("DAMAGE!");
+                
+                // ReSharper disable once Unity.PerformanceCriticalCodeInvocation
                 health.TakeDamage(new Damage(_settings.AttackDamage, _player.gameObject));
+                PlayOnHitSense(playerPosition, attackDir);
             }
+
+            _startAttackCooldown.Invoke(_settings.AttackCooldownDuration);
+            _attackSensePlayer.Play();
 
 
 #if UNITY_EDITOR
             DebugDrawBox(boxStartPos, boxSize, boxAngle, Color.blue, 4.0f);
 #endif
+        }
+
+        
+
+        #endregion
+
+        #region Local Methods
+
+        private static Vector2 CalculateAttackDirection(Vector3 playerPosition)
+        {
+            if (Camera.main is not null)
+            {
+                var mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+                Vector2 attackDir = mousePos - playerPosition;
+                attackDir.Normalize();
+                return attackDir;
+            }
+
+            return Vector2.zero;
+        }
+
+        private void PushPlayerAlongAttackDir(Vector2 attackDir)
+        {
+            _rb.AddForce(attackDir * _settings.AttackPushForce, ForceMode2D.Impulse);
         }
 
         private static bool HasNotHealth(Collider2D enemy, out Health health)
@@ -91,6 +139,15 @@ namespace DenizYanar.PlayerSystem
             var dir = endPos - startPos;
             var hit = Physics2D.Raycast(startPos, dir.normalized, dir.magnitude, layerMask);
             return hit;
+        }
+        
+        private void PlayOnHitSense(Vector3 playerPosition, Vector2 attackDir)
+        {
+            var spawner = _hitSensePlayer.GetComponent<SenseInstantiateObject>();
+            spawner.InstantiatePosition = playerPosition + (Vector3) attackDir * -10f;
+            var angle = Mathf.Atan2(attackDir.y, attackDir.x) * Mathf.Rad2Deg;
+            spawner.InstantiateRotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            _hitSensePlayer.Play();
         }
 
         private static void DebugDrawBox(Vector2 point, Vector2 size, float angle, Color color, float duration)
@@ -113,10 +170,6 @@ namespace DenizYanar.PlayerSystem
             Debug.DrawLine(bottomRight, bottomLeft, color, duration);
             Debug.DrawLine(bottomLeft, topLeft, color, duration);
         }
-
-        #endregion
-
-        #region Local Methods
 
         #endregion
     }
