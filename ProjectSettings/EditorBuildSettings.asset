@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Dependencies/_Managers.unity
     guid: c5207000960324c4e80d1d6a77a5ecfb
+  - enabled: 1
+    path: Assets/Scenes/Dependencies/_DeveloperConsole.unity
+    guid: 93903cb4f97c5c646937fcb24660db35
   m_configObjects: {}

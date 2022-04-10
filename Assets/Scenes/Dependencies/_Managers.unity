@@ -128,6 +128,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 7039654067766137232, guid: 056fca6b7dae2c9488079809cf81bc4b, type: 3}
@@ -179,12 +180,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 056fca6b7dae2c9488079809cf81bc4b, type: 3}
 --- !u!1001 &778711580
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 638500417907143883, guid: 5f93feb191c59704e8e1884f4a45d378, type: 3}
@@ -236,12 +239,14 @@ PrefabInstance:
       value: Cinemachine Impulse Manager
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f93feb191c59704e8e1884f4a45d378, type: 3}
 --- !u!1001 &1158985610
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2173082637241798253, guid: 8685fdc04dde545408b79d0d69839026, type: 3}
@@ -293,4 +298,5 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 8685fdc04dde545408b79d0d69839026, type: 3}

@@ -60,5 +60,11 @@ namespace DenizYanar.Inputs
             if(context.started)
                 _inputs.OnMagnetPushPressed?.Invoke();
         }
+
+        public void HandleDevConsoleKeyPressed(InputAction.CallbackContext context)
+        {
+            if(context.started)
+                _inputs.OnDevConsoleKeyPressed?.Invoke();
+        }
     }
 }
