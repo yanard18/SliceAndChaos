@@ -3,15 +3,17 @@
   <component name="ChangeListManager">
     <list default="true" id="ff8d2e12-2b4a-4fab-8f24-02aceb228cc7" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.SliceAndChaos/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SliceAndChaos/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Data/Levels/Dependency Lists/Gameplay Dependencies.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Data/Levels/Dependency Lists/Gameplay Dependencies.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Input Actions/Main Input Action.inputactions" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Input Actions/Main Input Action.inputactions" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Managers/Input Manager.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Managers/Input Manager.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Dependencies/_Managers.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Dependencies/_Managers.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CommandPanel.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Dependencies/_DeveloperConsole.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Dependencies/_DeveloperConsole.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/DeveloperConsole/ConsoleCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DeveloperConsole/ConsoleCommand.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/DeveloperConsole/ConsoleCommandTable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DeveloperConsole/ConsoleCommandTable.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/DeveloperConsole/ConsoleCommands/QuitCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DeveloperConsole/ConsoleCommands/QuitCommand.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/DeveloperConsole/DeveloperConsole.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DeveloperConsole/DeveloperConsole.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/DeveloperConsole/Interpreter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DeveloperConsole/Interpreter.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Inputs/InputManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Inputs/InputManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Inputs/PlayerInputs.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Inputs/PlayerInputs.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2022.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2022.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,6 +58,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/Katana/KatanaProjectile.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Utilities/DestroyAfterSeconds.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f50b220eb8e34abfa99c28aba19b374c1f800/02/63d633dc/Physics2D.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/DeveloperConsole/ConsoleCommands/MeowCommand.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Guns/GunLauncher.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Tentacle/TentacleBodyRotation.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/d3b66f0ad4e34a55b6ef91ab8487819313c000/1f/7aedee0f/GameObject.cs" root0="SKIP_HIGHLIGHTING" />
@@ -204,7 +207,8 @@
       <workItem from="1649312913787" duration="3149000" />
       <workItem from="1649395331370" duration="11586000" />
       <workItem from="1649487656143" duration="5315000" />
-      <workItem from="1649574888450" duration="7157000" />
+      <workItem from="1649574888450" duration="7246000" />
+      <workItem from="1649654354059" duration="5688000" />
     </task>
     <servers />
   </component>

@@ -16,7 +16,9 @@ namespace DenizYanar
         public UnityAction OnMagnetPullStarted;
         public UnityAction OnMagnetPullCancelled;
         public UnityAction OnMagnetPushPressed;
-        public UnityAction OnDevConsoleKeyPressed;
+        public UnityAction OnOpenDevConsoleKeyPressed;
+        public UnityAction OnCloseDevConsoleKeyPressed;
+        public UnityAction OnEnterCommandKeyPressed;
 
     }
 }

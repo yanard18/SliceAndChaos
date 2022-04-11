@@ -1,67 +1,121 @@
+using System.Collections.Generic;
+using System.Net.Mime;
+using DenizYanar.Events;
 using TMPro;
 using UnityEngine;
-
 
 namespace DenizYanar.DeveloperConsoleSystem
 {
     public class DeveloperConsole : MonoBehaviour
     {
+        private readonly Dictionary<string, ConsoleCommand> _commandDictionary = new();
+        private bool _isConsoleOpen;
+
+
         [Header("Developer Panel UI")] 
         [SerializeField] private GameObject _console;
         [SerializeField] private TMP_Text _consoleLog;
         [SerializeField] private TMP_InputField _inputField;
         
-        
-        private bool _isConsoleActive;
-        
+
         [Header("Configurations")]
         [SerializeField] private ConsoleCommandTable _commandTable;
-        [SerializeField] private char _commandPrefix = '/';
         [SerializeField] private PlayerInputs _inputs;
+        [SerializeField] private char _commandPrefix = '/';
+        [SerializeField] private StringEventChannelSO _onInputMapChange;
+        [SerializeField] private int _maxLineCountInConsole = 30;
 
+
+        private void Awake()
+        {
+            foreach (var command in _commandTable.Commands)
+            {
+                if(_commandDictionary.ContainsKey(command.CommandName)) 
+                    continue;
+                
+                _commandDictionary.Add(command.CommandName, command);
+            }
+        }
 
         private void OnEnable()
         {
-            _inputs.OnDevConsoleKeyPressed += ToggleConsole;
+            _inputs.OnOpenDevConsoleKeyPressed += ToggleConsole;
+            _inputs.OnCloseDevConsoleKeyPressed += ToggleConsole;
+            _inputs.OnEnterCommandKeyPressed += ApplyInputField;
         }
 
         private void OnDisable()
         {
-            _inputs.OnDevConsoleKeyPressed -= ToggleConsole;
+            _inputs.OnOpenDevConsoleKeyPressed -= ToggleConsole;
+            _inputs.OnCloseDevConsoleKeyPressed -= ToggleConsole;
+            _inputs.OnEnterCommandKeyPressed -= ApplyInputField;
         }
 
         private void ToggleConsole()
         {
-            if (_isConsoleActive)
-            {
-                _isConsoleActive = false;
-                _console.SetActive(false);
-            }
+            if (_isConsoleOpen)
+                CloseConsole();
             else
-            {
-                _isConsoleActive = true;
-                _console.SetActive(true);
-            }
+                OpenConsole();
+        }
+
+        private void CloseConsole()
+        {
+            _isConsoleOpen = false;
+            _console.SetActive(false);
+            _onInputMapChange.Invoke("Player");
+            
+        }
+
+        private void OpenConsole()
+        {
+            _isConsoleOpen = true;
+            _console.SetActive(true);
+            _inputField.ActivateInputField();
+            _onInputMapChange.Invoke("Console");
+        }
+
+        private void ApplyInputField()
+        {
+            ProcessInput(_inputField.text);
+            ClearInputField();
+            _inputField.ActivateInputField();
         }
 
         private void SendMessageToConsole(string message)
         {
+            _consoleLog.text = ClampLines(_consoleLog.text, _maxLineCountInConsole);
             _consoleLog.text += message + '\n';
         }
-        
-        public void ProcessInput(string input)
+
+        private string ClampLines(string text, int maxLineLength)
         {
-            SendMessageToConsole(input);
-            ClearInputField();
-            return;
-            if(!HasCommandPrefix(input)) return;
-            var parsedInput = Interpreter.ParseTheCommand(input);
-            var command = Interpreter.NameToCommand(parsedInput[0], _commandTable);
+            var lines = text.Split('\n');
+            return lines.Length > maxLineLength ? text.Remove(0, lines[0].Length + 1) : text;
+        }
+        
+        private void ProcessInput(string input)
+        {
+            if(HasNoInput(input)) return;
             
+            SendMessageToConsole(input);
+            
+            
+            if(!HasCommandPrefix(input)) return;
+            
+            input = RemovePrefix(input);
+            
+            var parsedInput = Interpreter.ParseTheCommand(input);
+            var command = Interpreter.NameToCommand(parsedInput[0], _commandDictionary);
             if(command == null) return;
+            
             
             command.Execute();
         }
+
+        private static bool HasNoInput(string input) => input == string.Empty;
+
+        private static string RemovePrefix(string input) => input.Remove(0, 1);
 
         private void ClearInputField() => _inputField.text = string.Empty;
 

@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using UnityEngine;
+
 namespace DenizYanar.DeveloperConsoleSystem
 {
     /// <summary>
@@ -12,14 +15,13 @@ namespace DenizYanar.DeveloperConsoleSystem
             return string.Empty == command ? new string[] { } : command.Split(' ');
         }
 
-        public static ConsoleCommand NameToCommand(string commandName, ConsoleCommandTable commandList)
+        public static ConsoleCommand NameToCommand(string commandName, Dictionary<string, ConsoleCommand> commandDictionary)
         {
-            if (!commandList.Commands.ContainsKey(commandName)) return null;
+            if (!commandDictionary.ContainsKey(commandName)) return null;
             
-            var command = commandList.Commands[commandName];
+            var command = commandDictionary[commandName];
             return command;
         }
-        
         
     }
 }

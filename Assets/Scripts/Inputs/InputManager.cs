@@ -6,7 +6,7 @@ namespace DenizYanar.Inputs
     public class InputManager : MonoBehaviour
     {
         [SerializeField] private PlayerInputs _inputs;
-
+        
         public void HandleJumpInput(InputAction.CallbackContext context)
         {
             if (context.started)
@@ -20,7 +20,6 @@ namespace DenizYanar.Inputs
 
             if (context.canceled)
                 _inputs.OnDiveCancelled?.Invoke();
-            
         }
 
         public void HandleShiftModeInput(InputAction.CallbackContext context)
@@ -61,10 +60,22 @@ namespace DenizYanar.Inputs
                 _inputs.OnMagnetPushPressed?.Invoke();
         }
 
-        public void HandleDevConsoleKeyPressed(InputAction.CallbackContext context)
+        public void HandleOpenDevConsoleInput(InputAction.CallbackContext context)
         {
             if(context.started)
-                _inputs.OnDevConsoleKeyPressed?.Invoke();
+                _inputs.OnOpenDevConsoleKeyPressed?.Invoke();
+        }
+        
+        public void HandleCloseDevConsoleInput(InputAction.CallbackContext context)
+        {
+            if(context.started)
+                _inputs.OnCloseDevConsoleKeyPressed?.Invoke();
+        }
+
+        public void HandleEnterCommandInput(InputAction.CallbackContext context)
+        {
+            if (context.started)
+                _inputs.OnEnterCommandKeyPressed?.Invoke();
         }
     }
 }

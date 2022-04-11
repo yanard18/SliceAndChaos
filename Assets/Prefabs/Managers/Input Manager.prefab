@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7039654067766137234}
   - component: {fileID: 7039654067766137233}
   - component: {fileID: 7039654067766137235}
+  - component: {fileID: 908029676}
   m_Layer: 0
   m_Name: Input Manager
   m_TagString: Untagged
@@ -31,7 +32,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7039654067766137233
 MonoBehaviour:
@@ -203,7 +204,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 7039654067766137233}
         m_TargetAssemblyTypeName: DenizYanar.Inputs.InputManager, Assembly-CSharp
-        m_MethodName: HandleDevConsoleKeyPressed
+        m_MethodName: HandleOpenDevConsoleInput
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -215,8 +216,68 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: c5c67129-954d-429a-a1d4-6216cb2e41bc
     m_ActionName: Player/Open Developer Console[/Keyboard/backquote]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7039654067766137233}
+        m_TargetAssemblyTypeName: DenizYanar.Inputs.InputManager, Assembly-CSharp
+        m_MethodName: HandleCloseDevConsoleInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: cf7d39f7-990e-4b67-9bd1-ab93e39b52da
+    m_ActionName: Console/Close Console[/Keyboard/backquote]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7039654067766137233}
+        m_TargetAssemblyTypeName: DenizYanar.Inputs.InputManager, Assembly-CSharp
+        m_MethodName: HandleEnterCommandInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 9825b70e-e261-41f1-b879-6bd7703932df
+    m_ActionName: Console/Enter Command[/Keyboard/enter]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &908029676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7039654067766137232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f98ed5ecde04b049da3c76f9e3d5b07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _eventChannel: {fileID: 11400000, guid: 606f887b04e00084fa1996419fad1a9a, type: 2}
+  _unityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7039654067766137235}
+        m_TargetAssemblyTypeName: UnityEngine.InputSystem.PlayerInput, Unity.InputSystem
+        m_MethodName: SwitchCurrentActionMap
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
