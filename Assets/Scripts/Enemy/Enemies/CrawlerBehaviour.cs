@@ -1,5 +1,5 @@
+using System;
 using DenizYanar.BehaviourTreeAI;
-using DenizYanar.Core;
 using UnityEngine;
 
 namespace DenizYanar
@@ -9,6 +9,8 @@ namespace DenizYanar
         private BehaviourTree _tree;
         private float _waitCooldown = 3.0f;
 
+        public event Action OnAttack;
+        
         protected void Awake()
         {
             _tree = new BehaviourTree();
@@ -32,6 +34,7 @@ namespace DenizYanar
 
         private Node.EStatus Attack()
         {
+            OnAttack?.Invoke();
             _waitCooldown = 3.0f;
             return Node.EStatus.SUCCESS;
         }
