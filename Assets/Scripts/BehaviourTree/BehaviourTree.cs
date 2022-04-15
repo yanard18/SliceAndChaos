@@ -7,12 +7,12 @@ namespace DenizYanar.BehaviourTreeAI
     public class BehaviourTree : Node
     {
         private EStatus _currentStatus = EStatus.RUNNING;
-        private readonly WaitForSeconds _tickRate;
+        public readonly float TickRate;
 
         public BehaviourTree(string name = "Tree", float? tickRate = null)
         {
             Name = name;
-            _tickRate = tickRate.HasValue ? new WaitForSeconds(tickRate.Value) : new WaitForSeconds(Random.Range(0.1f, 0.5f));
+            TickRate = tickRate ?? Random.Range(0.1f, 0.5f);
         }
         
         
@@ -57,7 +57,7 @@ namespace DenizYanar.BehaviourTreeAI
             while (true)
             {
                 _currentStatus = Process();
-                yield return _tickRate;
+                yield return new WaitForSeconds(TickRate);
             }
             
             // ReSharper disable once IteratorNeverReturns
