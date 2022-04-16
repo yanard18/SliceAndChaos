@@ -13,5 +13,5 @@ namespace DenizYanar.External.Sense_Engine.Scripts.Core
 			foreach (Sense s in SenseList)
 				s.Play();
 		}
-	}
+    }
 }

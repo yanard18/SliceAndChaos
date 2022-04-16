@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using DenizYanar.External.Sense_Engine.Scripts.Core;
 using UnityEngine;
 
 namespace DenizYanar.Core
@@ -7,10 +8,13 @@ namespace DenizYanar.Core
     public class Health : MonoBehaviour
     {
         public event Action<Damage> OnDeath;
-
+        public event Action<Damage> OnDamage;
+        
         [Range(0, 9999)] [SerializeField] private float _health = 100.0f;
         [Range(0, 9999)] [SerializeField] private float _maxHealth = 100.0f;
         [SerializeField] private float _immunityDuration;
+        [SerializeField] private SenseEnginePlayer _damageSense;
+        [SerializeField] private SenseEnginePlayer _deathSense;
         
         private bool _hasImmunity;
 
@@ -22,8 +26,17 @@ namespace DenizYanar.Core
             if(_hasImmunity) return;
 
             _health -= damage.DamageValue;
+            OnDamage?.Invoke(damage);
+            _damageSense.PlayIfExist();
+            
             if (HasImmunityAbility) StartCoroutine(StartImmunity(_immunityDuration));
-            if(IsHealthLessThanZero) OnDeath?.Invoke(damage);
+            if(IsHealthLessThanZero) Death(damage);
+        }
+
+        private void Death(Damage damage)
+        {
+            _deathSense.PlayIfExist();
+            OnDeath?.Invoke(damage);
         }
 
         public void RestoreHealth(float value)

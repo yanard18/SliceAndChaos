@@ -1,19 +1,22 @@
 using System;
 using DenizYanar.BehaviourTreeAI;
-using UnityEngine;
 
-namespace DenizYanar
+namespace DenizYanar.EnemySystem
 {
-    public class CrawlerBehaviour : MonoBehaviour
+    public class CrawlerBehaviour : EnemyBehaviour
     {
-        private BehaviourTree _tree;
         private float _waitCooldown = 3.0f;
 
         public event Action OnAttack;
-        
-        protected void Awake()
+
+        private void Awake()
         {
-            _tree = new BehaviourTree();
+            SetupTree();
+        }
+
+        protected override void SetupTree()
+        {
+            Tree = new BehaviourTree();
             var wait = new Leaf("Wait", Wait);
             var attack = new Leaf("Attack", Attack);
 
@@ -22,13 +25,13 @@ namespace DenizYanar
             agro.AddChild(wait);
             agro.AddChild(attack);
             
-            _tree.AddChild(agro);
-            StartCoroutine(_tree.Behave());
+            Tree.AddChild(agro);
+            StartCoroutine(Tree.Behave());
         }
 
         private Node.EStatus Wait()
         {
-            _waitCooldown -= _tree.TickRate;
+            _waitCooldown -= Tree.TickRate;
             return _waitCooldown <= 0 ? Node.EStatus.SUCCESS : Node.EStatus.RUNNING;
         }
 
@@ -38,6 +41,7 @@ namespace DenizYanar
             _waitCooldown = 3.0f;
             return Node.EStatus.SUCCESS;
         }
+
         
     }
 }

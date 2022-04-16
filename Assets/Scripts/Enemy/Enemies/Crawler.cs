@@ -1,17 +1,18 @@
 using DenizYanar.PlayerSystem;
 using UnityEngine;
 
-namespace DenizYanar
+namespace DenizYanar.EnemySystem
 {
     [RequireComponent(typeof(CrawlerBehaviour))]
-    public class Crawler : MonoBehaviour
+    public class Crawler : Enemy
     {
         private CrawlerBehaviour _behaviour;
         private Rigidbody2D _rb;
 
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             _behaviour = GetComponent<CrawlerBehaviour>();
             _rb = GetComponent<Rigidbody2D>();
         }
