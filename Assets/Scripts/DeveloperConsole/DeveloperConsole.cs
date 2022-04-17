@@ -28,11 +28,16 @@ namespace DenizYanar.DeveloperConsoleSystem
 
         private void Awake()
         {
+            AddCommandsToDictionary();
+        }
+
+        private void AddCommandsToDictionary()
+        {
             foreach (var command in _commandTable.Commands)
             {
-                if(_commandDictionary.ContainsKey(command.CommandName)) 
+                if (_commandDictionary.ContainsKey(command.CommandName))
                     continue;
-                
+
                 _commandDictionary.Add(command.CommandName, command);
             }
         }
@@ -97,20 +102,25 @@ namespace DenizYanar.DeveloperConsoleSystem
         private void ProcessInput(string input)
         {
             if(HasNoInput(input)) return;
-            
             SendMessageToConsole(input);
             
-            
-            if(!HasCommandPrefix(input)) return;
-            
+            if(HasCommandPrefix(input))
+                RunCommand(input);
+        }
+
+        private void RunCommand(string input)
+        {
             input = RemovePrefix(input);
-            
+
             var parsedInput = Interpreter.ParseTheCommand(input);
             var command = Interpreter.NameToCommand(parsedInput[0], _commandDictionary);
-            if(command == null) return;
-            
-            
-            command.Execute();
+            if (command == null) return;
+
+
+            if(command.IsCommandValid(parsedInput))
+                command.Execute(parsedInput);
+            else
+                SendMessageToConsole(command.Usage);
         }
 
         private static bool HasNoInput(string input) => input == string.Empty;

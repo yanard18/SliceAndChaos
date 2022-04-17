@@ -9,7 +9,7 @@ namespace DenizYanar.DeveloperConsoleSystem
         [SerializeField] private AudioCue _effect;
         [SerializeField] private AudioCueEventChannel _eventChannel;
         
-        public override void Execute()
+        public override void Execute(string[] parameters)
         {
             _eventChannel.Invoke(_effect);
         }
