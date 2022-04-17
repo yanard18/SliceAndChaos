@@ -7,7 +7,7 @@ using UnityEngine;
 
 
 
-namespace DenizYanar.PlayerSystem
+namespace DenizYanar.PlayerSystem.Movement
 {
     [RequireComponent(typeof(Rigidbody2D))]
     public class PlayerMovementController : MonoBehaviour
@@ -24,14 +24,14 @@ namespace DenizYanar.PlayerSystem
 
         #region Private State Variables
 
-        private PlayerMovementIdleState _idle;
-        private PlayerMovementMoveState _move;
-        private PlayerMovementJumpState _jump;
-        private PlayerMovementShiftState _shift;
-        private PlayerMovementSliceState _slice;
-        private PlayerMovementAirState _air;
-        private PlayerMovementLandState _land;
-        private PlayerMovementWallSlideState _slide;
+        private IdleState _idle;
+        private MoveState _move;
+        private JumpState _jump;
+        private ShiftState _shift;
+        private TeleportState _teleport;
+        private AirState _air;
+        private LandState _land;
+        private WallSlideState _slide;
         
 
         #endregion
@@ -90,14 +90,14 @@ namespace DenizYanar.PlayerSystem
             
             _stateMachine = new StateMachine();
 
-            _idle = new PlayerMovementIdleState(_rb, nameInformerEvent: _stateNameInformerEvent, stateName: "Idle");
-            _move = new PlayerMovementMoveState(_rb, _settings, _inputs, nameInformerEvent: _stateNameInformerEvent, stateName: "Move");
-            _jump = new PlayerMovementJumpState(this, _jumpSense, nameInformerChannel: _stateNameInformerEvent, stateName: "Jump");
-            _land = new PlayerMovementLandState(JumpDataInstance, _landSense, nameInformerEvent: _stateNameInformerEvent, stateName: "Land");
-            _slide = new PlayerMovementWallSlideState(this, _settings, nameInformerEventChannel: _stateNameInformerEvent, stateName: "Wall Slide");
-            _air = new PlayerMovementAirState(_rb, _settings, _inputs, nameInformerChannel: _stateNameInformerEvent, stateName: "At Air");
-            _shift = new PlayerMovementShiftState(_rb, _settings, _enterShiftSense, _leaveShiftSense, nameInformerEvent: _stateNameInformerEvent, stateName: "Shift");
-            _slice = new PlayerMovementSliceState(_rb, _settings, _inputs);
+            _idle = new IdleState(_rb, nameInformerEvent: _stateNameInformerEvent, stateName: "Idle");
+            _move = new MoveState(_rb, _settings, _inputs, nameInformerEvent: _stateNameInformerEvent, stateName: "Move");
+            _jump = new JumpState(this, _jumpSense, nameInformerChannel: _stateNameInformerEvent, stateName: "Jump");
+            _land = new LandState(JumpDataInstance, _landSense, nameInformerEvent: _stateNameInformerEvent, stateName: "Land");
+            _slide = new WallSlideState(this, _settings, nameInformerEventChannel: _stateNameInformerEvent, stateName: "Wall Slide");
+            _air = new AirState(_rb, _settings, _inputs, nameInformerChannel: _stateNameInformerEvent, stateName: "At Air");
+            _shift = new ShiftState(_rb, _settings, _enterShiftSense, _leaveShiftSense, nameInformerEvent: _stateNameInformerEvent, stateName: "Shift");
+            _teleport = new TeleportState(_rb, _settings, _inputs);
 
             _stateMachine.InitState(_idle);
 
@@ -113,10 +113,10 @@ namespace DenizYanar.PlayerSystem
             To(_air, _slide, OnContactToWall());
             To(_slide, _air, WhenJumpKeyTriggered());
             To(_slide, _air, NoContactToWall());
-            To(_slice, _air, OnSliceFinished());
+            To(_teleport, _air, OnSliceFinished());
             To(_air, _shift, () => false);
             To(_shift, _air, () => false);
-            To(_shift, _slice, () => false);
+            To(_shift, _teleport, () => false);
             To(_jump, _air, () => true);
 
             void To(State from, State to, Func<bool> condition) => _stateMachine.AddTransition(from, to, condition);
@@ -129,7 +129,7 @@ namespace DenizYanar.PlayerSystem
             Func<bool> NoMoreContactToGround() => () => IsTouchingToGround() == null;
             Func<bool> OnContactToWall() => () => AngleOfContact() == 0 && WallSlideDataInstance.HasCooldown == false;
             Func<bool> NoContactToWall() => () => AngleOfContact() == null || AngleOfContact() != 0;
-            Func<bool> OnSliceFinished() => () => _slice.HasFinished;
+            Func<bool> OnSliceFinished() => () => _teleport.HasFinished;
             Func<bool> AlwaysTrue() => () => true;
 
         }
@@ -143,7 +143,7 @@ namespace DenizYanar.PlayerSystem
 
         private void OnJumpStarted() => StartCoroutine(RememberJumpRequest(0.15f));
 
-        private void OnAttack1Started() => _stateMachine.TriggerState(_slice);
+        private void OnAttack1Started() => _stateMachine.TriggerState(_teleport);
         
         private void OnShiftStarted()
         {

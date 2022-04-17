@@ -4,7 +4,7 @@ using DenizYanar.External.Sense_Engine.Scripts.Core;
 using UnityEngine;
 using DenizYanar.FSM;
 
-namespace DenizYanar.PlayerSystem
+namespace DenizYanar.PlayerSystem.Attacks
 {
     public class PlayerAttackController : MonoBehaviour
     {
@@ -15,10 +15,10 @@ namespace DenizYanar.PlayerSystem
         private bool _hasAttackCooldown;
         
 
-        private PlayerAttackSlashState _slash;
-        private PlayerAttackSwordThrowState _throw;
-        private PlayerAttackWaitSwordState _wait;
-        private PlayerAttackIdleState _idle;
+        private SliceState _slash;
+        private ThrowSwordState _throw;
+        private WaitSwordState _wait;
+        private IdleState _idle;
 
         #endregion
 
@@ -57,10 +57,10 @@ namespace DenizYanar.PlayerSystem
             _stateMachine = new StateMachine();
             _rb = GetComponent<Rigidbody2D>();
 
-            _idle = new PlayerAttackIdleState();
-            _slash = new PlayerAttackSlashState(this, _settings, CreateAttackCooldown, _rb, _attackSensePlayer, _hitSensePlayer);
-            _throw = new PlayerAttackSwordThrowState(ThrowKatana, OnSwordCalled, OnSwordReturned, transform, _settings, _inputs);
-            _wait = new PlayerAttackWaitSwordState();
+            _idle = new IdleState();
+            _slash = new SliceState(this, _settings, CreateAttackCooldown, _rb, _attackSensePlayer, _hitSensePlayer);
+            _throw = new ThrowSwordState(ThrowKatana, OnSwordCalled, OnSwordReturned, transform, _settings, _inputs);
+            _wait = new WaitSwordState();
 
             _stateMachine.InitState(_idle);
             
