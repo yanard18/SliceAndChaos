@@ -9,7 +9,7 @@ namespace DenizYanar.PlayerSystem.Movement
 {
     public class JumpState : State
     {
-        private readonly JumpData _jumpData;
+        private readonly JumpProperties _jumpProperties;
         private readonly PlayerMovementController _playerMovementController;
         private readonly SenseEnginePlayer _jumpSense;
 
@@ -18,7 +18,7 @@ namespace DenizYanar.PlayerSystem.Movement
         public JumpState(PlayerMovementController playerMovementController, SenseEnginePlayer jumpSense, StringEventChannelSO nameInformerChannel = null, [CanBeNull] string stateName = null)
         {
             _playerMovementController = playerMovementController;
-            _jumpData = playerMovementController.JumpDataInstance;
+            _jumpProperties = playerMovementController.JumpPropertiesInstance;
             _stateName = stateName ?? GetType().Name;
             _stateNameInformerEventChannel = nameInformerChannel;
             _jumpSense = jumpSense;
@@ -40,23 +40,23 @@ namespace DenizYanar.PlayerSystem.Movement
 
         private void Jump()
         {
-            _jumpData.Rb.velocity = new Vector2(_jumpData.Rb.velocity.x, _jumpData.JumpForce);
-            _jumpData.JumpCount--;
-            _jumpSense.Play();
+            _jumpProperties.Rb.velocity = new Vector2(_jumpProperties.Rb.velocity.x, _jumpProperties.JumpForce);
+            _jumpProperties.JumpCount--;
+            _jumpSense.PlayIfExist();
             _playerMovementController.StartCoroutine(StartJumpCooldown(0.15f));
         }
 
         private IEnumerator StartJumpCooldown(float duration)
         {
-            _jumpData.HasCooldown = true;
+            _jumpProperties.HasCooldown = true;
             yield return new WaitForSeconds(duration);
-            _jumpData.HasCooldown = false;
+            _jumpProperties.HasCooldown = false;
         }
 
         #endregion
     }
     
-    public class JumpData
+    public class JumpProperties
     {
         private readonly int _maxJumpCount;
         
@@ -71,7 +71,7 @@ namespace DenizYanar.PlayerSystem.Movement
 
         public void ResetJumpCount() => JumpCount = _maxJumpCount;
 
-        public JumpData(int maxJumpCount, float jumpForce, Rigidbody2D rb)
+        public JumpProperties(int maxJumpCount, float jumpForce, Rigidbody2D rb)
         {
             _maxJumpCount = maxJumpCount;
             JumpCount = _maxJumpCount;

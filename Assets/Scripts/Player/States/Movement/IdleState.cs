@@ -26,13 +26,15 @@ namespace DenizYanar.PlayerSystem.Movement
         
         #region State Callbacks
         
-        public override void PhysicsTick()
+        public override void PhysicsTick() => SlowDown();
+
+        private void SlowDown()
         {
             var currentXVelocity = _rb.velocity.x;
             currentXVelocity = Mathf.MoveTowards(currentXVelocity, 0, Time.fixedDeltaTime * FRICTION_ACCELERATION);
             _rb.velocity = new Vector2(currentXVelocity, _rb.velocity.y);
         }
-        
+
         #endregion
         
         

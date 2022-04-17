@@ -3,7 +3,7 @@ using DenizYanar.External.Sense_Engine.Scripts.Core;
 using JetBrains.Annotations;
 using UnityEngine;
 using DenizYanar.FSM;
-
+using DenizYanar.YanarPro;
 
 
 namespace DenizYanar.PlayerSystem.Movement
@@ -49,21 +49,23 @@ namespace DenizYanar.PlayerSystem.Movement
             base.OnEnter();
 
             SetAngleInstant();
-            _enterShiftSense.Play();
-
             _rb.gravityScale = 0;
             _rb.freezeRotation = false;
+            _enterShiftSense.PlayIfExist();
         }
         
         public override void OnExit()
         {
             base.OnExit();
             _rb.gravityScale = _originalGravity;
-            _rb.velocity *= 1.5f;
             _rb.rotation = 0;
             _rb.freezeRotation = true;
-            _leaveShiftSense.Play();
+            _leaveShiftSense.PlayIfExist();
+            GiveSpeedBoost(1.5f);
+            
         }
+
+        private void GiveSpeedBoost(float boostValue) => _rb.velocity *= boostValue;
 
         #endregion
 
@@ -76,17 +78,13 @@ namespace DenizYanar.PlayerSystem.Movement
         
         private void SetAngle()
         {
-            if (Camera.main is null) return;
-            var dir = Input.mousePosition - Camera.main.WorldToScreenPoint(_rb.transform.position);
-            var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            var angle = YanarUtils.FindAngleBetweenMouseAndPosition(_rb.transform.position);
             _rb.rotation = Mathf.MoveTowardsAngle(_rb.rotation, angle, Time.fixedDeltaTime * _turnSpeed);
         }
         
         private void SetAngleInstant()
         {
-            if (Camera.main is null) return;
-            var dir = Input.mousePosition - Camera.main.WorldToScreenPoint(_rb.transform.position);
-            var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            var angle = YanarUtils.FindAngleBetweenMouseAndPosition(_rb.transform.position);
             _rb.rotation = angle;
         }
 

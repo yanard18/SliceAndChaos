@@ -7,16 +7,16 @@ namespace DenizYanar.PlayerSystem.Movement
 {
     public class LandState : State
     {
-        private readonly JumpData _jumpData;
+        private readonly JumpProperties _jumpProperties;
         private readonly SenseEnginePlayer _landSense;
 
         #region Constructor
 
-        public LandState(JumpData jumpData, SenseEnginePlayer landSense, StringEventChannelSO nameInformerEvent = null, [CanBeNull] string stateName = null)
+        public LandState(JumpProperties jumpProperties, SenseEnginePlayer landSense, StringEventChannelSO nameInformerEvent = null, [CanBeNull] string stateName = null)
         {
             _stateName = stateName ?? GetType().Name;
             _stateNameInformerEventChannel = nameInformerEvent;
-            _jumpData = jumpData;
+            _jumpProperties = jumpProperties;
             _landSense = landSense;
         }
 
@@ -27,7 +27,7 @@ namespace DenizYanar.PlayerSystem.Movement
         public override void OnEnter()
         {
             base.OnEnter();
-            _jumpData.ResetJumpCount();
+            _jumpProperties.ResetJumpCount();
             _landSense.Play();
         }
 

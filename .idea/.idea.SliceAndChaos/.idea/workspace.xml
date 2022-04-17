@@ -3,34 +3,14 @@
   <component name="ChangeListManager">
     <list default="true" id="ff8d2e12-2b4a-4fab-8f24-02aceb228cc7" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.SliceAndChaos/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SliceAndChaos/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Core/PlayerAttackController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Core/PlayerAttackController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Core/PlayerMovementController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Core/PlayerMovementController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/States/Attacks/PlayerAttackIdleState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/States/Attacks/IdleState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/States/Attacks/PlayerAttackIdleState.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/States/Attacks/IdleState.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/States/Attacks/PlayerAttackSlashState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/States/Attacks/SliceState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/States/Attacks/PlayerAttackSlashState.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/States/Attacks/SliceState.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/States/Attacks/PlayerAttackSliceState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/States/Attacks/TeleportState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/States/Attacks/PlayerAttackSliceState.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/States/Attacks/TeleportState.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/States/Attacks/PlayerAttackSwordThrowState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/States/Attacks/ThrowSwordState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/States/Attacks/PlayerAttackSwordThrowState.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/States/Attacks/ThrowSwordState.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/States/Attacks/PlayerAttackWaitSwordState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/States/Attacks/WaitSwordState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/States/Attacks/PlayerAttackWaitSwordState.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/States/Attacks/WaitSwordState.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/States/Movement/PlayerMovementAirState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/States/Movement/AirState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/States/Movement/PlayerMovementAirState.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/States/Movement/AirState.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/States/Movement/PlayerMovementIdleState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/States/Movement/IdleState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/States/Movement/PlayerMovementIdleState.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/States/Movement/IdleState.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/States/Movement/PlayerMovementJumpState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/States/Movement/JumpState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/States/Movement/PlayerMovementJumpState.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/States/Movement/JumpState.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/States/Movement/PlayerMovementLandState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/States/Movement/LandState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/States/Movement/PlayerMovementLandState.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/States/Movement/LandState.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/States/Movement/PlayerMovementMoveState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/States/Movement/MoveState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/States/Movement/PlayerMovementMoveState.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/States/Movement/MoveState.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/States/Movement/PlayerMovementShiftState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/States/Movement/ShiftState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/States/Movement/PlayerMovementShiftState.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/States/Movement/ShiftState.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/States/Movement/PlayerMovementSliceState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/States/Movement/TeleportState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/States/Movement/PlayerMovementSliceState.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/States/Movement/TeleportState.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/States/Movement/PlayerMovementWallSlideState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/States/Movement/WallSlideState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/States/Movement/PlayerMovementWallSlideState.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/States/Movement/WallSlideState.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/States/Movement/AirState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/States/Movement/AirState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/States/Movement/IdleState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/States/Movement/IdleState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/States/Movement/JumpState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/States/Movement/JumpState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/States/Movement/LandState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/States/Movement/LandState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/States/Movement/ShiftState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/States/Movement/ShiftState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/States/Movement/WallSlideState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/States/Movement/WallSlideState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2022.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2022.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,6 +69,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/d3b66f0ad4e34a55b6ef91ab8487819313c000/75/a429b4e5/Component.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/Core/PlayerAttackController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/BehaviourTree/Leaf.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Utilities/YanarUtils.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Turret/TurretBrain.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Tentacle/MoveMousePos.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/Core/PlayerTelekinesisController.cs" root0="FORCE_HIGHLIGHTING" />
@@ -231,7 +212,8 @@
       <workItem from="1650018534196" duration="5117000" />
       <workItem from="1650110674209" duration="4842000" />
       <workItem from="1650133201936" duration="1982000" />
-      <workItem from="1650176882076" duration="4212000" />
+      <workItem from="1650176882076" duration="5373000" />
+      <workItem from="1650203137992" duration="2109000" />
     </task>
     <servers />
   </component>

@@ -56,6 +56,12 @@ namespace DenizYanar.PlayerSystem.Movement
         {
             base.PhysicsTick();
             
+            HandleAirStrafe();
+            HandleDive();
+        }
+
+        private void HandleAirStrafe()
+        {
             var horizontalKeyInput = _inputs.HorizontalMovement;
 
             // X
@@ -78,15 +84,18 @@ namespace DenizYanar.PlayerSystem.Movement
                     break;
                 }
             }
-
-
-
-            // Y
-            if(Mathf.Abs(_rb.velocity.y) < _maxYVelocity && _dive)
-                _rb.AddForce(new Vector2(0, _yAcceleration), ForceMode2D.Force);
-            
-            
         }
+
+        private void HandleDive()
+        {
+            // Y
+            if (VerticalSpeedLessThanMax() && PressedToDiveKey())
+                _rb.AddForce(new Vector2(0, _yAcceleration), ForceMode2D.Force);
+        }
+
+        private bool VerticalSpeedLessThanMax() => Mathf.Abs(_rb.velocity.y) < _maxYVelocity;
+
+        private bool PressedToDiveKey() => _dive;
 
         #endregion
 

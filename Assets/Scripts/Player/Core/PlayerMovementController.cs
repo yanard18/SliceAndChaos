@@ -45,7 +45,7 @@ namespace DenizYanar.PlayerSystem.Movement
         [SerializeField] private PlayerInputs _inputs;
         
         [Header("Player State Informer Channel")]
-        [SerializeField] private StringEventChannelSO _stateNameInformerEvent;
+        [SerializeField] private StringEventChannelSO _stateTitleEvent;
         
         [Header("Senses")]
         [SerializeField] private SenseEnginePlayer _jumpSense;
@@ -59,7 +59,7 @@ namespace DenizYanar.PlayerSystem.Movement
 
         #region Public Variables
 
-        public JumpData JumpDataInstance { get; private set; }
+        public JumpProperties JumpPropertiesInstance { get; private set; }
         public WallSlideData WallSlideDataInstance { get; private set; }
 
         #endregion
@@ -84,25 +84,31 @@ namespace DenizYanar.PlayerSystem.Movement
         {
             _collider = GetComponentInChildren<Collider2D>();
             _rb = GetComponent<Rigidbody2D>();
-
-            JumpDataInstance = new JumpData(2, 20, _rb);
-            WallSlideDataInstance = new WallSlideData(_rb, _collider);
             
+            SetupStateMachine();
+        }
+
+        private void SetupStateMachine()
+        {
+            JumpPropertiesInstance = new JumpProperties(2, 20, _rb);
+            WallSlideDataInstance = new WallSlideData(_rb, _collider);
+
             _stateMachine = new StateMachine();
 
-            _idle = new IdleState(_rb, nameInformerEvent: _stateNameInformerEvent, stateName: "Idle");
-            _move = new MoveState(_rb, _settings, _inputs, nameInformerEvent: _stateNameInformerEvent, stateName: "Move");
-            _jump = new JumpState(this, _jumpSense, nameInformerChannel: _stateNameInformerEvent, stateName: "Jump");
-            _land = new LandState(JumpDataInstance, _landSense, nameInformerEvent: _stateNameInformerEvent, stateName: "Land");
-            _slide = new WallSlideState(this, _settings, nameInformerEventChannel: _stateNameInformerEvent, stateName: "Wall Slide");
-            _air = new AirState(_rb, _settings, _inputs, nameInformerChannel: _stateNameInformerEvent, stateName: "At Air");
-            _shift = new ShiftState(_rb, _settings, _enterShiftSense, _leaveShiftSense, nameInformerEvent: _stateNameInformerEvent, stateName: "Shift");
+            _idle = new IdleState(_rb, nameInformerEvent: _stateTitleEvent, stateName: "Idle");
+            _move = new MoveState(_rb, _settings, _inputs, nameInformerEvent: _stateTitleEvent, stateName: "Move");
+            _jump = new JumpState(this, _jumpSense, nameInformerChannel: _stateTitleEvent, stateName: "Jump");
+            _land = new LandState(JumpPropertiesInstance, _landSense, nameInformerEvent: _stateTitleEvent, stateName: "Land");
+            _slide = new WallSlideState(this, _settings, nameInformerEventChannel: _stateTitleEvent, stateName: "Wall Slide");
+            _air = new AirState(_rb, _settings, _inputs, nameInformerChannel: _stateTitleEvent, stateName: "At Air");
+            _shift = new ShiftState(_rb, _settings, _enterShiftSense, _leaveShiftSense, nameInformerEvent: _stateTitleEvent,
+                stateName: "Shift");
             _teleport = new TeleportState(_rb, _settings, _inputs);
 
             _stateMachine.InitState(_idle);
 
             To(_idle, _move, HasMovementInput());
-            To(_move,_idle, HasNotMovementInput());
+            To(_move, _idle, HasNotMovementInput());
             To(_idle, _jump, CanJump());
             To(_move, _jump, CanJump());
             To(_idle, _air, NoMoreContactToGround());
@@ -119,11 +125,11 @@ namespace DenizYanar.PlayerSystem.Movement
             To(_shift, _teleport, () => false);
             To(_jump, _air, () => true);
 
-            void To(State from, State to, Func<bool> condition) => _stateMachine.AddTransition(from, to, condition);
-            
+            void To(State from, State to, Func<bool> condition) => _stateMachine.AddTransition(@from, to, condition);
+
             Func<bool> HasMovementInput() => () => Mathf.Abs(_inputs.HorizontalMovement) > 0;
             Func<bool> HasNotMovementInput() => () => _inputs.HorizontalMovement == 0;
-            Func<bool> CanJump() => () =>  _rememberedJumpRequest && JumpDataInstance.CanJump;
+            Func<bool> CanJump() => () => _rememberedJumpRequest && JumpPropertiesInstance.CanJump;
             Func<bool> WhenJumpKeyTriggered() => () => _rememberedJumpRequest;
             Func<bool> OnFallToGround() => () => IsTouchingToGround() != null && _rb.velocity.y <= 0;
             Func<bool> NoMoreContactToGround() => () => IsTouchingToGround() == null;
@@ -131,7 +137,6 @@ namespace DenizYanar.PlayerSystem.Movement
             Func<bool> NoContactToWall() => () => AngleOfContact() == null || AngleOfContact() != 0;
             Func<bool> OnSliceFinished() => () => _teleport.HasFinished;
             Func<bool> AlwaysTrue() => () => true;
-
         }
 
         private void Update() => _stateMachine.Tick();
@@ -234,6 +239,7 @@ namespace DenizYanar.PlayerSystem.Movement
 
         #endregion
         
+
     }
     
 }
