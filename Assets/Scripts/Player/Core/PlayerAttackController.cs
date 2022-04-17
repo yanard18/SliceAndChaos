@@ -11,7 +11,6 @@ namespace DenizYanar.PlayerSystem
         #region Private Variables
 
         private StateMachine _stateMachine;
-        private PlayerAnimationController _animationController;
         private Rigidbody2D _rb;
         private bool _hasAttackCooldown;
         
@@ -56,7 +55,6 @@ namespace DenizYanar.PlayerSystem
         private void Awake()
         {
             _stateMachine = new StateMachine();
-            _animationController = GetComponent<PlayerAnimationController>();
             _rb = GetComponent<Rigidbody2D>();
 
             _idle = new PlayerAttackIdleState();

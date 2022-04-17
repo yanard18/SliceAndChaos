@@ -16,7 +16,6 @@ namespace DenizYanar.PlayerSystem
 
         private Rigidbody2D _rb;
         private Collider2D _collider;
-        private PlayerAnimationController _animationController;
         private StateMachine _stateMachine;
         
         private bool _rememberedJumpRequest;
@@ -85,19 +84,18 @@ namespace DenizYanar.PlayerSystem
         {
             _collider = GetComponentInChildren<Collider2D>();
             _rb = GetComponent<Rigidbody2D>();
-            _animationController = GetComponent<PlayerAnimationController>();
-            
+
             JumpDataInstance = new JumpData(2, 20, _rb);
             WallSlideDataInstance = new WallSlideData(_rb, _collider);
             
             _stateMachine = new StateMachine();
 
             _idle = new PlayerMovementIdleState(_rb, nameInformerEvent: _stateNameInformerEvent, stateName: "Idle");
-            _move = new PlayerMovementMoveState(_rb, _settings, _inputs, _animationController, nameInformerEvent: _stateNameInformerEvent, stateName: "Move");
+            _move = new PlayerMovementMoveState(_rb, _settings, _inputs, nameInformerEvent: _stateNameInformerEvent, stateName: "Move");
             _jump = new PlayerMovementJumpState(this, _jumpSense, nameInformerChannel: _stateNameInformerEvent, stateName: "Jump");
             _land = new PlayerMovementLandState(JumpDataInstance, _landSense, nameInformerEvent: _stateNameInformerEvent, stateName: "Land");
-            _slide = new PlayerMovementWallSlideState(this, _settings, _animationController, nameInformerEventChannel: _stateNameInformerEvent, stateName: "Wall Slide");
-            _air = new PlayerMovementAirState(_rb, _settings, _inputs, _animationController, nameInformerChannel: _stateNameInformerEvent, stateName: "At Air");
+            _slide = new PlayerMovementWallSlideState(this, _settings, nameInformerEventChannel: _stateNameInformerEvent, stateName: "Wall Slide");
+            _air = new PlayerMovementAirState(_rb, _settings, _inputs, nameInformerChannel: _stateNameInformerEvent, stateName: "At Air");
             _shift = new PlayerMovementShiftState(_rb, _settings, _enterShiftSense, _leaveShiftSense, nameInformerEvent: _stateNameInformerEvent, stateName: "Shift");
             _slice = new PlayerMovementSliceState(_rb, _settings, _inputs);
 

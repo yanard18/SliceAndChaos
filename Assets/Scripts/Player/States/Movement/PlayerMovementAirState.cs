@@ -10,7 +10,6 @@ namespace DenizYanar.PlayerSystem
 
         private readonly Rigidbody2D _rb;
         private readonly PlayerInputs _inputs;
-        private readonly PlayerAnimationController _animationController;
 
         private readonly float _xAcceleration;
         private readonly float _maxXVelocity;
@@ -22,13 +21,12 @@ namespace DenizYanar.PlayerSystem
         #region Constructor
         
         
-        public PlayerMovementAirState(Rigidbody2D rb, PlayerSettings settings, PlayerInputs inputs, PlayerAnimationController animationController, StringEventChannelSO nameInformerChannel = null, [CanBeNull] string stateName = null)
+        public PlayerMovementAirState(Rigidbody2D rb, PlayerSettings settings, PlayerInputs inputs, StringEventChannelSO nameInformerChannel = null, [CanBeNull] string stateName = null)
         {
             _stateName = stateName ?? GetType().Name;
             _stateNameInformerEventChannel = nameInformerChannel;
             _rb = rb;
             _inputs = inputs;
-            _animationController = animationController;
 
             _xAcceleration = settings.AirStrafeXAcceleration;
             _maxXVelocity = settings.AirStrafeMaxXVelocity;
@@ -58,10 +56,8 @@ namespace DenizYanar.PlayerSystem
         {
             base.PhysicsTick();
             
-            //var sKeyInput = Mathf.Sign(Input.GetAxisRaw("Vertical")) < 0 ? 1 : 0;
             var horizontalKeyInput = _inputs.HorizontalMovement;
-            _animationController.HandleDirection(horizontalKeyInput);
-            
+
             // X
 
 

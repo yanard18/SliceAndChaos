@@ -81,7 +81,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 510851999583650134}
-  m_LocalRotation: {x: 0, y: 0, z: 0.99101377, w: -0.13376012}
+  m_LocalRotation: {x: 0, y: 0, z: 0.9985209, w: 0.054369826}
   m_LocalPosition: {x: 0.040329985, y: 0.10011805, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -113,7 +113,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 972800832995635722}
-  m_LocalRotation: {x: -0, y: -0, z: 0.27972347, w: 0.9600806}
+  m_LocalRotation: {x: -0, y: -0, z: 0.10137428, w: 0.9948484}
   m_LocalPosition: {x: 0.18840481, y: -0.00093291025, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -255,7 +255,6 @@ GameObject:
   - component: {fileID: 1008661422985328068}
   - component: {fileID: 1008661422985328071}
   - component: {fileID: 3552776220282073306}
-  - component: {fileID: -8457966714009948734}
   - component: {fileID: 3552776220282073126}
   - component: {fileID: 3552776220282073113}
   - component: {fileID: 1008661422985328069}
@@ -331,19 +330,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &-8457966714009948734
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1008661422985328073}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18d54f03a17964f4398bf0151fe562f9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _playerBody: {fileID: 1008661422985328073}
 --- !u!114 &3552776220282073126
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -356,7 +342,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18c0401ebb0c10c46a1cfc5ba8b868ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: Player
   _deathSense: {fileID: 3552776219876277578}
   _gameOverEvent: {fileID: 11400000, guid: c38f8415cb250f4409c1208692a25e02, type: 2}
 --- !u!114 &3552776220282073113
@@ -374,6 +359,8 @@ MonoBehaviour:
   _health: 100
   _maxHealth: 100
   _immunityDuration: 1
+  _damageSense: {fileID: 0}
+  _deathSense: {fileID: 0}
 --- !u!114 &1008661422985328069
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -472,7 +459,6 @@ GameObject:
   - component: {fileID: 1008661423400421184}
   - component: {fileID: 1008661423400421246}
   - component: {fileID: 1008661423400421185}
-  - component: {fileID: 3552776219866694296}
   m_Layer: 0
   m_Name: Jump Sense
   m_TagString: Untagged
@@ -509,7 +495,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SenseList:
   - {fileID: 1008661423400421185}
-  - {fileID: 3552776219866694296}
 --- !u!114 &1008661423400421185
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -533,22 +518,6 @@ MonoBehaviour:
     SpatialBlend: 0
     DopplerLevel: 0
     StereoPan: 0
---- !u!114 &3552776219866694296
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1008661423400421187}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf7016b3079d76d458ef9bdaa5847549, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Label: Trigger Animation
-  Color: {r: 0.5943396, g: 0.27754536, b: 0.27754536, a: 1}
-  _triggerName: Jump
-  _animator: {fileID: 3552776220282073306}
 --- !u!1 &1080393913066563695
 GameObject:
   m_ObjectHideFlags: 0
@@ -572,7 +541,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1080393913066563695}
-  m_LocalRotation: {x: 0, y: 0, z: 0.9798502, w: -0.19973402}
+  m_LocalRotation: {x: 0, y: 0, z: 0.9999787, w: 0.0065325187}
   m_LocalPosition: {x: 0.04032996, y: -0.1250642, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -604,7 +573,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1192704180486408848}
-  m_LocalRotation: {x: 0, y: 0, z: -0.45396292, w: 0.89102054}
+  m_LocalRotation: {x: 0, y: 0, z: -0.10052166, w: 0.9949349}
   m_LocalPosition: {x: 0.16038278, y: 0.00000008747478, z: 0}
   m_LocalScale: {x: 0.9999999, y: 0.9999999, z: 1}
   m_ConstrainProportionsScale: 0
@@ -817,8 +786,8 @@ MonoBehaviour:
   - {fileID: 6637007074325413258}
   - {fileID: 4722497414624503072}
   m_Bounds:
-    m_Center: {x: 0.024663858, y: -0.020548731, z: 0}
-    m_Extent: {x: 0.061851516, y: 0.17673051, z: 0}
+    m_Center: {x: -0.00000009872019, y: -0.000000044703484, z: 0}
+    m_Extent: {x: 0.025000215, y: 0.18863651, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
@@ -993,7 +962,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3552776220023608879}
   - component: {fileID: 3552776220023608877}
-  - component: {fileID: 3552776220023608876}
   - component: {fileID: 3552776220023608878}
   m_Layer: 0
   m_Name: Enter Shift Sense
@@ -1030,24 +998,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SenseList:
-  - {fileID: 3552776220023608876}
   - {fileID: 3552776220023608878}
---- !u!114 &3552776220023608876
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3552776220023608874}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf7016b3079d76d458ef9bdaa5847549, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Label: Trigger Animation
-  Color: {r: 0.6320754, g: 0.2236116, b: 0.2236116, a: 1}
-  _triggerName: Enter Shift
-  _animator: {fileID: 3552776220282073306}
 --- !u!114 &3552776220023608878
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1074,7 +1025,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3552776220777306525}
   - component: {fileID: 3552776220777306523}
-  - component: {fileID: 3552776220777306522}
   m_Layer: 0
   m_Name: Land Sense
   m_TagString: Untagged
@@ -1109,24 +1059,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7871e262f45be1748a8fe5d425934826, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SenseList:
-  - {fileID: 3552776220777306522}
---- !u!114 &3552776220777306522
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3552776220777306520}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf7016b3079d76d458ef9bdaa5847549, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Label: Trigger Animation
-  Color: {r: 0.6981132, g: 0.3523496, b: 0.3523496, a: 1}
-  _triggerName: Land
-  _animator: {fileID: 3552776220282073306}
+  SenseList: []
 --- !u!1 &3552776221575650351
 GameObject:
   m_ObjectHideFlags: 0
@@ -1137,7 +1070,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3552776221575650336}
   - component: {fileID: 3552776221575650350}
-  - component: {fileID: 3552776221575650337}
   m_Layer: 0
   m_Name: Leave Shift Sense
   m_TagString: Untagged
@@ -1172,24 +1104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7871e262f45be1748a8fe5d425934826, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SenseList:
-  - {fileID: 3552776221575650337}
---- !u!114 &3552776221575650337
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3552776221575650351}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf7016b3079d76d458ef9bdaa5847549, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Label: Trigger Animation
-  Color: {r: 0.6320754, g: 0.2236116, b: 0.2236116, a: 1}
-  _triggerName: Leave Shift
-  _animator: {fileID: 3552776220282073306}
+  SenseList: []
 --- !u!1 &3679233595040549845
 GameObject:
   m_ObjectHideFlags: 0
@@ -6220,8 +6135,8 @@ MonoBehaviour:
   - {fileID: 4159413881167959650}
   - {fileID: 2440412522463263501}
   m_Bounds:
-    m_Center: {x: 0.014850549, y: -0.016352922, z: 0}
-    m_Extent: {x: 0.07106894, y: 0.1880793, z: 0}
+    m_Center: {x: 0.0003998652, y: 0.000000044703484, z: 0}
+    m_Extent: {x: 0.058659114, y: 0.20000009, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
@@ -6337,7 +6252,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5162379403099660547}
-  m_LocalRotation: {x: -0, y: -0, z: 0.21347491, w: 0.97694856}
+  m_LocalRotation: {x: -0, y: -0, z: -0.0000021606681, w: 1}
   m_LocalPosition: {x: 0.17, y: -0.002, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -6838,8 +6753,8 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 3246631126532633432}
   m_Bounds:
-    m_Center: {x: 0.06944105, y: -0.08407503, z: 0}
-    m_Extent: {x: 0.0962293, y: 0.09511824, z: 0}
+    m_Center: {x: 0.000004515052, y: 0.000014081597, z: 0}
+    m_Extent: {x: 0.09083636, y: 0.09077727, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
@@ -6944,8 +6859,8 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 8974382574247578527}
   m_Bounds:
-    m_Center: {x: 0.07394239, y: -0.046107918, z: 0}
-    m_Extent: {x: 0.42603818, y: 0.42603818, z: 0}
+    m_Center: {x: -0.000000059604645, y: 0.00000023841858, z: 0}
+    m_Extent: {x: 0.35909092, y: 0.35909092, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
@@ -7050,7 +6965,7 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 8037464527774933731}
   m_Bounds:
-    m_Center: {x: 0.0006840825, y: -0.037342876, z: 0}
+    m_Center: {x: 0.0006840825, y: -0.000036150217, z: 0}
     m_Extent: {x: 0.26749772, y: 0.34769094, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
@@ -7242,7 +7157,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9197798968262488706}
-  m_LocalRotation: {x: 0, y: 0, z: -0.45266926, w: 0.89167845}
+  m_LocalRotation: {x: 0, y: 0, z: -0.046987604, w: 0.9988955}
   m_LocalPosition: {x: 0.16954167, y: 0.00000031912455, z: 0}
   m_LocalScale: {x: 0.99999976, y: 0.99999976, z: 1}
   m_ConstrainProportionsScale: 0

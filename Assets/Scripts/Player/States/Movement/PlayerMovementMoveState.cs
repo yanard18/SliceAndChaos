@@ -11,20 +11,18 @@ namespace DenizYanar.PlayerSystem
         private readonly float _acceleration;
         private readonly Rigidbody2D _rb;
         private readonly PlayerInputs _inputs;
-        private readonly PlayerAnimationController _animationController;
-        
+
         private float _xVelocity;
 
 
         #region Constructor
 
-        public PlayerMovementMoveState(Rigidbody2D rb, PlayerSettings settings, PlayerInputs inputs, PlayerAnimationController animationController, StringEventChannelSO nameInformerEvent = null, [CanBeNull] string stateName = null)
+        public PlayerMovementMoveState(Rigidbody2D rb, PlayerSettings settings, PlayerInputs inputs, StringEventChannelSO nameInformerEvent = null, [CanBeNull] string stateName = null)
         {
             _stateName = stateName ?? GetType().Name;
             _stateNameInformerEventChannel = nameInformerEvent;
             _rb = rb;
             _inputs = inputs;
-            _animationController = animationController;
 
             _desiredXVelocity = settings.DesiredMovementVelocity;
             _acceleration = settings.MovementAcceleration;
@@ -56,8 +54,6 @@ namespace DenizYanar.PlayerSystem
                 _desiredXVelocity * movementDirection,
                 Time.fixedDeltaTime * _acceleration);
 
-            _animationController.HandleDirection(_xVelocity);
-            
             _rb.velocity = new Vector2(_xVelocity, _rb.velocity.y);
         }
 
