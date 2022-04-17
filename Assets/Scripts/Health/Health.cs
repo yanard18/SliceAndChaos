@@ -7,18 +7,21 @@ namespace DenizYanar.Core
 {
     public class Health : MonoBehaviour
     {
+        private bool _hasImmunity;
+
+        [Header("Health Configurations")]
+        [Range(0, 9999)] [SerializeField] private float _health = 100.0f;
+        [Range(0, 9999)] [SerializeField] private float _maxHealth = 100.0f;
+        [Range(0, 5)] [SerializeField] private float _immunityDuration;
+        
+        [Header("Sense Players")]
+        [SerializeField] private SenseEnginePlayer _damageSense;
+        [SerializeField] private SenseEnginePlayer _deathSense;
+
         public event Action<Damage> OnDeath;
         public event Action<Damage> OnDamage;
         
-        [Range(0, 9999)] [SerializeField] private float _health = 100.0f;
-        [Range(0, 9999)] [SerializeField] private float _maxHealth = 100.0f;
-        [SerializeField] private float _immunityDuration;
-        [SerializeField] private SenseEnginePlayer _damageSense;
-        [SerializeField] private SenseEnginePlayer _deathSense;
         
-        private bool _hasImmunity;
-
-
 
         public void TakeDamage(Damage damage)
         {

@@ -1,33 +1,36 @@
 using System;
-using DenizYanar.BodySystem;
+using DenizYanar.Core;
 using UnityEngine;
 
 namespace DenizYanar.EnemySystem
 {
     
-    [RequireComponent(typeof(EnemyBehaviour), typeof(BodyController))]
-    public class Enemy : MonoBehaviour
+    [RequireComponent(typeof(Health))]
+    public abstract class Enemy : MonoBehaviour
     {
-        private BodyController _body;
+        private Health _health;
         
         protected virtual void Awake()
         {
-            _body = GetComponent<BodyController>();
+            _health = GetComponent<Health>();
         }
-
+        
         protected virtual void OnEnable()
         {
-            _body.OnBodyDestroyed += Death;
+            _health.OnDamage += OnTakeDamage;
+            _health.OnDeath += OnDeath;
         }
 
         protected virtual void OnDisable()
         {
-            _body.OnBodyDestroyed -= Death;
+            _health.OnDamage -= OnTakeDamage;
+            _health.OnDeath -= OnDeath;
         }
 
-        protected virtual void Death()
-        {
-            Debug.Log("Destroyed");
-        }
+
+
+        protected abstract void OnDeath(Damage damage);
+
+        protected abstract void OnTakeDamage(Damage damage);
     }
 }

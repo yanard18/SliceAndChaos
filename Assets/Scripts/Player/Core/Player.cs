@@ -1,3 +1,4 @@
+using System;
 using DenizYanar.Core;
 using DenizYanar.Events;
 using DenizYanar.External.Sense_Engine.Scripts.Core;
@@ -11,7 +12,14 @@ namespace DenizYanar.PlayerSystem
         [SerializeField] private SenseEnginePlayer _deathSense;
         [SerializeField] private VoidEventChannelSO _gameOverEvent;
 
+        private static Player _instance;
         
+        private void Awake()
+        {
+
+        }
+
+
         /*
         protected override void Death(Damage damage)
         {

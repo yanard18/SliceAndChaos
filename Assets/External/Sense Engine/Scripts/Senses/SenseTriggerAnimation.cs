@@ -14,8 +14,7 @@ namespace DenizYanar.External.Sense_Engine.Scripts.Senses
         {
             Label = "Trigger Animation";
         }
-        
-            
+
         public override void Play()
         {  
             _animator.SetTrigger(_triggerName);
