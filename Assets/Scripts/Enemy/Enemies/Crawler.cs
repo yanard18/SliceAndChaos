@@ -1,5 +1,6 @@
 using DenizYanar.Core;
 using DenizYanar.PlayerSystem;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace DenizYanar.EnemySystem
@@ -9,6 +10,9 @@ namespace DenizYanar.EnemySystem
     {
         private Rigidbody2D _rb;
         private CrawlerBehaviour _behaviour;
+        
+        [OnStateUpdate("LoadSettings")]
+        [SerializeField] private CrawlerSettings _settings;
 
         protected override void Awake()
         {
@@ -46,7 +50,7 @@ namespace DenizYanar.EnemySystem
             Vector2 dir = p.transform.position - transform.position;
             dir = Vector2.ClampMagnitude(dir, 10f);
             
-            var jumpDirection = new Vector2(dir.normalized.x * 20f, 15f);
+            var jumpDirection = new Vector2(dir.normalized.x * _settings.HorizontalJumpForce, _settings.VerticalJumpForce);
             
             _rb.AddForce(jumpDirection, ForceMode2D.Impulse);
         }

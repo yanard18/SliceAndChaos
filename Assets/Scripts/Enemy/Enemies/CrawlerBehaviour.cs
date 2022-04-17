@@ -1,16 +1,20 @@
 using System;
 using DenizYanar.BehaviourTreeAI;
+using UnityEngine;
 
 namespace DenizYanar.EnemySystem
 {
     public class CrawlerBehaviour : EnemyBehaviour
     {
-        private float _waitCooldown = 3.0f;
+        private float _jumpCooldown;
+        
+        [SerializeField] private CrawlerSettings _settings;
 
         public event Action OnAttack;
 
         private void Awake()
         {
+            _jumpCooldown = _settings.JumpCooldown;
             SetupTree();
         }
 
@@ -31,14 +35,14 @@ namespace DenizYanar.EnemySystem
 
         private Node.EStatus Wait()
         {
-            _waitCooldown -= Tree.TickRate;
-            return _waitCooldown <= 0 ? Node.EStatus.SUCCESS : Node.EStatus.RUNNING;
+             _jumpCooldown -= Tree.TickRate;
+            return _jumpCooldown <= 0 ? Node.EStatus.SUCCESS : Node.EStatus.RUNNING;
         }
 
         private Node.EStatus Attack()
         {
             OnAttack?.Invoke();
-            _waitCooldown = 3.0f;
+            _jumpCooldown = _settings.JumpCooldown;
             return Node.EStatus.SUCCESS;
         }
 

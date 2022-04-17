@@ -1,5 +1,5 @@
 ﻿using DenizYanar.FSM;
-using DenizYanar.Inputs;
+using DenizYanar.YanarPro;
 using UnityEngine;
 
 namespace DenizYanar.PlayerSystem.Movement
@@ -8,19 +8,17 @@ namespace DenizYanar.PlayerSystem.Movement
     {
 
         private readonly Rigidbody2D _rb;
-        private readonly PlayerInputs _inputs;
-        private readonly float _teleportDistance;
+        private readonly PlayerSettings _settings;
         private readonly float _speedReductionAfterTeleport;
         
         public bool HasFinished;
 
         #region Constructor
 
-        public TeleportState(Rigidbody2D rb, PlayerSettings settings, PlayerInputs inputs)
+        public TeleportState(Rigidbody2D rb, PlayerSettings settings)
         {
             _rb = rb;
-            _inputs = inputs;
-            _teleportDistance = settings.SliceTeleportDistance;
+            _settings = settings;
             _speedReductionAfterTeleport = settings.SliceSpeedReductionAfterTeleport;
         }
 
@@ -31,9 +29,25 @@ namespace DenizYanar.PlayerSystem.Movement
         public override void OnEnter()
         {
             base.OnEnter();
-            var direction = _rb.velocity.normalized;
-            _rb.MovePosition(_rb.position + direction * _teleportDistance);
+            var velocityDirection = _rb.velocity.normalized;
+            var desiredPosition = _rb.position + velocityDirection * _settings.SliceTeleportDistance;
+
+
+
+
+            if (IsThereObstacleBetweenPositions(_rb.position, desiredPosition))
+                _rb.MovePosition(desiredPosition);
+            else
+                _rb.position = desiredPosition;
+
             HasFinished = true;
+        }
+
+        private bool IsThereObstacleBetweenPositions(Vector2 startPos, Vector2 endPos)
+        {
+            var dir= YanarUtils.FindDirectionBetweenTwoPositions(startPos, endPos);
+            var hit = Physics2D.Raycast(startPos, dir.normalized, dir.magnitude, _settings.ObstacleLayerMask);
+            return hit;
         }
 
         public override void OnExit()

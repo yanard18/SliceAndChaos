@@ -20,9 +20,9 @@ namespace DenizYanar.YanarPro
             return angle;
         }
 
-        public static Vector2 FindDirectionBetweenTwoPositions(Vector2 pos1, Vector2 pos2)
+        public static Vector2 FindDirectionBetweenTwoPositions(Vector2 startPosition, Vector2 endPosition)
         {
-            return pos2 - pos1;
+            return endPosition - startPosition;
         }
     }
 }

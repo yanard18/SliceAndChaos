@@ -17,7 +17,7 @@ namespace DenizYanar
             var tree = new OdinMenuTree();
 
             
-            tree.AddAllAssetsAtPath("Enemy Data", "Assets/Data/Enemy", typeof(EnemyData));
+            tree.AddAllAssetsAtPath("Enemy Data", "Assets/Data/Enemy", typeof(EnemySettings));
             
             return tree;
         }

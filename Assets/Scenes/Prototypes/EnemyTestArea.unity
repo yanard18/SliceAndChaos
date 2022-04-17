@@ -1609,7 +1609,7 @@ Transform:
   m_GameObject: {fileID: 806975690}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 27.089739, y: -1.373071, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3.0418, y: 3.0418, z: 3.0418}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1812827477}
@@ -1651,6 +1651,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7c28ac765410594690612d52fd09dc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _settings: {fileID: 11400000, guid: f5d0bea2cd402334f94852cceca2cb77, type: 2}
 --- !u!114 &806975695
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1663,6 +1664,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0739523cac061f47a1e20053a806bca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _settings: {fileID: 11400000, guid: f5d0bea2cd402334f94852cceca2cb77, type: 2}
 --- !u!114 &806975696
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1675,8 +1677,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c2797a9c15260f45a2ca1dae53a57b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: 100
-  _maxHealth: 100
+  _health: 30
+  _maxHealth: 30
   _immunityDuration: 0
   _damageSense: {fileID: 0}
   _deathSense: {fileID: 1049160469}

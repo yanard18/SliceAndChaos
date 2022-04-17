@@ -3,14 +3,17 @@
   <component name="ChangeListManager">
     <list default="true" id="ff8d2e12-2b4a-4fab-8f24-02aceb228cc7" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.SliceAndChaos/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SliceAndChaos/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Prototypes/EnemyTestArea.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Prototypes/EnemyTestArea.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Editor/EnemyDataEditor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Editor/EnemyDataEditor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/Enemies/Crawler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/Enemies/Crawler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/Enemies/CrawlerBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/Enemies/CrawlerBehaviour.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/Enemy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/Enemy.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/EnemyData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/EnemySettings.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/EnemyData.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Health/Health.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Health/Health.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Core/PlayerMovementController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Core/PlayerMovementController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/States/Movement/AirState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/States/Movement/AirState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/States/Movement/IdleState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/States/Movement/IdleState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/States/Movement/JumpState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/States/Movement/JumpState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/States/Movement/LandState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/States/Movement/LandState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/States/Movement/ShiftState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/States/Movement/ShiftState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/States/Movement/WallSlideState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/States/Movement/WallSlideState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2022.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2022.dwlt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/States/Movement/TeleportState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/States/Movement/TeleportState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utilities/YanarUtils.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utilities/YanarUtils.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,7 +66,9 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Tentacle/TentacleBodyRotation.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/d3b66f0ad4e34a55b6ef91ab8487819313c000/1f/7aedee0f/GameObject.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Guns/GunInputReader.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Enemy/Enemies/CrawlerSettings.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Enemy/EnemyBehaviour.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Enemy/EnemySettings.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Box/Box.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Telekinesis/TelekinesisObject.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/d3b66f0ad4e34a55b6ef91ab8487819313c000/75/a429b4e5/Component.cs" root0="SKIP_HIGHLIGHTING" />
@@ -213,7 +218,8 @@
       <workItem from="1650110674209" duration="4842000" />
       <workItem from="1650133201936" duration="1982000" />
       <workItem from="1650176882076" duration="5373000" />
-      <workItem from="1650203137992" duration="2109000" />
+      <workItem from="1650203137992" duration="3495000" />
+      <workItem from="1650206714812" duration="4873000" />
     </task>
     <servers />
   </component>

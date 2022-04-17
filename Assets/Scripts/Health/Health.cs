@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using DenizYanar.External.Sense_Engine.Scripts.Core;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace DenizYanar.Core
@@ -10,8 +11,8 @@ namespace DenizYanar.Core
         private bool _hasImmunity;
 
         [Header("Health Configurations")]
-        [Range(0, 9999)] [SerializeField] private float _health = 100.0f;
         [Range(0, 9999)] [SerializeField] private float _maxHealth = 100.0f;
+        [ProgressBar(0,1000)] [SerializeField] private float _health = 100.0f;
         [Range(0, 5)] [SerializeField] private float _immunityDuration;
         
         [Header("Sense Players")]
@@ -20,9 +21,15 @@ namespace DenizYanar.Core
 
         public event Action<Damage> OnDeath;
         public event Action<Damage> OnDamage;
-        
-        
 
+
+
+        public void SetupHealth(float maxHealth)
+        {
+            _maxHealth = maxHealth;
+            _health = maxHealth;
+        }
+        
         public void TakeDamage(Damage damage)
         {
             if(AlreadyDeath) return;
