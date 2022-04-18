@@ -45,9 +45,9 @@ namespace DenizYanar.EnemySystem
 
         private void Jump()
         {
-            var p = GameObject.FindObjectOfType<Player>();
+            var player = Player.Instance;
 
-            Vector2 dir = p.transform.position - transform.position;
+            Vector2 dir = player.transform.position - transform.position;
             dir = Vector2.ClampMagnitude(dir, 10f);
             
             var jumpDirection = new Vector2(dir.normalized.x * _settings.HorizontalJumpForce, _settings.VerticalJumpForce);

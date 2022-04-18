@@ -196,7 +196,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1008661422195125065}
   - component: {fileID: 1008661422195125062}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -280,8 +280,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2365330362831855206}
-  - {fileID: 1008661422195125065}
   - {fileID: 4903314848109408020}
+  - {fileID: 1008661422195125065}
   - {fileID: 1008661423268689545}
   - {fileID: 3552776219792438846}
   - {fileID: 5733022014090201856}
@@ -356,8 +356,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c2797a9c15260f45a2ca1dae53a57b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: 100
   _maxHealth: 100
+  _health: 100
   _immunityDuration: 1
   _damageSense: {fileID: 0}
   _deathSense: {fileID: 0}
@@ -375,7 +375,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _settings: {fileID: 11400000, guid: d938edc4172181545985124f4fb0933a, type: 2}
   _inputs: {fileID: 11400000, guid: 19cff4123c4ee15498d6229cf530e6b2, type: 2}
-  _stateNameInformerEvent: {fileID: 11400000, guid: a4f433397220c1345b68ba4e43bd55ee, type: 2}
+  _stateTitleEvent: {fileID: 0}
   _jumpSense: {fileID: 1008661423400421246}
   _landSense: {fileID: 3552776220777306523}
   _enterShiftSense: {fileID: 3552776220023608877}
@@ -6150,6 +6150,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4903314848109408020}
   - component: {fileID: 5491844853141674}
+  - component: {fileID: 2308672515012993387}
   m_Layer: 8
   m_Name: Hitbox
   m_TagString: Player
@@ -6198,6 +6199,20 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.62, y: 1.6}
   m_EdgeRadius: 0
+--- !u!114 &2308672515012993387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4155884077038722290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23c388cb59e918949b7fbf9d4cee4f1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Owner: {fileID: 1008661422985328073}
+  HealthOfHitBox: {fileID: 3552776220282073113}
 --- !u!1 &4965333477486527957
 GameObject:
   m_ObjectHideFlags: 0

@@ -81,8 +81,9 @@ namespace DenizYanar.PlayerSystem.Attacks
             {
                 if (IsTargetEqualToPlayer(enemy.transform)) continue;
                 if (IsThereWallBetween(playerPosition, enemy.transform.position, _settings.ObstacleLayerMask)) continue;
-                if (HasNotHealth(enemy, out var health)) continue;
+                if (HasNotHitBox(enemy, out var hitBox)) continue;
 
+                var health = hitBox.HealthOfHitBox;
                 
                 // ReSharper disable once Unity.PerformanceCriticalCodeInvocation
                 health.TakeDamage(new Damage(_settings.AttackDamage, _player.gameObject));
@@ -122,10 +123,10 @@ namespace DenizYanar.PlayerSystem.Attacks
             _rb.AddForce(attackDir * _settings.AttackPushForce, ForceMode2D.Impulse);
         }
 
-        private static bool HasNotHealth(Collider2D enemy, out Health health)
+        private static bool HasNotHitBox(Collider2D enemy, out HitBox hitBox)
         {
-            health = enemy.transform.root.GetComponent<Health>();
-            return health == null;
+            hitBox = enemy.GetComponent<HitBox>();
+            return hitBox == null;
         }
 
 

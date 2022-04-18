@@ -32,6 +32,8 @@ namespace DenizYanar.PlayerSystem
             _health.OnDeath -= Death;
         }
 
+        
+        
 
         private void Death(Damage damage)
         {
