@@ -38,8 +38,8 @@ namespace DenizYanar.YanarPro
         {
             public readonly Action Method;
             public readonly float RoutineDuration;
-            
-            public Sequence(Action method, float routineDuration)
+
+            protected Sequence(Action method, float routineDuration)
             {
                 Method = method;
                 RoutineDuration = routineDuration;
