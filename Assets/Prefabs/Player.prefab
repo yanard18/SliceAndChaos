@@ -196,7 +196,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1008661422195125065}
   - component: {fileID: 1008661422195125062}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -375,7 +375,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _settings: {fileID: 11400000, guid: d938edc4172181545985124f4fb0933a, type: 2}
   _inputs: {fileID: 11400000, guid: 19cff4123c4ee15498d6229cf530e6b2, type: 2}
-  _stateTitleEvent: {fileID: 0}
+  _stateTitleEvent: {fileID: 11400000, guid: a4f433397220c1345b68ba4e43bd55ee, type: 2}
+  _collider: {fileID: 1008661422195125062}
   _jumpSense: {fileID: 1008661423400421246}
   _landSense: {fileID: 3552776220777306523}
   _enterShiftSense: {fileID: 3552776220023608877}

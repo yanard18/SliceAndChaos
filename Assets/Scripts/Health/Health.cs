@@ -8,63 +8,63 @@ namespace DenizYanar.Core
 {
     public class Health : MonoBehaviour
     {
-        private bool _hasImmunity;
+        private bool m_bHasImmunity;
 
         [Header("Health Configurations")]
-        [Range(0, 9999)] [SerializeField] private float _maxHealth = 100.0f;
-        [ProgressBar(0,1000)] [SerializeField] private float _health = 100.0f;
-        [Range(0, 5)] [SerializeField] private float _immunityDuration;
+        [Range(0, 9999)] [SerializeField] private float m_MaxHealth = 100.0f;
+        [ProgressBar(0,1000)] [SerializeField] private float m_Health = 100.0f;
+        [Range(0, 5)] [SerializeField] private float m_ImmunityDuration;
         
         [Header("Sense Players")]
-        [SerializeField] private SenseEnginePlayer _damageSense;
-        [SerializeField] private SenseEnginePlayer _deathSense;
+        [SerializeField] private SenseEnginePlayer m_sepDamage;
+        [SerializeField] private SenseEnginePlayer m_sepDeath;
 
-        public event Action<Damage> OnDeath;
-        public event Action<Damage> OnDamage;
+        public event Action<Damage> e_OnDeath;
+        public event Action<Damage> e_OnDamage;
 
 
 
         public void SetupHealth(float maxHealth)
         {
-            _maxHealth = maxHealth;
-            _health = maxHealth;
+            m_MaxHealth = maxHealth;
+            m_Health = maxHealth;
         }
         
         public void TakeDamage(Damage damage)
         {
             if(AlreadyDeath) return;
-            if(_hasImmunity) return;
+            if(m_bHasImmunity) return;
 
-            _health -= damage.DamageValue;
-            OnDamage?.Invoke(damage);
-            _damageSense.PlayIfExist();
+            m_Health -= damage.DamageValue;
+            e_OnDamage?.Invoke(damage);
+            m_sepDamage.PlayIfExist();
             
-            if (HasImmunityAbility) StartCoroutine(StartImmunity(_immunityDuration));
+            if (HasImmunityAbility) StartCoroutine(StartImmunity(m_ImmunityDuration));
             if(IsHealthLessThanZero) Death(damage);
         }
 
         private void Death(Damage damage)
         {
-            _deathSense.PlayIfExist();
-            OnDeath?.Invoke(damage);
+            m_sepDeath.PlayIfExist();
+            e_OnDeath?.Invoke(damage);
         }
 
         public void RestoreHealth(float value)
         {
-            _health += Mathf.Abs(value);
-            _health = Mathf.Clamp(_health, 0, _maxHealth);
+            m_Health += Mathf.Abs(value);
+            m_Health = Mathf.Clamp(m_Health, 0, m_MaxHealth);
         }
 
         private IEnumerator StartImmunity(float duration)
         {
-            _hasImmunity = true;
+            m_bHasImmunity = true;
             yield return new WaitForSeconds(duration);
-            _hasImmunity = false;
+            m_bHasImmunity = false;
         }
         
-        private bool IsHealthLessThanZero => _health <= 0;
+        private bool IsHealthLessThanZero => m_Health <= 0;
 
-        private bool HasImmunityAbility => _immunityDuration > 0;
-        private bool AlreadyDeath => _health <= 0;
+        private bool HasImmunityAbility => m_ImmunityDuration > 0;
+        private bool AlreadyDeath => m_Health <= 0;
     }
 }

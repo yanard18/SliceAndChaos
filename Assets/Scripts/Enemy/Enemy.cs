@@ -16,14 +16,14 @@ namespace DenizYanar.EnemySystem
         
         protected virtual void OnEnable()
         {
-            _health.OnDamage += OnTakeDamage;
-            _health.OnDeath += OnDeath;
+            _health.e_OnDamage += EOnTakeDamage;
+            _health.e_OnDeath += EOnDeath;
         }
 
         protected virtual void OnDisable()
         {
-            _health.OnDamage -= OnTakeDamage;
-            _health.OnDeath -= OnDeath;
+            _health.e_OnDamage -= EOnTakeDamage;
+            _health.e_OnDeath -= EOnDeath;
         }
 
         protected virtual void LoadSettings(EnemySettings settings)
@@ -33,8 +33,8 @@ namespace DenizYanar.EnemySystem
 
 
 
-        protected abstract void OnDeath(Damage damage);
+        protected abstract void EOnDeath(Damage damage);
 
-        protected abstract void OnTakeDamage(Damage damage);
+        protected abstract void EOnTakeDamage(Damage damage);
     }
 }

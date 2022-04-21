@@ -15,7 +15,6 @@ namespace DenizYanar.PlayerSystem.Movement
         #region Private Variables
 
         private Rigidbody2D _rb;
-        private Collider2D _collider;
         private StateMachine _stateMachine;
         
         private bool _rememberedJumpRequest;
@@ -31,7 +30,7 @@ namespace DenizYanar.PlayerSystem.Movement
         private TeleportState _teleport;
         private AirState _air;
         private LandState _land;
-        private WallSlideState _slide;
+        private WallSlideState _wallSlide;
         
 
         #endregion
@@ -46,6 +45,9 @@ namespace DenizYanar.PlayerSystem.Movement
         
         [Header("Player State Informer Channel")]
         [SerializeField] private StringEventChannelSO _stateTitleEvent;
+        
+        [Header("Dependencies")]
+        [SerializeField] private Collider2D _collider;
         
         [Header("Senses")]
         [SerializeField] private SenseEnginePlayer _jumpSense;
@@ -82,7 +84,6 @@ namespace DenizYanar.PlayerSystem.Movement
 
         private void Awake()
         {
-            _collider = GetComponentInChildren<Collider2D>();
             _rb = GetComponent<Rigidbody2D>();
             
             SetupStateMachine();
@@ -99,7 +100,7 @@ namespace DenizYanar.PlayerSystem.Movement
             _move = new MoveState(_rb, _settings, _inputs, nameInformerEvent: _stateTitleEvent, stateName: "Move");
             _jump = new JumpState(this, _jumpSense, nameInformerChannel: _stateTitleEvent, stateName: "Jump");
             _land = new LandState(JumpPropertiesInstance, _landSense, nameInformerEvent: _stateTitleEvent, stateName: "Land");
-            _slide = new WallSlideState(this, _settings, nameInformerEventChannel: _stateTitleEvent, stateName: "Wall Slide");
+            _wallSlide = new WallSlideState(this, _settings, nameInformerEventChannel: _stateTitleEvent, stateName: "Wall Slide");
             _air = new AirState(_rb, _settings, _inputs, nameInformerChannel: _stateTitleEvent, stateName: "At Air");
             _shift = new ShiftState(_rb, _settings, _enterShiftSense, _leaveShiftSense, nameInformerEvent: _stateTitleEvent, stateName: "Shift");
             _teleport = new TeleportState(_rb, _settings);
@@ -115,9 +116,9 @@ namespace DenizYanar.PlayerSystem.Movement
             To(_air, _land, OnFallToGround());
             To(_air, _jump, CanJump());
             To(_land, _idle, AlwaysTrue());
-            To(_air, _slide, OnContactToWall());
-            To(_slide, _air, WhenJumpKeyTriggered());
-            To(_slide, _air, NoContactToWall());
+            To(_air, _wallSlide, OnContactToWall());
+            To(_wallSlide, _air, WhenJumpKeyTriggered());
+            To(_wallSlide, _air, NoContactToWall());
             To(_teleport, _air, OnSliceFinished());
             To(_air, _shift, () => false);
             To(_shift, _air, () => false);

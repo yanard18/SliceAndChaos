@@ -34,7 +34,7 @@ namespace DenizYanar
 
         private static bool IsCollidedObjectPlayer(HitBox hitBox)
         {
-            return hitBox.Owner.transform == Player.Instance.transform;
+            return hitBox.Owner.transform == Player.s_Instance.transform;
         }
     }
 }

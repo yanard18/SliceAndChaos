@@ -33,19 +33,19 @@ namespace DenizYanar.EnemySystem
             _behaviour.OnAttack -= Jump;
         }
 
-        protected override void OnDeath(Damage damage)
+        protected override void EOnDeath(Damage damage)
         {
             Destroy(gameObject);
         }
 
-        protected override void OnTakeDamage(Damage damage)
+        protected override void EOnTakeDamage(Damage damage)
         {
             
         }
 
         private void Jump()
         {
-            var player = Player.Instance;
+            var player = Player.s_Instance;
 
             Vector2 dir = player.transform.position - transform.position;
             dir = Vector2.ClampMagnitude(dir, 10f);

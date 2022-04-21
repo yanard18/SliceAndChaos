@@ -4,35 +4,35 @@ namespace DenizYanar.Singletons
 {
     public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
     {
-        private static T _instance;
-        public static T Instance
+        private static T s_PrivateInstance;
+        public static T s_Instance
         {
             get
             {
-                if (_instance == null)
+                if (s_PrivateInstance == null)
                 {
-                    _instance = GameObject.FindObjectOfType<T>();
-                    if (_instance == null)
+                    s_PrivateInstance = FindObjectOfType<T>();
+                    if (s_PrivateInstance == null)
                     {
                         var singletonObj = new GameObject();
                         singletonObj.name = typeof(T).ToString();
-                        _instance = singletonObj.AddComponent<T>();
+                        s_PrivateInstance = singletonObj.AddComponent<T>();
                     }
                 }
 
-                return _instance;
+                return s_PrivateInstance;
             }
         }
 
         protected virtual void Awake()
         {
-            if (_instance != null)
+            if (s_PrivateInstance != null)
             {
                 Destroy(gameObject);
                 return;
             }
 
-            _instance = GetComponent<T>();
+            s_PrivateInstance = GetComponent<T>();
         }
     }
 

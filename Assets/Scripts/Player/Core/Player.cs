@@ -24,12 +24,12 @@ namespace DenizYanar.PlayerSystem
 
         private void OnEnable()
         {
-            _health.OnDeath += Death;
+            _health.e_OnDeath += Death;
         }
 
         private void OnDisable()
         {
-            _health.OnDeath -= Death;
+            _health.e_OnDeath -= Death;
         }
 
         
