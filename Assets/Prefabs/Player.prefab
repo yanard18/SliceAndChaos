@@ -356,11 +356,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c2797a9c15260f45a2ca1dae53a57b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 100
-  _health: 100
-  _immunityDuration: 1
-  _damageSense: {fileID: 0}
-  _deathSense: {fileID: 0}
+  m_MaxHealth: 100
+  m_Health: 100
+  m_ImmunityDuration: 0
+  m_sepDamage: {fileID: 3325955951770683869}
+  m_sepDeath: {fileID: 3552776219876277578}
 --- !u!114 &1008661422985328069
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6212,8 +6212,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23c388cb59e918949b7fbf9d4cee4f1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Owner: {fileID: 1008661422985328073}
-  HealthOfHitBox: {fileID: 3552776220282073113}
+  m_Owner: {fileID: 0}
+  m_HealthOfHitBox: {fileID: 3552776220282073113}
 --- !u!1 &4965333477486527957
 GameObject:
   m_ObjectHideFlags: 0
@@ -7134,8 +7134,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f98ed5ecde04b049da3c76f9e3d5b07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _eventChannel: {fileID: 11400000, guid: a4f433397220c1345b68ba4e43bd55ee, type: 2}
-  _unityEvent:
+  m_Description: 'Change the state label of movement state : State Event Channel'
+  m_EventChannel: {fileID: 11400000, guid: a4f433397220c1345b68ba4e43bd55ee, type: 2}
+  m_UnityEvent:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 6401351943236413422}

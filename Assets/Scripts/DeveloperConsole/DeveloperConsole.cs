@@ -22,7 +22,7 @@ namespace DenizYanar.DeveloperConsoleSystem
         [SerializeField] private int m_nMaxLineInConsole = 30;
         [SerializeField] private ConsoleCommandTable m_CommandTable;
         [SerializeField] private PlayerInputs m_Inputs;
-        [SerializeField] private StringEventChannelSO m_ecOnInputMapChanged;
+        [SerializeField] private StringEventChannelSO m_ecChangeInputActionMap;
 
 
         private void Awake()
@@ -67,7 +67,7 @@ namespace DenizYanar.DeveloperConsoleSystem
         {
             m_bConsoleOpen = false;
             m_Console.SetActive(false);
-            m_ecOnInputMapChanged.Invoke("Player");
+            m_ecChangeInputActionMap.Invoke("Player");
             
         }
 
@@ -76,7 +76,7 @@ namespace DenizYanar.DeveloperConsoleSystem
             m_bConsoleOpen = true;
             m_Console.SetActive(true);
             m_InputField.ActivateInputField();
-            m_ecOnInputMapChanged.Invoke("Console");
+            m_ecChangeInputActionMap.Invoke("Console");
         }
 
         private void ApplyInputField()

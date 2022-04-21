@@ -161,10 +161,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df4c7f1087051b5419cb6f84c4665a1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Owner: {fileID: 2155155571717110638}
-  HealthOfHitBox: {fileID: 2155155571717110644}
-  _canDamageOnlyPlayer: 1
-  _damageValue: 20
+  m_Owner: {fileID: 0}
+  m_HealthOfHitBox: {fileID: 0}
+  m_bDamageOnlyPlayer: 0
+  m_DamageValue: 0
 --- !u!1 &2155155571474917559
 GameObject:
   m_ObjectHideFlags: 0
@@ -407,8 +407,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c2797a9c15260f45a2ca1dae53a57b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 30
-  _health: 30
-  _immunityDuration: 0
-  _damageSense: {fileID: 0}
-  _deathSense: {fileID: 2155155571474917553}
+  m_MaxHealth: 0
+  m_Health: 0
+  m_ImmunityDuration: 0
+  m_sepDamage: {fileID: 0}
+  m_sepDeath: {fileID: 0}

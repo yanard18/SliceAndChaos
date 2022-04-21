@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3298155188941529575}
   - component: {fileID: 3298155188941529568}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Log
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -66,9 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '
-
-'
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1162,7 +1160,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 16375
 --- !u!1 &3298155190277017269
 GameObject:
   m_ObjectHideFlags: 0
@@ -1214,13 +1212,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Console: {fileID: 0}
-  m_ConsoleLog: {fileID: 0}
-  m_InputField: {fileID: 0}
+  m_ConsoleLog: {fileID: 3298155188941529568}
+  m_InputField: {fileID: 3298155189702683536}
   m_CommandPrefix: 47
   m_nMaxLineInConsole: 30
-  m_CommandTable: {fileID: 0}
-  m_Inputs: {fileID: 0}
-  m_ecOnInputMapChanged: {fileID: 0}
+  m_CommandTable: {fileID: 11400000, guid: 90b3f6aa82c7fb241bf3390f1dbbf6a3, type: 2}
+  m_Inputs: {fileID: 11400000, guid: 19cff4123c4ee15498d6229cf530e6b2, type: 2}
+  m_ecChangeInputActionMap: {fileID: 11400000, guid: 606f887b04e00084fa1996419fad1a9a, type: 2}
 --- !u!1 &3298155190709130853
 GameObject:
   m_ObjectHideFlags: 0
