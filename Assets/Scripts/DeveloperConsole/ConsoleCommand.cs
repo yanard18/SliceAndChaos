@@ -1,15 +1,16 @@
+using System;
 using UnityEngine;
 
 namespace DenizYanar.DeveloperConsoleSystem
 {
     public abstract class ConsoleCommand : ScriptableObject
     {
-        public string CommandName;
+        public string m_CommandName;
 
         [TextArea] 
-        public string Usage;
+        public string m_Usage;
 
-        public int ParameterCount;
+        public int m_nParameter;
 
         public abstract void Execute(string[] parameters);
 
@@ -19,6 +20,11 @@ namespace DenizYanar.DeveloperConsoleSystem
             return IsParametersEqual(parameters);
         }
         
-        private bool IsParametersEqual(string[] parameters) => parameters.Length == ParameterCount + 1;
+        private bool IsParametersEqual(string[] parameters)
+        {
+            if (parameters.Length == 0)
+                throw new ArgumentException("Value cannot be an empty collection.", nameof(parameters));
+            return parameters.Length == m_nParameter + 1;
+        }
     }
 }

@@ -7,18 +7,18 @@ namespace DenizYanar
     {
         public Selector(string name)
         {
-            Name = name;
+            m_Name = name;
         }
 
         public override EStatus Process()
         {
-            var currentChildStatus = Children[CurrentChildIndex].Process();
+            var currentChildStatus = m_TChildren[m_CurrentChildIndex].Process();
             switch (currentChildStatus)
             {
                 case EStatus.RUNNING:
                     return EStatus.RUNNING;
                 case EStatus.SUCCESS:
-                    CurrentChildIndex = 0;
+                    m_CurrentChildIndex = 0;
                     return EStatus.SUCCESS;
                 case EStatus.FAILURE:
                     break;
@@ -26,12 +26,12 @@ namespace DenizYanar
                     throw new ArgumentOutOfRangeException();
             }
 
-            CurrentChildIndex++;
+            m_CurrentChildIndex++;
             
             // ReSharper disable once InvertIf
-            if (CurrentChildIndex >= Children.Count)
+            if (m_CurrentChildIndex >= m_TChildren.Count)
             {
-                CurrentChildIndex = 0;
+                m_CurrentChildIndex = 0;
                 return EStatus.FAILURE;
             }
 

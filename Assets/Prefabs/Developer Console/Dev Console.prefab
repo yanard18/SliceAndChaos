@@ -1213,14 +1213,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d2a5d5adc987aa47903da0a2c1c0233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _console: {fileID: 3298155190152808526}
-  _consoleLog: {fileID: 3298155188941529568}
-  _inputField: {fileID: 3298155189702683536}
-  _commandTable: {fileID: 11400000, guid: 90b3f6aa82c7fb241bf3390f1dbbf6a3, type: 2}
-  _inputs: {fileID: 11400000, guid: 19cff4123c4ee15498d6229cf530e6b2, type: 2}
-  _commandPrefix: 47
-  _onInputMapChange: {fileID: 11400000, guid: 606f887b04e00084fa1996419fad1a9a, type: 2}
-  _maxLineCountInConsole: 30
+  m_Console: {fileID: 0}
+  m_ConsoleLog: {fileID: 0}
+  m_InputField: {fileID: 0}
+  m_CommandPrefix: 47
+  m_nMaxLineInConsole: 30
+  m_CommandTable: {fileID: 0}
+  m_Inputs: {fileID: 0}
+  m_ecOnInputMapChanged: {fileID: 0}
 --- !u!1 &3298155190709130853
 GameObject:
   m_ObjectHideFlags: 0

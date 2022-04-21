@@ -1,4 +1,4 @@
-using DenizYanar.Core;
+using DenizYanar.DamageAndHealthSystem;
 using UnityEngine;
 
 namespace DenizYanar

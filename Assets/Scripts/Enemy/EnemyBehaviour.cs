@@ -1,11 +1,11 @@
 using DenizYanar.BehaviourTreeAI;
 using UnityEngine;
 
-namespace DenizYanar
+namespace DenizYanar.EnemySystem
 {
     public abstract class EnemyBehaviour : MonoBehaviour
     {
-        protected BehaviourTree Tree;
+        protected BehaviourTree m_Tree;
 
         protected abstract void SetupTree();
     }

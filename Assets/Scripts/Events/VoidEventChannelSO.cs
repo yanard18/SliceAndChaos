@@ -10,16 +10,16 @@ namespace DenizYanar.Events
     [CreateAssetMenu(menuName = "Slice And Chaos/Events/Void Event Channel")]
     public class VoidEventChannelSO : ScriptableObject
     { 
-        private readonly HashSet<VoidEventListenerSO> _listeners = new HashSet<VoidEventListenerSO>();     
+        private readonly HashSet<VoidEventListener> m_Listeners = new();     
 
         public void Invoke()
         {
-            foreach (VoidEventListenerSO listener in _listeners)
+            foreach (var listener in m_Listeners)
                 listener.RaiseEvent();
         }
 
-        public void Register(VoidEventListenerSO listener) => _listeners.Add(listener);
+        public void Register(VoidEventListener listener) => m_Listeners.Add(listener);
 
-        public void Deregister(VoidEventListenerSO listener) => _listeners.Remove(listener);
+        public void Deregister(VoidEventListener listener) => m_Listeners.Remove(listener);
     }
 }

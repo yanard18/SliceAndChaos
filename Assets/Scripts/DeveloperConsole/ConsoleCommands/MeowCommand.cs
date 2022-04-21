@@ -6,12 +6,12 @@ namespace DenizYanar.DeveloperConsoleSystem
     [CreateAssetMenu(menuName = "Developer Console/Commands/Meow")]
     public class MeowCommand : ConsoleCommand
     {
-        [SerializeField] private AudioCue _effect;
-        [SerializeField] private AudioCueEventChannel _eventChannel;
+        [SerializeField] private AudioCue m_Effects;
+        [SerializeField] private AudioCueEventChannel m_EventChannel;
         
         public override void Execute(string[] parameters)
         {
-            _eventChannel.Invoke(_effect);
+            m_EventChannel.Invoke(m_Effects);
         }
     }
 }

@@ -4,7 +4,7 @@ using DenizYanar.External.Sense_Engine.Scripts.Core;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace DenizYanar.Core
+namespace DenizYanar.DamageAndHealthSystem
 {
     public class Health : MonoBehaviour
     {
@@ -35,7 +35,7 @@ namespace DenizYanar.Core
             if(AlreadyDeath) return;
             if(m_bHasImmunity) return;
 
-            m_Health -= damage.DamageValue;
+            m_Health -= damage.m_DamageValue;
             e_OnDamage?.Invoke(damage);
             m_sepDamage.PlayIfExist();
             

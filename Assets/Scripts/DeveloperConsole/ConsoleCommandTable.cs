@@ -6,7 +6,7 @@ namespace DenizYanar
     [CreateAssetMenu(menuName = "Developer Console/Commands Table")]
     public class ConsoleCommandTable : ScriptableObject
     {
-        public ConsoleCommand[] Commands;
+        public ConsoleCommand[] m_Commands;
         
     }
 }

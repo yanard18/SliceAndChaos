@@ -4,11 +4,11 @@ namespace DenizYanar
 {
     public class ApplicationManager : MonoBehaviour
     {
-        [SerializeField] private int _targetFrameRate = 300;
+        [SerializeField] private int m_TargetFrameRate = 300;
 
         private void Awake()
         {
-            Application.targetFrameRate = _targetFrameRate;
+            Application.targetFrameRate = m_TargetFrameRate;
         }
     }
 }

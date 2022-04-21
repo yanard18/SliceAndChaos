@@ -6,13 +6,13 @@ namespace DenizYanar.BehaviourTreeAI
 {
     public class BehaviourTree : Node
     {
-        private EStatus _currentStatus = EStatus.RUNNING;
-        public readonly float TickRate;
+        private EStatus m_CurrentStatus = EStatus.RUNNING;
+        public readonly float m_TickRate;
 
         public BehaviourTree(string name = "Tree", float? tickRate = null)
         {
-            Name = name;
-            TickRate = tickRate ?? Random.Range(0.1f, 0.5f);
+            m_Name = name;
+            m_TickRate = tickRate ?? Random.Range(0.1f, 0.5f);
         }
         
         
@@ -20,31 +20,31 @@ namespace DenizYanar.BehaviourTreeAI
         public override EStatus Process()
         {
             // ReSharper disable once ConvertIfStatementToReturnStatement
-            if (Children.Count == 0) return EStatus.SUCCESS;
-            return Children[CurrentChildIndex].Process();
+            if (m_TChildren.Count == 0) return EStatus.SUCCESS;
+            return m_TChildren[m_CurrentChildIndex].Process();
         }
         
         private struct NodeLevel
         {
-            public int Level;
-            public Node Node;
+            public int m_Level;
+            public Node m_Node;
         }
         
         public void PrintTree()
         {
             var treePrintOut = "";
-            Stack<NodeLevel> nodeStack = new Stack<NodeLevel>();
+            Stack<NodeLevel> nodeStack = new ();
             var currentNode = this;
 
-            nodeStack.Push(new NodeLevel{Level = 0, Node = currentNode } );
+            nodeStack.Push(new NodeLevel{m_Level = 0, m_Node = currentNode } );
 
             while (nodeStack.Count != 0)
             {
                 var nextNode = nodeStack.Pop();
-                treePrintOut += new string('-', nextNode.Level) + nextNode.Node.Name + '\n';
-                for (var i = nextNode.Node.Children.Count - 1; i >= 0; i--)
+                treePrintOut += new string('-', nextNode.m_Level) + nextNode.m_Node.m_Name + '\n';
+                for (var i = nextNode.m_Node.m_TChildren.Count - 1; i >= 0; i--)
                 {   
-                    nodeStack.Push(new NodeLevel {Level = nextNode.Level+1, Node = nextNode.Node.Children[i] });
+                    nodeStack.Push(new NodeLevel {m_Level = nextNode.m_Level+1, m_Node = nextNode.m_Node.m_TChildren[i] });
                 }   
             }
             
@@ -56,8 +56,8 @@ namespace DenizYanar.BehaviourTreeAI
 
             while (true)
             {
-                _currentStatus = Process();
-                yield return new WaitForSeconds(TickRate);
+                m_CurrentStatus = Process();
+                yield return new WaitForSeconds(m_TickRate);
             }
             
             // ReSharper disable once IteratorNeverReturns

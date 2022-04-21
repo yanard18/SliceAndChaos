@@ -1,6 +1,5 @@
 using System;
 using DenizYanar.BehaviourTreeAI;
-using UnityEngine;
 
 namespace DenizYanar
 {
@@ -8,12 +7,12 @@ namespace DenizYanar
     {
         public Sequence(string name)
         {
-            Name = name;
+            m_Name = name;
         }
 
         public override EStatus Process()
         {
-            var childStatus = Children[CurrentChildIndex].Process();
+            var childStatus = m_TChildren[m_CurrentChildIndex].Process();
             switch (childStatus)
             {
                 case EStatus.RUNNING:
@@ -21,12 +20,12 @@ namespace DenizYanar
                 case EStatus.FAILURE:
                     return EStatus.FAILURE;
                 case EStatus.SUCCESS:
-                    CurrentChildIndex++;
+                    m_CurrentChildIndex++;
             
                     // ReSharper disable once InvertIf
-                    if (CurrentChildIndex >= Children.Count)
+                    if (m_CurrentChildIndex >= m_TChildren.Count)
                     {
-                        CurrentChildIndex = 0;
+                        m_CurrentChildIndex = 0;
                         return EStatus.SUCCESS;
                     }
                     

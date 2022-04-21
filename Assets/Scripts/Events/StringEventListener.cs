@@ -3,16 +3,16 @@ using UnityEngine.Events;
 
 namespace DenizYanar.Events
 {
-    public class StringEventListener : MonoBehaviour
+    public class StringEventListener : EventListener
     {
-        [SerializeField] private StringEventChannelSO _eventChannel;
+        [SerializeField] private StringEventChannelSO m_EventChannel;
 
-        [SerializeField] private UnityEvent<string> _unityEvent;
+        [SerializeField] private UnityEvent<string> m_UnityEvent;
         
-        private void Awake() => _eventChannel.Register(this);
+        private void Awake() => m_EventChannel.Register(this);
 
-        private void OnDisable() => _eventChannel.Deregister(this);
+        private void OnDisable() => m_EventChannel.Deregister(this);
 
-        public void RaiseEvent(string value) => _unityEvent.Invoke(value);
+        public void RaiseEvent(string value) => m_UnityEvent.Invoke(value);
     }
 }

@@ -7,16 +7,16 @@ namespace DenizYanar.Events
     [CreateAssetMenu(menuName = "Slice And Chaos/Events/String Event Channel")]
     public class StringEventChannelSO : ScriptableObject
     {
-        private readonly HashSet<StringEventListener> _listeners = new HashSet<StringEventListener>();
+        private readonly HashSet<StringEventListener> m_TListeners = new();
 
         public void Invoke(string value)
         {
-            foreach (StringEventListener listener in _listeners)
+            foreach (var listener in m_TListeners)
                 listener.RaiseEvent(value);
         }
 
-        public void Register(StringEventListener listener) => _listeners.Add(listener);
+        public void Register(StringEventListener listener) => m_TListeners.Add(listener);
 
-        public void Deregister(StringEventListener listener) => _listeners.Remove(listener);
+        public void Deregister(StringEventListener listener) => m_TListeners.Remove(listener);
     }
 }

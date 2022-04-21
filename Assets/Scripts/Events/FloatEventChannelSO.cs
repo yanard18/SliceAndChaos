@@ -10,16 +10,16 @@ namespace DenizYanar.Events
     [CreateAssetMenu(menuName = "Slice And Chaos/Events/Float Event Channel")]
     public class FloatEventChannelSO : ScriptableObject
     {
-        private readonly HashSet<FloatEventListenerSO> _listeners = new HashSet<FloatEventListenerSO>();
+        private readonly HashSet<FloatEventListener> m_TListeners = new(); 
 
         public void Invoke(float value)
         {
-            foreach (FloatEventListenerSO listener in _listeners)
+            foreach (var listener in m_TListeners)
                 listener.RaiseEvent(value);
         }
 
-        public void Register(FloatEventListenerSO listener) => _listeners.Add(listener);
+        public void Register(FloatEventListener listener) => m_TListeners.Add(listener);
 
-        public void Deregister(FloatEventListenerSO listener) => _listeners.Remove(listener);
+        public void Deregister(FloatEventListener listener) => m_TListeners.Remove(listener);
     }
 }

@@ -14,13 +14,13 @@ namespace DenizYanar.EnemySystem
 
         private void Awake()
         {
-            _jumpCooldown = _settings.JumpCooldown;
+            _jumpCooldown = _settings.m_JumpCooldown;
             SetupTree();
         }
 
         protected override void SetupTree()
         {
-            Tree = new BehaviourTree();
+            m_Tree = new BehaviourTree();
             var wait = new Leaf("Wait", Wait);
             var attack = new Leaf("Attack", Attack);
 
@@ -29,20 +29,20 @@ namespace DenizYanar.EnemySystem
             agro.AddChild(wait);
             agro.AddChild(attack);
             
-            Tree.AddChild(agro);
-            StartCoroutine(Tree.Behave());
+            m_Tree.AddChild(agro);
+            StartCoroutine(m_Tree.Behave());
         }
 
         private Node.EStatus Wait()
         {
-             _jumpCooldown -= Tree.TickRate;
+             _jumpCooldown -= m_Tree.m_TickRate;
             return _jumpCooldown <= 0 ? Node.EStatus.SUCCESS : Node.EStatus.RUNNING;
         }
 
         private Node.EStatus Attack()
         {
             OnAttack?.Invoke();
-            _jumpCooldown = _settings.JumpCooldown;
+            _jumpCooldown = _settings.m_JumpCooldown;
             return Node.EStatus.SUCCESS;
         }
 

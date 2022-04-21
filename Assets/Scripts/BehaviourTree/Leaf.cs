@@ -3,19 +3,19 @@ namespace DenizYanar.BehaviourTreeAI
     public class Leaf : Node
     {
         public delegate EStatus Tick();
-        private readonly Tick _processMethod;
+        private readonly Tick m_ProcessMethod;
 
         public Leaf() { }
 
         public Leaf(string name, Tick processMethod)
         {
-            Name = name;
-            _processMethod = processMethod;
+            m_Name = name;
+            m_ProcessMethod = processMethod;
         }
         
         public override EStatus Process()
         {
-            return _processMethod?.Invoke() ?? EStatus.FAILURE;
+            return m_ProcessMethod?.Invoke() ?? EStatus.FAILURE;
         }
 
     }

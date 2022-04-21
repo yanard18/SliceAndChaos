@@ -6,12 +6,12 @@ namespace DenizYanar.BehaviourTreeAI
     {
         public Inverter(string name)
         {
-            Name = name;
+            m_Name = name;
         }
         
         public override EStatus Process()
         {
-            var currentChildStatus = Children[0].Process();
+            var currentChildStatus = m_TChildren[0].Process();
             return currentChildStatus switch
             {
                 EStatus.RUNNING => EStatus.RUNNING,

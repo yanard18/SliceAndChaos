@@ -1,4 +1,4 @@
-using DenizYanar.Core;
+using DenizYanar.DamageAndHealthSystem;
 using DenizYanar.PlayerSystem;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -50,7 +50,7 @@ namespace DenizYanar.EnemySystem
             Vector2 dir = player.transform.position - transform.position;
             dir = Vector2.ClampMagnitude(dir, 10f);
             
-            var jumpDirection = new Vector2(dir.normalized.x * _settings.HorizontalJumpForce, _settings.VerticalJumpForce);
+            var jumpDirection = new Vector2(dir.normalized.x * _settings.m_HorizontalJumpForce, _settings.m_VerticalJumpForce);
             
             _rb.AddForce(jumpDirection, ForceMode2D.Impulse);
         }

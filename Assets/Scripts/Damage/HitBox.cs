@@ -1,11 +1,11 @@
-using DenizYanar.Core;
+using DenizYanar.DamageAndHealthSystem;
 using UnityEngine;
 
 namespace DenizYanar
 {
     public class HitBox : MonoBehaviour
     {
-        public GameObject Owner;
-        public Health HealthOfHitBox;
+        public GameObject m_Owner;
+        public Health m_HealthOfHitBox;
     }
 }

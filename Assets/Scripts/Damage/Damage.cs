@@ -1,17 +1,17 @@
 using UnityEngine;
 
-namespace DenizYanar.Core
+namespace DenizYanar.DamageAndHealthSystem
 {
     public class Damage
     {
-        public readonly float DamageValue;
-        public readonly GameObject Author;
+        public readonly float m_DamageValue;
+        public readonly GameObject m_Author;
         
 
         public Damage(float damageValue, GameObject author)
         {
-            DamageValue = damageValue;
-            Author = author;
+            m_DamageValue = damageValue;
+            m_Author = author;
         }
     }
 }

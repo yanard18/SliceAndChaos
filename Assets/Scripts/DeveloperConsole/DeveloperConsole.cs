@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Net.Mime;
 using DenizYanar.Events;
 using TMPro;
 using UnityEngine;
@@ -8,22 +7,22 @@ namespace DenizYanar.DeveloperConsoleSystem
 {
     public class DeveloperConsole : MonoBehaviour
     {
-        private readonly Dictionary<string, ConsoleCommand> _commandDictionary = new();
-        private bool _isConsoleOpen;
+        private readonly Dictionary<string, ConsoleCommand> m_TCommandDictionary = new();
+        private bool m_bConsoleOpen;
 
 
         [Header("Developer Panel UI")] 
-        [SerializeField] private GameObject _console;
-        [SerializeField] private TMP_Text _consoleLog;
-        [SerializeField] private TMP_InputField _inputField;
+        [SerializeField] private GameObject m_Console;
+        [SerializeField] private TMP_Text m_ConsoleLog;
+        [SerializeField] private TMP_InputField m_InputField;
         
 
         [Header("Configurations")]
-        [SerializeField] private ConsoleCommandTable _commandTable;
-        [SerializeField] private PlayerInputs _inputs;
-        [SerializeField] private char _commandPrefix = '/';
-        [SerializeField] private StringEventChannelSO _onInputMapChange;
-        [SerializeField] private int _maxLineCountInConsole = 30;
+        [SerializeField] private char m_CommandPrefix = '/';
+        [SerializeField] private int m_nMaxLineInConsole = 30;
+        [SerializeField] private ConsoleCommandTable m_CommandTable;
+        [SerializeField] private PlayerInputs m_Inputs;
+        [SerializeField] private StringEventChannelSO m_ecOnInputMapChanged;
 
 
         private void Awake()
@@ -33,32 +32,32 @@ namespace DenizYanar.DeveloperConsoleSystem
 
         private void AddCommandsToDictionary()
         {
-            foreach (var command in _commandTable.Commands)
+            foreach (var command in m_CommandTable.m_Commands)
             {
-                if (_commandDictionary.ContainsKey(command.CommandName))
+                if (m_TCommandDictionary.ContainsKey(command.m_CommandName))
                     continue;
 
-                _commandDictionary.Add(command.CommandName, command);
+                m_TCommandDictionary.Add(command.m_CommandName, command);
             }
         }
 
         private void OnEnable()
         {
-            _inputs.OnOpenDevConsoleKeyPressed += ToggleConsole;
-            _inputs.OnCloseDevConsoleKeyPressed += ToggleConsole;
-            _inputs.OnEnterCommandKeyPressed += ApplyInputField;
+            m_Inputs.OnOpenDevConsoleKeyPressed += ToggleConsole;
+            m_Inputs.OnCloseDevConsoleKeyPressed += ToggleConsole;
+            m_Inputs.OnEnterCommandKeyPressed += ApplyInputField;
         }
 
         private void OnDisable()
         {
-            _inputs.OnOpenDevConsoleKeyPressed -= ToggleConsole;
-            _inputs.OnCloseDevConsoleKeyPressed -= ToggleConsole;
-            _inputs.OnEnterCommandKeyPressed -= ApplyInputField;
+            m_Inputs.OnOpenDevConsoleKeyPressed -= ToggleConsole;
+            m_Inputs.OnCloseDevConsoleKeyPressed -= ToggleConsole;
+            m_Inputs.OnEnterCommandKeyPressed -= ApplyInputField;
         }
 
         private void ToggleConsole()
         {
-            if (_isConsoleOpen)
+            if (m_bConsoleOpen)
                 CloseConsole();
             else
                 OpenConsole();
@@ -66,31 +65,31 @@ namespace DenizYanar.DeveloperConsoleSystem
 
         private void CloseConsole()
         {
-            _isConsoleOpen = false;
-            _console.SetActive(false);
-            _onInputMapChange.Invoke("Player");
+            m_bConsoleOpen = false;
+            m_Console.SetActive(false);
+            m_ecOnInputMapChanged.Invoke("Player");
             
         }
 
         private void OpenConsole()
         {
-            _isConsoleOpen = true;
-            _console.SetActive(true);
-            _inputField.ActivateInputField();
-            _onInputMapChange.Invoke("Console");
+            m_bConsoleOpen = true;
+            m_Console.SetActive(true);
+            m_InputField.ActivateInputField();
+            m_ecOnInputMapChanged.Invoke("Console");
         }
 
         private void ApplyInputField()
         {
-            ProcessInput(_inputField.text);
+            ProcessInput(m_InputField.text);
             ClearInputField();
-            _inputField.ActivateInputField();
+            m_InputField.ActivateInputField();
         }
 
         private void SendMessageToConsole(string message)
         {
-            _consoleLog.text = ClampLines(_consoleLog.text, _maxLineCountInConsole);
-            _consoleLog.text += message + '\n';
+            m_ConsoleLog.text = ClampLines(m_ConsoleLog.text, m_nMaxLineInConsole);
+            m_ConsoleLog.text += message + '\n';
         }
 
         private string ClampLines(string text, int maxLineLength)
@@ -113,22 +112,22 @@ namespace DenizYanar.DeveloperConsoleSystem
             input = RemovePrefix(input);
 
             var parsedInput = Interpreter.ParseTheCommand(input);
-            var command = Interpreter.NameToCommand(parsedInput[0], _commandDictionary);
+            var command = Interpreter.NameToCommand(parsedInput[0], m_TCommandDictionary);
             if (command == null) return;
 
 
             if(command.IsCommandValid(parsedInput))
                 command.Execute(parsedInput);
             else
-                SendMessageToConsole(command.Usage);
+                SendMessageToConsole(command.m_Usage);
         }
 
         private static bool HasNoInput(string input) => input == string.Empty;
 
         private static string RemovePrefix(string input) => input.Remove(0, 1);
 
-        private void ClearInputField() => _inputField.text = string.Empty;
+        private void ClearInputField() => m_InputField.text = string.Empty;
 
-        private bool HasCommandPrefix(string input) => input[0] == _commandPrefix;
+        private bool HasCommandPrefix(string input) => input[0] == m_CommandPrefix;
     }
 }

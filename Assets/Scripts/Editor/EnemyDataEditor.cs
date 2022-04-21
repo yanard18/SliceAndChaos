@@ -1,8 +1,9 @@
 using Sirenix.OdinInspector.Editor;
 using UnityEditor;
+using DenizYanar.EnemySystem;
 
 
-namespace DenizYanar
+namespace DenizYanar.OdinEditor
 {
     public class EnemyDataEditor : OdinMenuEditorWindow
     {

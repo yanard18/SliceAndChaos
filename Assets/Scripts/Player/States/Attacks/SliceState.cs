@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using DenizYanar.Core;
+using DenizYanar.DamageAndHealthSystem;
 using DenizYanar.External.Sense_Engine.Scripts.Core;
 using DenizYanar.External.Sense_Engine.Scripts.Senses;
 using DenizYanar.FSM;
@@ -83,7 +83,7 @@ namespace DenizYanar.PlayerSystem.Attacks
                 if (IsThereWallBetween(playerPosition, enemy.transform.position, _settings.ObstacleLayerMask)) continue;
                 if (HasNotHitBox(enemy, out var hitBox)) continue;
 
-                var health = hitBox.HealthOfHitBox;
+                var health = hitBox.m_HealthOfHitBox;
                 
                 // ReSharper disable once Unity.PerformanceCriticalCodeInvocation
                 health.TakeDamage(new Damage(_settings.AttackDamage, _player.gameObject));

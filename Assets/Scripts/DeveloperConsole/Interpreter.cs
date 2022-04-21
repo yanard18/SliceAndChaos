@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace DenizYanar.DeveloperConsoleSystem
 {
@@ -15,11 +14,11 @@ namespace DenizYanar.DeveloperConsoleSystem
             return string.Empty == command ? new string[] { } : command.Split(' ');
         }
 
-        public static ConsoleCommand NameToCommand(string commandName, Dictionary<string, ConsoleCommand> commandDictionary)
+        public static ConsoleCommand NameToCommand(string commandName, Dictionary<string, ConsoleCommand> TCommandDictionary)
         {
-            if (!commandDictionary.ContainsKey(commandName)) return null;
+            if (!TCommandDictionary.ContainsKey(commandName)) return null;
             
-            var command = commandDictionary[commandName];
+            var command = TCommandDictionary[commandName];
             return command;
         }
         

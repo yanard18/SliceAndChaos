@@ -1,5 +1,4 @@
-using System;
-using DenizYanar.Core;
+using DenizYanar.DamageAndHealthSystem;
 using DenizYanar.Events;
 using DenizYanar.External.Sense_Engine.Scripts.Core;
 using DenizYanar.Singletons;
@@ -37,7 +36,7 @@ namespace DenizYanar.PlayerSystem
 
         private void Death(Damage damage)
         {
-            Debug.Log("Player killed by " + damage.Author.name);
+            Debug.Log("Player killed by " + damage.m_Author.name);
             _deathSense.Play();
             _gameOverEvent.Invoke();
             Destroy(this.gameObject);

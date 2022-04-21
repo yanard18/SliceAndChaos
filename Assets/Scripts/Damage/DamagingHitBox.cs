@@ -1,4 +1,4 @@
-using DenizYanar.Core;
+using DenizYanar.DamageAndHealthSystem;
 using DenizYanar.PlayerSystem;
 using UnityEngine;
 
@@ -6,8 +6,8 @@ namespace DenizYanar
 {
     public class DamagingHitBox : HitBox
     {
-        [SerializeField] private bool _canDamageOnlyPlayer;
-        [SerializeField] private float _damageValue;
+        [SerializeField] private bool m_bDamageOnlyPlayer;
+        [SerializeField] private float m_DamageValue;
 
         private void OnTriggerStay2D(Collider2D other)
         {
@@ -17,25 +17,16 @@ namespace DenizYanar
 
         private void GiveDamage(HitBox hitBox)
         {
-            if (_canDamageOnlyPlayer && !IsCollidedObjectPlayer(hitBox))
+            if (m_bDamageOnlyPlayer && !IsCollidedObjectPlayer(hitBox))
                 return;
 
 
-            var damage = new Damage(_damageValue, hitBox.Owner);
-            hitBox.HealthOfHitBox.TakeDamage(damage);
+            var damage = new Damage(m_DamageValue, hitBox.m_Owner);
+            hitBox.m_HealthOfHitBox.TakeDamage(damage);
         }
-        
+              
 
-        
-        
-        
-        
-        
-
-        private static bool IsCollidedObjectPlayer(HitBox hitBox)
-        {
-            return hitBox.Owner.transform == Player.s_Instance.transform;
-        }
+        private static bool IsCollidedObjectPlayer(HitBox hitBox) => hitBox.m_Owner.transform == Player.s_Instance.transform;
     }
 }
  

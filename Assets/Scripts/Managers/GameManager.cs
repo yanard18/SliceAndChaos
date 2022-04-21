@@ -5,7 +5,7 @@ namespace DenizYanar.Managers
 {
     public class GameManager : MonoBehaviour
     {
-        [SerializeField] private VoidEventChannelSO _spawnPlayerEvent;
+        [SerializeField] private VoidEventChannelSO m_ecSpawnPlayer;
 
         public void OnLevelReady()
         {
@@ -14,7 +14,7 @@ namespace DenizYanar.Managers
         
         private void SpawnPlayer()
         {
-            _spawnPlayerEvent.Invoke();
+            m_ecSpawnPlayer.Invoke();
         }
         
         public void GameOver()

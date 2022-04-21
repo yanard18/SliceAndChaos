@@ -1,4 +1,4 @@
-using DenizYanar.Core;
+using DenizYanar.DamageAndHealthSystem;
 using UnityEngine;
 
 namespace DenizYanar.EnemySystem
@@ -7,28 +7,28 @@ namespace DenizYanar.EnemySystem
     [RequireComponent(typeof(Health))]
     public abstract class Enemy : MonoBehaviour
     {
-        private Health _health;
+        private Health m_Health;
 
         protected virtual void Awake()
         {
-            _health = GetComponent<Health>();
+            m_Health = GetComponent<Health>();
         }
         
         protected virtual void OnEnable()
         {
-            _health.e_OnDamage += EOnTakeDamage;
-            _health.e_OnDeath += EOnDeath;
+            m_Health.e_OnDamage += EOnTakeDamage;
+            m_Health.e_OnDeath += EOnDeath;
         }
 
         protected virtual void OnDisable()
         {
-            _health.e_OnDamage -= EOnTakeDamage;
-            _health.e_OnDeath -= EOnDeath;
+            m_Health.e_OnDamage -= EOnTakeDamage;
+            m_Health.e_OnDeath -= EOnDeath;
         }
 
         protected virtual void LoadSettings(EnemySettings settings)
         {
-            GetComponent<Health>().SetupHealth(settings.Health);
+            GetComponent<Health>().SetupHealth(settings.m_Health);
         }
 
 

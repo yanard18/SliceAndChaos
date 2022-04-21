@@ -10,16 +10,16 @@ namespace DenizYanar.Events
     [CreateAssetMenu(menuName = "Slice And Chaos/Events/Int Event Channel")]
     public class IntEventChannelSO : ScriptableObject
     {
-        private readonly HashSet<IntEventListenerSO> _listeners = new HashSet<IntEventListenerSO>();
+        private readonly HashSet<IntEventListener> m_TListeners = new();
 
         public void Invoke(int value)
         {
-            foreach (IntEventListenerSO listener in _listeners)
+            foreach (var listener in m_TListeners)
                 listener.RaiseEvent(value);
         }
 
-        public void Register(IntEventListenerSO listener) => _listeners.Add(listener);
+        public void Register(IntEventListener listener) => m_TListeners.Add(listener);
 
-        public void Deregister(IntEventListenerSO listener) => _listeners.Remove(listener);
+        public void Deregister(IntEventListener listener) => m_TListeners.Remove(listener);
     }
 }
