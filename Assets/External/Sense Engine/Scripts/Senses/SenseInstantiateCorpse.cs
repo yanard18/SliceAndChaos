@@ -1,9 +1,9 @@
-using DenizYanar.External.Sense_Engine.Scripts.Core;
+using DenizYanar.SenseEngine;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 
-namespace DenizYanar.External.Sense_Engine.Scripts.Senses
+namespace DenizYanar.SenseEngine
 {
     [SenseEnginePath("GameObjects/Instantiate Corpse")]
     public class SenseInstantiateCorpse : Sense

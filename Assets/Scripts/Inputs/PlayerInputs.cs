@@ -1,12 +1,13 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace DenizYanar
+namespace DenizYanar.Inputs
 {
     [CreateAssetMenu(menuName = "Player Inputs")]
     public class PlayerInputs : ScriptableObject
     {
         public float m_HorizontalMovement;
+        public Vector2 m_MousePosition;
         public UnityAction e_OnDiveStarted;
         public UnityAction e_OnDiveCancelled;
         public UnityAction e_OnShiftStarted;

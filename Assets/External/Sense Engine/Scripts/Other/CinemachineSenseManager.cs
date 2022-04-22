@@ -1,7 +1,7 @@
 using Cinemachine;
 using UnityEngine;
 
-namespace DenizYanar.External.Sense_Engine.Scripts.Senses
+namespace DenizYanar.SenseEngine
 {
     [RequireComponent(typeof(CinemachineImpulseSource))]
     public class CinemachineSenseManager : MonoBehaviour

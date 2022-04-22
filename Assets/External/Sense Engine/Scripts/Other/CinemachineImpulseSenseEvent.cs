@@ -2,7 +2,7 @@ using Cinemachine;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace DenizYanar.External.Sense_Engine.Scripts.Senses
+namespace DenizYanar.SenseEngine
 {
     [CreateAssetMenu(menuName = "Sense Engine/Cinemachine Camera Shake Event Channel")]
     public class CinemachineImpulseSenseEvent : ScriptableObject

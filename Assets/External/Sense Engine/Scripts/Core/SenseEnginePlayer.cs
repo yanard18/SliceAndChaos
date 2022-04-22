@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace DenizYanar.External.Sense_Engine.Scripts.Core
+namespace DenizYanar.SenseEngine
 {
     public class SenseEnginePlayer : MonoBehaviour
     {

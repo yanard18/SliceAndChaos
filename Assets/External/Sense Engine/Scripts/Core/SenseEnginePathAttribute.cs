@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 
-namespace DenizYanar.External.Sense_Engine.Scripts.Core
+namespace DenizYanar.SenseEngine
 {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
     public class SenseEnginePathAttribute : Attribute

@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using DenizYanar.DamageAndHealthSystem;
-using DenizYanar.External.Sense_Engine.Scripts.Core;
-using DenizYanar.External.Sense_Engine.Scripts.Senses;
+using DenizYanar.SenseEngine;
 using DenizYanar.FSM;
+using DenizYanar.Inputs;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace DenizYanar.PlayerSystem.Attacks
 {
@@ -14,6 +13,9 @@ namespace DenizYanar.PlayerSystem.Attacks
     {
         private readonly PlayerAttackController _player;
         private readonly PlayerSettings _settings;
+
+
+        private static PlayerInputs _input;
         private readonly Action<float> _startAttackCooldown;
         private readonly Rigidbody2D _rb;
         private readonly SenseEnginePlayer _attackSensePlayer;
@@ -26,6 +28,7 @@ namespace DenizYanar.PlayerSystem.Attacks
         (
             PlayerAttackController player,
             PlayerSettings settings,
+            PlayerInputs input,
             Action<float> startAttackCooldown,
             Rigidbody2D rb,
             SenseEnginePlayer attackSense,
@@ -33,8 +36,10 @@ namespace DenizYanar.PlayerSystem.Attacks
         )
 
         {
+            
             _player = player;
             _settings = settings;
+            _input = input;
             _startAttackCooldown = startAttackCooldown;
             _rb = rb;
             _attackSensePlayer = attackSense;
@@ -105,12 +110,12 @@ namespace DenizYanar.PlayerSystem.Attacks
 
         #region Local Methods
 
-        private static Vector2 CalculateAttackDirection(Vector3 playerPosition)
+        private static Vector2 CalculateAttackDirection(Vector2 playerPosition)
         {
             if (Camera.main is not null)
             {
-                var mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-                Vector2 attackDir = mousePos - playerPosition;
+
+                Vector2 attackDir = _input.m_MousePosition - playerPosition; 
                 attackDir.Normalize();
                 return attackDir;
             }

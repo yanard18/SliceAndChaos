@@ -1,6 +1,6 @@
 using System.Collections;
 using DenizYanar.Events;
-using DenizYanar.External.Sense_Engine.Scripts.Core;
+using DenizYanar.SenseEngine;
 using JetBrains.Annotations;
 using UnityEngine;
 using DenizYanar.FSM;

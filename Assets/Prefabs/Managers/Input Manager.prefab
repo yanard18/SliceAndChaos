@@ -248,6 +248,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 9825b70e-e261-41f1-b879-6bd7703932df
     m_ActionName: Console/Enter Command[/Keyboard/enter]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7039654067766137233}
+        m_TargetAssemblyTypeName: DenizYanar.Inputs.InputManager, Inputs
+        m_MethodName: HandleMousePositionInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 66c2bd6a-2588-491a-a8d8-51e5b8568276
+    m_ActionName: Player/Mouse Position[/Mouse/position]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

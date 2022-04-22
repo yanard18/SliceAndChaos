@@ -1,7 +1,7 @@
 using System;
 using DenizYanar.FSM;
+using DenizYanar.Inputs;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 
 namespace DenizYanar.PlayerSystem.Attacks
@@ -55,7 +55,7 @@ namespace DenizYanar.PlayerSystem.Attacks
             _inputs.e_OnAttack2Started += CallRequest;
             
             if (Camera.main is null) return;
-            var dir = Mouse.current.position.ReadValue() - (Vector2)Camera.main.WorldToScreenPoint(_playerTransform.position);
+            var dir = _inputs.m_MousePosition - (Vector2)Camera.main.WorldToScreenPoint(_playerTransform.position);
 
             
 

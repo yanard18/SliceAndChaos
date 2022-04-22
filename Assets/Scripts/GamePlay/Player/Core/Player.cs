@@ -1,6 +1,6 @@
 using DenizYanar.DamageAndHealthSystem;
 using DenizYanar.Events;
-using DenizYanar.External.Sense_Engine.Scripts.Core;
+using DenizYanar.SenseEngine;
 using DenizYanar.Singletons;
 using UnityEngine;
 

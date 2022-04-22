@@ -1,4 +1,4 @@
-namespace DenizYanar.External.Sense_Engine.Scripts.Core
+namespace DenizYanar.SenseEngine
 {
     public static class SenseEnginePlayerExtension
     {

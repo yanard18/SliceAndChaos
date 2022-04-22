@@ -1,5 +1,6 @@
 using DenizYanar.Events;
 using DenizYanar.FSM;
+using DenizYanar.Inputs;
 using JetBrains.Annotations;
 using UnityEngine;
 

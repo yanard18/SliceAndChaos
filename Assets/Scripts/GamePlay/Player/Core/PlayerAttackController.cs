@@ -1,8 +1,9 @@
 using System;
 using System.Collections;
-using DenizYanar.External.Sense_Engine.Scripts.Core;
+using DenizYanar.SenseEngine;
 using UnityEngine;
 using DenizYanar.FSM;
+using DenizYanar.Inputs;
 
 namespace DenizYanar.PlayerSystem.Attacks
 {
@@ -58,7 +59,7 @@ namespace DenizYanar.PlayerSystem.Attacks
             _rb = GetComponent<Rigidbody2D>();
 
             _idle = new IdleState();
-            _slash = new SliceState(this, _settings, CreateAttackCooldown, _rb, _attackSensePlayer, _hitSensePlayer);
+            _slash = new SliceState(this, _settings, _inputs, CreateAttackCooldown, _rb, _attackSensePlayer, _hitSensePlayer);
             _throw = new ThrowSwordState(ThrowKatana, OnSwordCalled, OnSwordReturned, transform, _settings, _inputs);
             _wait = new WaitSwordState();
 

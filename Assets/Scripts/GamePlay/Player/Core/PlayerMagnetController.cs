@@ -1,3 +1,4 @@
+using DenizYanar.Inputs;
 using DenizYanar.PlayerSystem;
 using UnityEngine;
 

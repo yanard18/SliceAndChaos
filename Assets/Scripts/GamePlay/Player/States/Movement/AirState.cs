@@ -2,6 +2,7 @@ using DenizYanar.Events;
 using JetBrains.Annotations;
 using UnityEngine;
 using DenizYanar.FSM;
+using DenizYanar.Inputs;
 
 namespace DenizYanar.PlayerSystem.Movement
 {

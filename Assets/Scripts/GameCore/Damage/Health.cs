@@ -1,6 +1,6 @@
 using System;
 using System.Collections;
-using DenizYanar.External.Sense_Engine.Scripts.Core;
+using DenizYanar.SenseEngine;
 using Sirenix.OdinInspector;
 using UnityEngine;
 

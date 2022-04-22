@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using DenizYanar.Events;
+using DenizYanar.Inputs;
 using TMPro;
 using UnityEngine;
 

@@ -1,5 +1,5 @@
 using DenizYanar.Events;
-using DenizYanar.External.Sense_Engine.Scripts.Core;
+using DenizYanar.SenseEngine;
 using DenizYanar.FSM;
 using JetBrains.Annotations;
 

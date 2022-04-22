@@ -1,8 +1,8 @@
-using DenizYanar.External.Sense_Engine.Scripts.Core;
 using UnityEngine;
 using Cinemachine;
+using DenizYanar.SenseEngine;
 
-namespace DenizYanar.External.Sense_Engine.Scripts.Senses
+namespace DenizYanar.SenseEngine
 {
     [SenseEnginePath("Camera/Cinemachine Impulse")]
     public class SenseCinemachineImpulse : Sense

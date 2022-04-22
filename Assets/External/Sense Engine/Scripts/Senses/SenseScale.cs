@@ -1,8 +1,8 @@
 using System.Collections;
-using DenizYanar.External.Sense_Engine.Scripts.Core;
+using DenizYanar.SenseEngine;
 using UnityEngine;
 
-namespace DenizYanar.External.Sense_Engine.Scripts.Senses
+namespace DenizYanar.SenseEngine
 {
 	[SenseEnginePath("GameObjects/Scale Object")]
 	public class SenseScale : Sense

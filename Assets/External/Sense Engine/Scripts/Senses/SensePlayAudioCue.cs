@@ -1,9 +1,9 @@
-using DenizYanar.External.Sense_Engine.Scripts.Core;
 using UnityEngine;
 using DenizYanar.Audio;
+using DenizYanar.SenseEngine;
 using AudioSettings = DenizYanar.Audio.AudioSettings;
 
-namespace DenizYanar.External.Sense_Engine.Scripts.Senses
+namespace DenizYanar.SenseEngine
 {
     [SenseEnginePath("Audio/Play Audio Cue")]
     public class SensePlayAudioCue : Sense

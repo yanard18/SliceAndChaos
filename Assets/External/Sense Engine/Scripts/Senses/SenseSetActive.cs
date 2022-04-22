@@ -1,7 +1,7 @@
-using DenizYanar.External.Sense_Engine.Scripts.Core;
+using DenizYanar.SenseEngine;
 using UnityEngine;
 
-namespace DenizYanar.External.Sense_Engine.Scripts.Senses
+namespace DenizYanar.SenseEngine
 {
 	[SenseEnginePath("GameObjects/Set Active")]
 	public class SenseSetActive : Sense

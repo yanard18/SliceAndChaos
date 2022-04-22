@@ -6,9 +6,21 @@ namespace DenizYanar.Inputs
 {
     public class InputManager : MonoBehaviour
     {
-        [Required] [SerializeField] 
+        [Required] [SerializeField]
         private PlayerInputs m_Inputs;
-        
+
+
+        public void HandleMousePositionInput(InputAction.CallbackContext context)
+        {
+            if (Camera.main != null)
+                m_Inputs.m_MousePosition = context.ReadValue<Vector2>();
+        }
+
+        public void HandleHorizontalInput(InputAction.CallbackContext context)
+        {
+            m_Inputs.m_HorizontalMovement = context.ReadValue<float>();
+        }
+
         public void HandleJumpInput(InputAction.CallbackContext context)
         {
             if (context.started)
@@ -29,18 +41,14 @@ namespace DenizYanar.Inputs
             if (context.started)
                 m_Inputs.e_OnShiftStarted?.Invoke();
         }
-        
-        public void HandleHorizontalInput(InputAction.CallbackContext context)
-        {
-            m_Inputs.m_HorizontalMovement = context.ReadValue<float>();
-        }
+
 
         public void HandleAttack1Input(InputAction.CallbackContext context)
         {
             if (context.started)
                 m_Inputs.e_OnAttack1Started?.Invoke();
         }
-        
+
         public void HandleAttack2Input(InputAction.CallbackContext context)
         {
             if (context.started)
@@ -58,19 +66,19 @@ namespace DenizYanar.Inputs
 
         public void HandleMagnetPushInput(InputAction.CallbackContext context)
         {
-            if(context.started)
+            if (context.started)
                 m_Inputs.e_OnMagnetPushPressed?.Invoke();
         }
 
         public void HandleOpenDevConsoleInput(InputAction.CallbackContext context)
         {
-            if(context.started)
+            if (context.started)
                 m_Inputs.e_OnOpenDevConsoleKeyPressed?.Invoke();
         }
-        
+
         public void HandleCloseDevConsoleInput(InputAction.CallbackContext context)
         {
-            if(context.started)
+            if (context.started)
                 m_Inputs.e_OnCloseDevConsoleKeyPressed?.Invoke();
         }
 
