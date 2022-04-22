@@ -43,16 +43,16 @@ namespace DenizYanar.DeveloperConsoleSystem
 
         private void OnEnable()
         {
-            m_Inputs.OnOpenDevConsoleKeyPressed += ToggleConsole;
-            m_Inputs.OnCloseDevConsoleKeyPressed += ToggleConsole;
-            m_Inputs.OnEnterCommandKeyPressed += ApplyInputField;
+            m_Inputs.e_OnOpenDevConsoleKeyPressed += ToggleConsole;
+            m_Inputs.e_OnCloseDevConsoleKeyPressed += ToggleConsole;
+            m_Inputs.e_OnEnterCommandKeyPressed += ApplyInputField;
         }
 
         private void OnDisable()
         {
-            m_Inputs.OnOpenDevConsoleKeyPressed -= ToggleConsole;
-            m_Inputs.OnCloseDevConsoleKeyPressed -= ToggleConsole;
-            m_Inputs.OnEnterCommandKeyPressed -= ApplyInputField;
+            m_Inputs.e_OnOpenDevConsoleKeyPressed -= ToggleConsole;
+            m_Inputs.e_OnCloseDevConsoleKeyPressed -= ToggleConsole;
+            m_Inputs.e_OnEnterCommandKeyPressed -= ApplyInputField;
         }
 
         private void ToggleConsole()

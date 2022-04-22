@@ -1,3 +1,4 @@
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace DenizYanar.LevelManagement
@@ -5,6 +6,7 @@ namespace DenizYanar.LevelManagement
     [CreateAssetMenu (menuName = "Level Management/Level Dependency List")]
     public class LevelDependencyList : ScriptableObject
     {
-        public DependencyLevel[] LevelList;
+        [Required]
+        public DependencyLevel[] m_LevelList;
     }
 }

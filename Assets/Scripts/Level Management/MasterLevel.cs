@@ -1,3 +1,4 @@
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace DenizYanar.LevelManagement
@@ -5,6 +6,7 @@ namespace DenizYanar.LevelManagement
     [CreateAssetMenu(menuName = "Level Management/Main Level")]
     public class MasterLevel : Level
     {
-        public LevelDependencyList DependencyList;
+        [Required]
+        public LevelDependencyList m_DependencyList;
     }
 }

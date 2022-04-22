@@ -27,9 +27,10 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.834399, y: 3.773591, z: -7.036889}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3095351758103089026
 MonoBehaviour:
@@ -43,6 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c31280db721cde9469c6479121186fb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _loadLevelEvent: {fileID: 11400000, guid: ab374e04be2f6184d99178f6bb578691, type: 2}
-  _levelReadyEvent: {fileID: 0}
-  LoadingOperationDescription: 
+  m_ecLoadLevel: {fileID: 11400000, guid: ab374e04be2f6184d99178f6bb578691, type: 2}
+  m_ecLevelReady: {fileID: 11400000, guid: 90762cb79025dbc44a1ffbac3bd640db, type: 2}
+  m_LoadingProgressValue: {fileID: 11400000, guid: 659530a767d4a5148a0f3104fe787077, type: 2}

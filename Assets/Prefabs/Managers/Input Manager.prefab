@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2558ceda8a6a1147994f6792df59452, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inputs: {fileID: 11400000, guid: 19cff4123c4ee15498d6229cf530e6b2, type: 2}
+  m_Inputs: {fileID: 11400000, guid: 19cff4123c4ee15498d6229cf530e6b2, type: 2}
 --- !u!114 &7039654067766137235
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -265,8 +265,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f98ed5ecde04b049da3c76f9e3d5b07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _eventChannel: {fileID: 11400000, guid: 606f887b04e00084fa1996419fad1a9a, type: 2}
-  _unityEvent:
+  m_Description: 'When input action map changed : Input Action Map'
+  m_EventChannel: {fileID: 11400000, guid: 606f887b04e00084fa1996419fad1a9a, type: 2}
+  m_UnityEvent:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7039654067766137235}

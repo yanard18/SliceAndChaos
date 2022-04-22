@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48581957d90a13748a9b4ae0889389e1, type: 3}
   m_Name: Commands Table
   m_EditorClassIdentifier: 
-  Commands:
-  - {fileID: 11400000, guid: 44d9646f1600b8a46990b190f0a0e4e2, type: 2}
-  - {fileID: 11400000, guid: 2e2b54a0666f92845b19163f03752591, type: 2}
+  m_Commands:
   - {fileID: 11400000, guid: 4aa75e95f33f48f49a66baa26c7c656a, type: 2}
+  - {fileID: 11400000, guid: 2e2b54a0666f92845b19163f03752591, type: 2}
+  - {fileID: 11400000, guid: 44d9646f1600b8a46990b190f0a0e4e2, type: 2}

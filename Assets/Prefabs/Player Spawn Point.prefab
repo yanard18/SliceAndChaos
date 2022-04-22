@@ -45,9 +45,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71230b1b930d95646abb659367cd5dde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _player: {fileID: 1008661422985328073, guid: 4bf14834b84e87b4dac79a9b00a082a6, type: 3}
-  _playerCamera: {fileID: 149690796072444450, guid: af42a40d582c433419341301215312c9, type: 3}
-  _virtualCamera: {fileID: 5525135348509028388, guid: d0b3593509eef4843b1a779978bcbde5, type: 3}
+  m_Player: {fileID: 1008661422985328073, guid: 4bf14834b84e87b4dac79a9b00a082a6, type: 3}
+  m_PlayerCamera: {fileID: 149690796072444450, guid: af42a40d582c433419341301215312c9, type: 3}
+  m_VirtualCamera: {fileID: 5525135348509028388, guid: d0b3593509eef4843b1a779978bcbde5, type: 3}
 --- !u!114 &2824384073939078168
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60,8 +60,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afb8d02ca8ce6a54bbedee06b1cfc98e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _eventChannel: {fileID: 11400000, guid: 90762cb79025dbc44a1ffbac3bd640db, type: 2}
-  _unityEvent:
+  m_Description: Spawn the player on spawn player event
+  m_EventChannel: {fileID: 11400000, guid: 323442b94c0aaad478b3027e83f36084, type: 2}
+  m_UnityEvent:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2824384073939078170}

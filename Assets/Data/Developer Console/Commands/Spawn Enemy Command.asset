@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bad8412e44fc1944d991f39bb6b055c7, type: 3}
   m_Name: Spawn Enemy Command
   m_EditorClassIdentifier: 
-  CommandName: spawn
-  Usage: /spawn <id> <x> <y> <amount>
-  ParameterCount: 4
-  _enemyTable: {fileID: 11400000, guid: 4c1dd0dac8b569a43baa8c0918f52040, type: 2}
+  m_CommandName: spawn
+  m_Usage: /spawn <enemy_id> <x> <y> <amount>
+  m_nParameter: 4
+  m_EnemyTable: {fileID: 11400000, guid: 4c1dd0dac8b569a43baa8c0918f52040, type: 2}

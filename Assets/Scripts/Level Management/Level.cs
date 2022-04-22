@@ -1,14 +1,18 @@
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace DenizYanar.LevelManagement
 {
     public class Level : ScriptableObject
     {
-        public string LevelName;
-        
-        [TextArea] public string Description;
-        [TextArea] public string LoadDescription;
 
+        [ValidateInput("@$value.Length > 0", "Level name is required.")]
+        public string m_LevelName;
         
+        [TextArea]
+        public string m_Description;
+        
+        [TextArea]
+        public string m_LoadDescription;
     }
 }

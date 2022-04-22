@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30092eb5f1b7d8c4c92430540e5b9009, type: 3}
   m_Name: DeveloperConsole
   m_EditorClassIdentifier: 
-  LevelName: _DeveloperConsole
-  Description: Developer console for both players and developers
-  LoadDescription: Dev Console is loading...
+  m_LevelName: _DeveloperConsole
+  m_Description: 
+  m_LoadDescription: 

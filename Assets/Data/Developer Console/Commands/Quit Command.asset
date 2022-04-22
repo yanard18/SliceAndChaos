@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42c0b0d914c281b4d90fe2b6d07a817a, type: 3}
   m_Name: Quit Command
   m_EditorClassIdentifier: 
-  _commandList: {fileID: 11400000, guid: 90b3f6aa82c7fb241bf3390f1dbbf6a3, type: 2}
-  CommandName: quit
+  m_CommandName: quit
+  m_Usage: /quit
+  m_nParameter: 0

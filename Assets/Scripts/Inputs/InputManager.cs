@@ -1,3 +1,4 @@
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -5,77 +6,78 @@ namespace DenizYanar.Inputs
 {
     public class InputManager : MonoBehaviour
     {
-        [SerializeField] private PlayerInputs _inputs;
+        [Required] [SerializeField] 
+        private PlayerInputs m_Inputs;
         
         public void HandleJumpInput(InputAction.CallbackContext context)
         {
             if (context.started)
-                _inputs.OnJumpStarted?.Invoke();
+                m_Inputs.e_OnJumpStarted?.Invoke();
         }
 
         public void HandleDiveInput(InputAction.CallbackContext context)
         {
             if (context.started)
-                _inputs.OnDiveStarted?.Invoke();
+                m_Inputs.e_OnDiveStarted?.Invoke();
 
             if (context.canceled)
-                _inputs.OnDiveCancelled?.Invoke();
+                m_Inputs.e_OnDiveCancelled?.Invoke();
         }
 
         public void HandleShiftModeInput(InputAction.CallbackContext context)
         {
             if (context.started)
-                _inputs.OnShiftStarted?.Invoke();
+                m_Inputs.e_OnShiftStarted?.Invoke();
         }
         
         public void HandleHorizontalInput(InputAction.CallbackContext context)
         {
-            _inputs.HorizontalMovement = context.ReadValue<float>();
+            m_Inputs.m_HorizontalMovement = context.ReadValue<float>();
         }
 
         public void HandleAttack1Input(InputAction.CallbackContext context)
         {
             if (context.started)
-                _inputs.OnAttack1Started?.Invoke();
+                m_Inputs.e_OnAttack1Started?.Invoke();
         }
         
         public void HandleAttack2Input(InputAction.CallbackContext context)
         {
             if (context.started)
-                _inputs.OnAttack2Started?.Invoke();
+                m_Inputs.e_OnAttack2Started?.Invoke();
         }
 
         public void HandleMagnetPullInput(InputAction.CallbackContext context)
         {
             if (context.started)
-                _inputs.OnMagnetPullStarted?.Invoke();
+                m_Inputs.e_OnMagnetPullStarted?.Invoke();
 
             if (context.canceled)
-                _inputs.OnMagnetPullCancelled?.Invoke();
+                m_Inputs.e_OnMagnetPullCancelled?.Invoke();
         }
 
         public void HandleMagnetPushInput(InputAction.CallbackContext context)
         {
             if(context.started)
-                _inputs.OnMagnetPushPressed?.Invoke();
+                m_Inputs.e_OnMagnetPushPressed?.Invoke();
         }
 
         public void HandleOpenDevConsoleInput(InputAction.CallbackContext context)
         {
             if(context.started)
-                _inputs.OnOpenDevConsoleKeyPressed?.Invoke();
+                m_Inputs.e_OnOpenDevConsoleKeyPressed?.Invoke();
         }
         
         public void HandleCloseDevConsoleInput(InputAction.CallbackContext context)
         {
             if(context.started)
-                _inputs.OnCloseDevConsoleKeyPressed?.Invoke();
+                m_Inputs.e_OnCloseDevConsoleKeyPressed?.Invoke();
         }
 
         public void HandleEnterCommandInput(InputAction.CallbackContext context)
         {
             if (context.started)
-                _inputs.OnEnterCommandKeyPressed?.Invoke();
+                m_Inputs.e_OnEnterCommandKeyPressed?.Invoke();
         }
     }
 }

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac74077ef92e6064ab20c3eca1079669, type: 3}
   m_Name: Enemy Test Area
   m_EditorClassIdentifier: 
-  LevelName: EnemyTestArea
-  Description: This is brand new area to test different kind enemies
-  LoadDescription: Enemy Test Area Loading!
-  DependencyList: {fileID: 11400000, guid: 752c48131c3faca44b896fc87e3cc7ba, type: 2}
+  m_LevelName: EnemyTestArea
+  m_Description: 
+  m_LoadDescription: 
+  m_DependencyList: {fileID: 11400000, guid: 752c48131c3faca44b896fc87e3cc7ba, type: 2}

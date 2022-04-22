@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdbdc0fd17c3d61499e194013caa2163, type: 3}
   m_Name: Gameplay Dependencies
   m_EditorClassIdentifier: 
-  LevelList:
-  - {fileID: 11400000, guid: 5923641c290538741a7d2aca61d8c283, type: 2}
+  m_LevelList:
   - {fileID: 11400000, guid: 83a78578c86c5ca4bb89d25d5a861dbe, type: 2}
+  - {fileID: 11400000, guid: 5923641c290538741a7d2aca61d8c283, type: 2}

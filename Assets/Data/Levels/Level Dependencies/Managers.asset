@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30092eb5f1b7d8c4c92430540e5b9009, type: 3}
   m_Name: Managers
   m_EditorClassIdentifier: 
-  LevelName: _Managers
-  Description: 
-  LoadDescription: Managers Are Loading...
+  m_LevelName: _Managers
+  m_Description: 
+  m_LoadDescription: 

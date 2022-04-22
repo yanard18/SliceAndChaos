@@ -1,21 +1,26 @@
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace DenizYanar.LevelManagement
 {
     public class LevelLoader : MonoBehaviour
     {
-        [SerializeField] private MasterLevel _level;
-        [SerializeField] private LoadLevelEvent _loadLevelEvent;
+        [SerializeField] [Required]
+        private MasterLevel m_Level;
+        
+        [SerializeField] [Required]
+        private LoadLevelEvent m_ecLoadLevel;
 
-        [SerializeField] private bool _loadAtStart;
+        [SerializeField] [Required]
+        private bool m_bLoadAtStart;
         
         private void Start()
         {
-            if(!_loadAtStart) return;
+            if(!m_bLoadAtStart) return;
             
             LoadLevel();
         }
 
-        public void LoadLevel() => _loadLevelEvent.Invoke(_level);
+        public void LoadLevel() => m_ecLoadLevel.Invoke(m_Level);
     }
 }

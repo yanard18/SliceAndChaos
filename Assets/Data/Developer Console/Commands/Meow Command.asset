@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: deec4c9b5a64e924383a2211ab24fd5b, type: 3}
   m_Name: Meow Command
   m_EditorClassIdentifier: 
-  CommandName: meow
-  _effect: {fileID: 11400000, guid: 0a008b147255d8643bc6f0803772b60c, type: 2}
-  _eventChannel: {fileID: 11400000, guid: a44dcbb6695395a4c992c8157e339822, type: 2}
+  m_CommandName: meow
+  m_Usage: /meow
+  m_nParameter: 0
+  m_Audio: {fileID: 11400000, guid: 0a008b147255d8643bc6f0803772b60c, type: 2}
+  m_EventChannel: {fileID: 11400000, guid: a44dcbb6695395a4c992c8157e339822, type: 2}

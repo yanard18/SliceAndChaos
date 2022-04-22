@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DenizYanar.Events;
 using DenizYanar.GameVariables;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,33 +10,37 @@ namespace DenizYanar.LevelManagement
 {
     public class LevelManager : MonoBehaviour
     {
-        [SerializeField] private LoadLevelEvent _loadLevelEvent;
-        [SerializeField] private VoidEventChannelSO _levelReadyEvent;
+        [SerializeField] [Required]
+        private LoadLevelEvent m_ecLoadLevel;
         
-        private readonly List<AsyncOperation> _loadingOperations = new List<AsyncOperation>();
+        [SerializeField] [Required]
+        private VoidEventChannelSO m_ecLevelReady;
+        
+        private readonly List<AsyncOperation> m_TLoadingOperations = new ();
 
-        private MasterLevel _currentLevel;
+        private MasterLevel m_CurrentLevel;
 
-        public FloatVariable LoadingProgress;
+        [Required]
+        public FloatVariable m_LoadingProgressValue;
 
-        private void OnEnable() => _loadLevelEvent.OnLoadLevelRequested += LoadLevel;
-        private void OnDisable() => _loadLevelEvent.OnLoadLevelRequested -= LoadLevel;
+        private void OnEnable() => m_ecLoadLevel.e_OnLoadLevelRequested += LoadLevel;
+        private void OnDisable() => m_ecLoadLevel.e_OnLoadLevelRequested -= LoadLevel;
 
         private void LoadLevel(MasterLevel masterLevel)
         {
-            UnloadLevel(_currentLevel);
+            UnloadLevel(m_CurrentLevel);
             LoadNewLevel(masterLevel);
             HandleLoadingProgress(masterLevel);
             
-            _currentLevel = masterLevel;
+            m_CurrentLevel = masterLevel;
         }
 
         private void OnLevelLoaded(Level level)
         {
-            LoadingProgress.Value = 0;
-            SceneManager.SetActiveScene(SceneManager.GetSceneByName(level.LevelName));
+            m_LoadingProgressValue.Value = 0;
+            SceneManager.SetActiveScene(SceneManager.GetSceneByName(level.m_LevelName));
             
-            _levelReadyEvent.Invoke();
+            m_ecLevelReady.Invoke();
         }
 
         private void HandleLoadingProgress(Level level) => StartCoroutine(GetSceneLoadProgress(level));
@@ -49,15 +54,15 @@ namespace DenizYanar.LevelManagement
         private void LoadMasterLevel(Level masterLevel)
         {
             if(!LevelExist(masterLevel))
-                _loadingOperations.Add(SceneManager.LoadSceneAsync(masterLevel.LevelName, LoadSceneMode.Additive));
+                m_TLoadingOperations.Add(SceneManager.LoadSceneAsync(masterLevel.m_LevelName, LoadSceneMode.Additive));
         }
 
         private void LoadLevelDependencies(MasterLevel masterLevel)
         {
-            foreach (var dependencyLevel in masterLevel.DependencyList.LevelList)
+            foreach (var dependencyLevel in masterLevel.m_DependencyList.m_LevelList)
             {
                 if (!LevelExist(dependencyLevel))
-                    _loadingOperations.Add(SceneManager.LoadSceneAsync(dependencyLevel.LevelName, LoadSceneMode.Additive));
+                    m_TLoadingOperations.Add(SceneManager.LoadSceneAsync(dependencyLevel.m_LevelName, LoadSceneMode.Additive));
             }
         }
 
@@ -71,13 +76,13 @@ namespace DenizYanar.LevelManagement
 
         private void UnloadMasterLevel(Level level)
         {
-            _loadingOperations.Add(SceneManager.UnloadSceneAsync(level.LevelName));
+            m_TLoadingOperations.Add(SceneManager.UnloadSceneAsync(level.m_LevelName));
         }
 
         private void UnloadLevelDependencies(MasterLevel level)
         {
-            foreach (var dependencyLevel in level.DependencyList.LevelList)
-                _loadingOperations.Add(SceneManager.UnloadSceneAsync(dependencyLevel.LevelName));
+            foreach (var dependencyLevel in level.m_DependencyList.m_LevelList)
+                m_TLoadingOperations.Add(SceneManager.UnloadSceneAsync(dependencyLevel.m_LevelName));
         }
 
         
@@ -85,18 +90,18 @@ namespace DenizYanar.LevelManagement
 
         private IEnumerator GetSceneLoadProgress(Level level)
         {
-            foreach (var op in _loadingOperations)
+            foreach (var op in m_TLoadingOperations)
             {
 
                 while (!op.isDone)
                 {
-                    LoadingProgress.Value = 0;
-                    foreach (var operation in _loadingOperations)
+                    m_LoadingProgressValue.Value = 0;
+                    foreach (var operation in m_TLoadingOperations)
                     {
-                        LoadingProgress.Value += operation.progress;
+                        m_LoadingProgressValue.Value += operation.progress;
                     }
 
-                    LoadingProgress.Value = (LoadingProgress.Value / _loadingOperations.Count) * 100f;
+                    m_LoadingProgressValue.Value = (m_LoadingProgressValue.Value / m_TLoadingOperations.Count) * 100f;
 
                     yield return null;
                 }
@@ -106,9 +111,9 @@ namespace DenizYanar.LevelManagement
         
         
         
-        private static bool LevelExist(Level dependencyLevel) => SceneManager.GetSceneByName(dependencyLevel.LevelName).isLoaded;
+        private static bool LevelExist(Level dependencyLevel) => SceneManager.GetSceneByName(dependencyLevel.m_LevelName).isLoaded;
 
-        private bool ThereAreNoActiveLevel => _currentLevel == null;
+        private bool ThereAreNoActiveLevel => m_CurrentLevel == null;
         
     }
 }

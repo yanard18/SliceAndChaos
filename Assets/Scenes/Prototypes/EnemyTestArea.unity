@@ -311,8 +311,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23c388cb59e918949b7fbf9d4cee4f1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Owner: {fileID: 0}
-  HealthOfHitBox: {fileID: 1814841123}
+  m_Owner: {fileID: 0}
+  m_HealthOfHitBox: {fileID: 0}
 --- !u!61 &56513288
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2560,7 +2560,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1406595647}
-  - component: {fileID: 1406595648}
   m_Layer: 0
   m_Name: Gun
   m_TagString: Untagged
@@ -2586,22 +2585,6 @@ Transform:
   m_Father: {fileID: 1670789331397297222}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1406595648
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1406595646}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f58333960badcf43bf303f4c7df4223, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_bActivated: 1
-  m_fAngleConstraint: 60
-  m_bMoveToTarget: 1
-  m_fMoveScale: 0.5
 --- !u!1001 &1480124880
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3424,11 +3407,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c2797a9c15260f45a2ca1dae53a57b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_fMaxHealth: 100
-  m_fHealth: 100
-  m_fImmunityDuration: 0
-  m_senDamage: {fileID: 0}
-  m_senDeath: {fileID: 0}
+  m_MaxHealth: 100
+  m_Health: 100
+  m_ImmunityDuration: 0
+  m_sepDamage: {fileID: 0}
+  m_sepDeath: {fileID: 0}
 --- !u!1 &1842843302
 GameObject:
   m_ObjectHideFlags: 0
