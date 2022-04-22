@@ -60,7 +60,7 @@ namespace DenizYanar.PlayerSystem.Attacks
 
             Vector2 playerPosition = _player.transform.position;
 
-            var attackDir = YanarUtils.FindDirectionBetweenPositionAndScreen(playerPosition, _inputs.m_MousePosition);
+            var attackDir = YanarUtils.FindDirectionBetweenPositionAndMouse(playerPosition, _inputs.m_MousePosition);
             
             Debug.DrawRay(playerPosition, attackDir, Color.green, 5.0f);
             

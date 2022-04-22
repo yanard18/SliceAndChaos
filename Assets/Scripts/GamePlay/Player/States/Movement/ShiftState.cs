@@ -3,6 +3,7 @@ using DenizYanar.SenseEngine;
 using JetBrains.Annotations;
 using UnityEngine;
 using DenizYanar.FSM;
+using DenizYanar.Inputs;
 using DenizYanar.YanarPro;
 
 
@@ -11,6 +12,7 @@ namespace DenizYanar.PlayerSystem.Movement
     public class ShiftState : State
     {
         private readonly Rigidbody2D _rb;
+        private readonly PlayerInputs _inputs;
         private readonly SenseEnginePlayer _enterShiftSense;
         private readonly SenseEnginePlayer _leaveShiftSense;
         private readonly float _originalGravity;
@@ -20,12 +22,19 @@ namespace DenizYanar.PlayerSystem.Movement
 
         #region Constructor
 
-        public ShiftState(Rigidbody2D rb, PlayerSettings settings, SenseEnginePlayer enterShiftSense, SenseEnginePlayer leaveShiftSense, StringEventChannelSO nameInformerEvent = null, [CanBeNull] string stateName = null)
+        public ShiftState(Rigidbody2D rb,
+            PlayerInputs inputs,
+            PlayerSettings settings,
+            SenseEnginePlayer enterShiftSense,
+            SenseEnginePlayer leaveShiftSense,
+            StringEventChannelSO nameInformerEvent = null,
+            [CanBeNull] string stateName = null)
         {
             _stateNameInformerEventChannel = nameInformerEvent;
             _stateName = stateName;
-            
+
             _rb = rb;
+            _inputs = inputs;
             _originalGravity = rb.gravityScale;
             _speed = settings.ShiftModeSpeed;
             _enterShiftSense = enterShiftSense;
@@ -39,11 +48,11 @@ namespace DenizYanar.PlayerSystem.Movement
 
         public override void PhysicsTick()
         {
-            base.PhysicsTick(); 
+            base.PhysicsTick();
             MoveForward();
             SetAngle();
         }
-        
+
         public override void OnEnter()
         {
             base.OnEnter();
@@ -53,7 +62,7 @@ namespace DenizYanar.PlayerSystem.Movement
             _rb.freezeRotation = false;
             _enterShiftSense.PlayIfExist();
         }
-        
+
         public override void OnExit()
         {
             base.OnExit();
@@ -62,7 +71,6 @@ namespace DenizYanar.PlayerSystem.Movement
             _rb.freezeRotation = true;
             _leaveShiftSense.PlayIfExist();
             GiveSpeedBoost(1.5f);
-            
         }
 
         private void GiveSpeedBoost(float boostValue) => _rb.velocity *= boostValue;
@@ -75,24 +83,19 @@ namespace DenizYanar.PlayerSystem.Movement
         {
             _rb.velocity = _rb.transform.right * (_speed * Time.fixedDeltaTime);
         }
-        
+
         private void SetAngle()
         {
-            var angle = YanarUtils.FindAngleBetweenTwoPositions(_rb.transform.position);
+            var angle = YanarUtils.FindAngleBetweenPositionAndMouse(_rb.transform.position, _inputs.m_MousePosition);
             _rb.rotation = Mathf.MoveTowardsAngle(_rb.rotation, angle, Time.fixedDeltaTime * _turnSpeed);
         }
-        
+
         private void SetAngleInstant()
         {
-            var angle = YanarUtils.FindAngleBetweenMouseAndPosition(_rb.transform.position);
+            var angle = YanarUtils.FindAngleBetweenPositionAndMouse(_rb.transform.position, _inputs.m_MousePosition);
             _rb.rotation = angle;
         }
 
         #endregion
-        
-        
-        
-        
     }
-    
 }

@@ -3,6 +3,7 @@ using System.Collections;
 using DenizYanar.SenseEngine;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using System.Runtime.CompilerServices;
 
 namespace DenizYanar.DamageAndHealthSystem
 {
@@ -32,7 +33,7 @@ namespace DenizYanar.DamageAndHealthSystem
         
         public void TakeDamage(Damage damage)
         {
-            if(AlreadyDeath) return;
+            if(IsDeath) return;
             if(m_bHasImmunity) return;
 
             m_Health -= damage.m_DamageValue;
@@ -62,9 +63,10 @@ namespace DenizYanar.DamageAndHealthSystem
             m_bHasImmunity = false;
         }
         
-        private bool IsHealthLessThanZero => m_Health <= 0;
+        
+        internal bool IsHealthLessThanZero => m_Health <= 0;
 
         private bool HasImmunityAbility => m_ImmunityDuration > 0;
-        private bool AlreadyDeath => m_Health <= 0;
+        private bool IsDeath => m_Health <= 0;
     }
 }

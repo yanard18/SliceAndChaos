@@ -14,7 +14,16 @@ namespace DenizYanar.YanarPro
             return angle;
         }
 
-        public static Vector2 FindDirectionBetweenPositionAndScreen(Vector2 startPos, Vector2 screenPos)
+        public static float FindAngleBetweenPositionAndMouse(Vector2 startPos, Vector2 mousePos)
+        {
+            if (Camera.main == null) return 0f;
+
+            var dir = (Vector2) Camera.main.ScreenToWorldPoint(Input.mousePosition) - startPos;
+            var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            return angle;
+        }
+
+        public static Vector2 FindDirectionBetweenPositionAndMouse(Vector2 startPos, Vector2 mousePos)
         {
             if (Camera.main == null) return Vector2.zero;
 
