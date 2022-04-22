@@ -14,26 +14,33 @@ namespace DenizYanar.YanarPro
             return angle;
         }
 
-        public static float FindAngleBetweenMouseAndPosition(Vector2 pos)
+        public static Vector2 FindDirectionBetweenPositionAndScreen(Vector2 startPos, Vector2 screenPos)
         {
-            if (Camera.main is null) return 0;
+            if (Camera.main == null) return Vector2.zero;
 
-            var dir = (Vector2) Camera.main.ScreenToWorldPoint(Input.mousePosition) - pos;
-            var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-            return angle;
+            var dir = (Vector2) Camera.main.ScreenToWorldPoint(Input.mousePosition) - startPos;
+            return dir.normalized;
+        }
+
+        public static Vector2 FindDisplacementBetweenPositionAndScreen(Vector2 startPos, Vector2 screenPos)
+        {
+            if (Camera.main == null) return Vector2.zero;
+
+            var dir = (Vector2) Camera.main.ScreenToWorldPoint(Input.mousePosition) - startPos;
+            return dir;
         }
 
         public static Vector2 FindDirectionBetweenTwoPositions(Vector2 startPosition, Vector2 endPosition)
         {
+            return (endPosition - startPosition).normalized;
+        }
+
+        public static Vector2 FindDisplacementBetweenTwoPosition(Vector2 startPosition, Vector2 endPosition)
+        {
             return endPosition - startPosition;
         }
-        
-        
-        
-        
-        
-        
-        
+
+
         public class Sequence
         {
             public readonly Action Method;
@@ -45,7 +52,7 @@ namespace DenizYanar.YanarPro
                 RoutineDuration = routineDuration;
             }
         }
-        
+
         public class SequenceQueue
         {
             private readonly Queue<Sequence> _sequences = new();
@@ -65,7 +72,5 @@ namespace DenizYanar.YanarPro
                 _sequences.Enqueue(sequence);
             }
         }
-        
-        
     }
 }

@@ -45,7 +45,7 @@ namespace DenizYanar.PlayerSystem.Movement
 
         private bool IsThereObstacleBetweenPositions(Vector2 startPos, Vector2 endPos)
         {
-            var dir= YanarUtils.FindDirectionBetweenTwoPositions(startPos, endPos);
+            var dir= YanarUtils.FindDisplacementBetweenTwoPosition(startPos, endPos);
             var hit = Physics2D.Raycast(startPos, dir.normalized, dir.magnitude, _settings.ObstacleLayerMask);
             return hit;
         }

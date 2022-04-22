@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using DenizYanar.Events;
 using DenizYanar.Inputs;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 
@@ -13,17 +14,32 @@ namespace DenizYanar.DeveloperConsoleSystem
 
 
         [Header("Developer Panel UI")] 
-        [SerializeField] private GameObject m_Console;
-        [SerializeField] private TMP_Text m_ConsoleLog;
-        [SerializeField] private TMP_InputField m_InputField;
+        [Required] [SerializeField] private GameObject m_Console;
+        
+        [SerializeField] [Required]
+        private TMP_Text m_ConsoleLog;
+        
+        [SerializeField] [Required] 
+        private TMP_InputField m_InputField;
         
 
         [Header("Configurations")]
-        [SerializeField] private char m_CommandPrefix = '/';
-        [SerializeField] private int m_nMaxLineInConsole = 30;
-        [SerializeField] private ConsoleCommandTable m_CommandTable;
-        [SerializeField] private PlayerInputs m_Inputs;
-        [SerializeField] private StringEventChannelSO m_ecChangeInputActionMap;
+        
+        [SerializeField]    
+        private char m_CommandPrefix = '/';
+        
+        [SerializeField] [ValidateInput("@$value > 0", "Max line count should be greater than zero.")]
+        private int m_nMaxLineInConsole = 30;
+        
+        [SerializeField] [Required]
+        private ConsoleCommandTable m_CommandTable;
+        
+        [SerializeField] [Required]
+        private PlayerInputs m_Inputs;
+        
+        [SerializeField] [Required]
+        private StringEventChannelSO m_ecChangeInputActionMap;
+        
 
 
         private void Awake()

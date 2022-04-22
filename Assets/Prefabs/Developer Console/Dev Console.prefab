@@ -1211,7 +1211,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d2a5d5adc987aa47903da0a2c1c0233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Console: {fileID: 0}
+  m_Console: {fileID: 3298155190152808526}
   m_ConsoleLog: {fileID: 3298155188941529568}
   m_InputField: {fileID: 3298155189702683536}
   m_CommandPrefix: 47

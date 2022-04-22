@@ -78,7 +78,7 @@ namespace DenizYanar.PlayerSystem.Movement
         
         private void SetAngle()
         {
-            var angle = YanarUtils.FindAngleBetweenMouseAndPosition(_rb.transform.position);
+            var angle = YanarUtils.FindAngleBetweenTwoPositions(_rb.transform.position);
             _rb.rotation = Mathf.MoveTowardsAngle(_rb.rotation, angle, Time.fixedDeltaTime * _turnSpeed);
         }
         

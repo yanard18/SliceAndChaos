@@ -5,6 +5,7 @@ using DenizYanar.DamageAndHealthSystem;
 using DenizYanar.SenseEngine;
 using DenizYanar.FSM;
 using DenizYanar.Inputs;
+using DenizYanar.YanarPro;
 using UnityEngine;
 
 namespace DenizYanar.PlayerSystem.Attacks
@@ -14,8 +15,7 @@ namespace DenizYanar.PlayerSystem.Attacks
         private readonly PlayerAttackController _player;
         private readonly PlayerSettings _settings;
 
-
-        private static PlayerInputs _input;
+        private readonly PlayerInputs _inputs;
         private readonly Action<float> _startAttackCooldown;
         private readonly Rigidbody2D _rb;
         private readonly SenseEnginePlayer _attackSensePlayer;
@@ -39,7 +39,7 @@ namespace DenizYanar.PlayerSystem.Attacks
             
             _player = player;
             _settings = settings;
-            _input = input;
+            _inputs = input;
             _startAttackCooldown = startAttackCooldown;
             _rb = rb;
             _attackSensePlayer = attackSense;
@@ -58,14 +58,16 @@ namespace DenizYanar.PlayerSystem.Attacks
             _startAttackCooldown.Invoke(_settings.AttackCooldownDuration);
 
 
-            var playerPosition = _player.transform.position;
+            Vector2 playerPosition = _player.transform.position;
 
-            var attackDir = CalculateAttackDirection(playerPosition);
-
-
+            var attackDir = YanarUtils.FindDirectionBetweenPositionAndScreen(playerPosition, _inputs.m_MousePosition);
+            
+            Debug.DrawRay(playerPosition, attackDir, Color.green, 5.0f);
+            
+            
             var boxDistance = _settings.AttackRadius * Mathf.Sqrt(2);
             var boxAngle = Vector2.SignedAngle(Vector2.right, attackDir) - 45f;
-            var boxStartPos = playerPosition + (Vector3) attackDir * (boxDistance / 2f);
+            var boxStartPos = playerPosition + attackDir * (boxDistance / 2f);
             var boxSize = Vector2.one * _settings.AttackRadius;
 
 
@@ -110,18 +112,7 @@ namespace DenizYanar.PlayerSystem.Attacks
 
         #region Local Methods
 
-        private static Vector2 CalculateAttackDirection(Vector2 playerPosition)
-        {
-            if (Camera.main is not null)
-            {
-
-                Vector2 attackDir = _input.m_MousePosition - playerPosition; 
-                attackDir.Normalize();
-                return attackDir;
-            }
-
-            return Vector2.zero;
-        }
+        
 
         private void PushPlayerAlongAttackDir(Vector2 attackDir)
         {
