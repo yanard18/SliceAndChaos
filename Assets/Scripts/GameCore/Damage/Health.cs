@@ -3,7 +3,6 @@ using System.Collections;
 using DenizYanar.SenseEngine;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using System.Runtime.CompilerServices;
 
 namespace DenizYanar.DamageAndHealthSystem
 {
@@ -64,7 +63,7 @@ namespace DenizYanar.DamageAndHealthSystem
         }
         
         
-        internal bool IsHealthLessThanZero => m_Health <= 0;
+        private bool IsHealthLessThanZero => m_Health <= 0;
 
         private bool HasImmunityAbility => m_ImmunityDuration > 0;
         private bool IsDeath => m_Health <= 0;
