@@ -10,24 +10,25 @@ namespace DenizYanar.PlayerSystem
     [RequireComponent(typeof(Health))]
     public class Player : Singleton<Player>
     {
-        [SerializeField] private SenseEnginePlayer _deathSense;
+        [SerializeField]
+        private SenseEnginePlayer m_sepDeath;
 
-        private Health _health;
+        private Health m_Health;
 
         protected override void Awake()
         {
             base.Awake();
-            _health = GetComponent<Health>();
+            m_Health = GetComponent<Health>();
         }
 
         private void OnEnable()
         {
-            _health.e_OnDeath += Death;
+            m_Health.e_OnDeath += Death;
         }
 
         private void OnDisable()
         {
-            _health.e_OnDeath -= Death;
+            m_Health.e_OnDeath -= Death;
         }
 
         
@@ -36,7 +37,7 @@ namespace DenizYanar.PlayerSystem
         private void Death(Damage damage)
         {
             Debug.Log("Player killed by " + damage.m_Author.name);
-            _deathSense.Play();
+            m_sepDeath.Play();
             GameManager.s_Instance.GameOver();
             Destroy(gameObject);
         }

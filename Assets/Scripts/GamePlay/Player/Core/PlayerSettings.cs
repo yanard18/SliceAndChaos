@@ -8,8 +8,8 @@ namespace DenizYanar.PlayerSystem
     {
         [Header("Movement Configurations")]
         
-        [SerializeField] private float _desiredMovementVelocity = 17.0f;
-        public float DesiredMovementVelocity => _desiredMovementVelocity;
+        [SerializeField] private float m_pDesiredMovementVelocity = 17.0f;
+        public float m_DesiredMovementVelocity => m_pDesiredMovementVelocity;
         
         [SerializeField] private float _movementAcceleration = 80.0f;
         public float MovementAcceleration => _movementAcceleration;

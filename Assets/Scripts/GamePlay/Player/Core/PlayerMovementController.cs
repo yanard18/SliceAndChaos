@@ -4,6 +4,7 @@ using DenizYanar.Events;
 using DenizYanar.SenseEngine;
 using DenizYanar.FSM;
 using DenizYanar.Inputs;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 
@@ -15,23 +16,23 @@ namespace DenizYanar.PlayerSystem.Movement
     {
         #region Private Variables
 
-        private Rigidbody2D _rb;
-        private StateMachine _stateMachine;
+        private Rigidbody2D m_Rb;
+        private StateMachine m_StateMachine;
         
-        private bool _rememberedJumpRequest;
+        private bool m_bHasJumpRequest;
         
         #endregion
 
         #region Private State Variables
 
-        private IdleState _idle;
-        private MoveState _move;
-        private JumpState _jump;
-        private ShiftState _shift;
-        private TeleportState _teleport;
-        private AirState _air;
-        private LandState _land;
-        private WallSlideState _wallSlide;
+        private IdleState m_sIdle;
+        private MoveState m_sMove;
+        private JumpState m_sJump;
+        private ShiftState m_sShift;
+        private TeleportState m_sTeleport;
+        private AirState m_sAir;
+        private LandState m_sLand;
+        private WallSlideState m_sWallSlide;
         
 
         #endregion
@@ -39,23 +40,38 @@ namespace DenizYanar.PlayerSystem.Movement
         #region Serialized Variables
 
         [Header("Player Settings")]
-        [SerializeField] private PlayerSettings _settings;
         
-        [Header("Player Inputs")]
-        [SerializeField] private PlayerInputs _inputs;
+        [SerializeField] [Required]
+        private PlayerSettings m_Settings;
         
-        [Header("Player State Informer Channel")]
-        [SerializeField] private StringEvent _stateTitleEvent;
+        [Header("Player Inputs")]   
+        
+        [SerializeField] [Required]
+        private PlayerInputs m_Inputs;
+        
+        [Header("Player State Informer Channel")]   
+        
+        [SerializeField] [Required]
+        private StringEvent m_ecStateChangeTitle;
         
         [Header("Dependencies")]
-        [SerializeField] private Collider2D _collider;
+        
+        [SerializeField] [Required]
+        private Collider2D m_PlayerCollision;
         
         [Header("Senses")]
-        [SerializeField] private SenseEnginePlayer _jumpSense;
+        
+        [SerializeField] 
+        private SenseEnginePlayer m_sepJump;
 
-        [SerializeField] private SenseEnginePlayer _landSense;
-        [SerializeField] private SenseEnginePlayer _enterShiftSense;
-        [SerializeField] private SenseEnginePlayer _leaveShiftSense;
+        [SerializeField]
+        private SenseEnginePlayer m_sepLand;
+        
+        [SerializeField]
+        private SenseEnginePlayer m_sepEnterShift;
+        
+        [SerializeField]
+        private SenseEnginePlayer m_sepLeaveShift;
         
 
         #endregion
@@ -71,77 +87,77 @@ namespace DenizYanar.PlayerSystem.Movement
 
         private void OnEnable()
         {
-            _inputs.e_OnJumpStarted += OnJumpStarted;
-            _inputs.e_OnShiftStarted += OnShiftStarted;
-            _inputs.e_OnAttack1Started += OnAttack1Started;
+            m_Inputs.e_OnJumpStarted += OnJumpStarted;
+            m_Inputs.e_OnShiftStarted += OnShiftStarted;
+            m_Inputs.e_OnAttack1Started += OnAttack1Started;
         }
 
         private void OnDisable()
         {
-            _inputs.e_OnJumpStarted -= OnJumpStarted;
-            _inputs.e_OnShiftStarted -= OnShiftStarted;
-            _inputs.e_OnAttack1Started -= OnAttack1Started;
+            m_Inputs.e_OnJumpStarted -= OnJumpStarted;
+            m_Inputs.e_OnShiftStarted -= OnShiftStarted;
+            m_Inputs.e_OnAttack1Started -= OnAttack1Started;
         }
 
         private void Awake()
         {
-            _rb = GetComponent<Rigidbody2D>();
+            m_Rb = GetComponent<Rigidbody2D>();
             
             SetupStateMachine();
         }
 
         private void SetupStateMachine()
         {
-            JumpPropertiesInstance = new JumpProperties(2, 20, _rb);
-            WallSlideDataInstance = new WallSlideData(_rb, _collider);
+            JumpPropertiesInstance = new JumpProperties(2, 20, m_Rb);
+            WallSlideDataInstance = new WallSlideData(m_Rb, m_PlayerCollision);
 
-            _stateMachine = new StateMachine();
+            m_StateMachine = new StateMachine();
 
-            _idle = new IdleState(_rb, nameInformerEvent: _stateTitleEvent, stateName: "Idle");
-            _move = new MoveState(_rb, _settings, _inputs, nameInformerEvent: _stateTitleEvent, stateName: "Move");
-            _jump = new JumpState(this, _jumpSense, nameInformerChannel: _stateTitleEvent, stateName: "Jump");
-            _land = new LandState(JumpPropertiesInstance, _landSense, nameInformerEvent: _stateTitleEvent, stateName: "Land");
-            _wallSlide = new WallSlideState(this, _settings, name: _stateTitleEvent, stateName: "Wall Slide");
-            _air = new AirState(_rb, _settings, _inputs, nameInformerChannel: _stateTitleEvent, stateName: "At Air");
-            _shift = new ShiftState(_rb, _inputs, _settings, _enterShiftSense, _leaveShiftSense, nameInformerEvent: _stateTitleEvent, stateName: "Shift");
-            _teleport = new TeleportState(_rb, _settings);
+            m_sIdle = new IdleState(m_Rb, nameInformerEvent: m_ecStateChangeTitle, stateName: "Idle");
+            m_sMove = new MoveState(m_Rb, m_Settings, m_Inputs, nameInformerEvent: m_ecStateChangeTitle, stateName: "Move");
+            m_sJump = new JumpState(this, m_sepJump, nameInformerChannel: m_ecStateChangeTitle, stateName: "Jump");
+            m_sLand = new LandState(JumpPropertiesInstance, m_sepLand, nameInformerEvent: m_ecStateChangeTitle, stateName: "Land");
+            m_sWallSlide = new WallSlideState(this, m_Settings, name: m_ecStateChangeTitle, stateName: "Wall Slide");
+            m_sAir = new AirState(m_Rb, m_Settings, m_Inputs, nameInformerChannel: m_ecStateChangeTitle, stateName: "At Air");
+            m_sShift = new ShiftState(m_Rb, m_Inputs, m_Settings, m_sepEnterShift, m_sepLeaveShift, nameInformerEvent: m_ecStateChangeTitle, stateName: "Shift");
+            m_sTeleport = new TeleportState(m_Rb, m_Settings);
 
-            _stateMachine.InitState(_idle);
+            m_StateMachine.InitState(m_sIdle);
 
-            To(_idle, _move, HasMovementInput());
-            To(_move, _idle, HasNotMovementInput());
-            To(_idle, _jump, CanJump());
-            To(_move, _jump, CanJump());
-            To(_idle, _air, NoMoreContactToGround());
-            To(_move, _air, NoMoreContactToGround());
-            To(_air, _land, OnFallToGround());
-            To(_air, _jump, CanJump());
-            To(_land, _idle, AlwaysTrue());
-            To(_air, _wallSlide, OnContactToWall());
-            To(_wallSlide, _air, WhenJumpKeyTriggered());
-            To(_wallSlide, _air, NoContactToWall());
-            To(_teleport, _air, OnSliceFinished());
-            To(_air, _shift, () => false);
-            To(_shift, _air, () => false);
-            To(_shift, _teleport, () => false);
-            To(_jump, _air, () => true);
+            To(m_sIdle, m_sMove, HasMovementInput());
+            To(m_sMove, m_sIdle, HasNotMovementInput());
+            To(m_sIdle, m_sJump, CanJump());
+            To(m_sMove, m_sJump, CanJump());
+            To(m_sIdle, m_sAir, NoMoreContactToGround());
+            To(m_sMove, m_sAir, NoMoreContactToGround());
+            To(m_sAir, m_sLand, OnFallToGround());
+            To(m_sAir, m_sJump, CanJump());
+            To(m_sLand, m_sIdle, AlwaysTrue());
+            To(m_sAir, m_sWallSlide, OnContactToWall());
+            To(m_sWallSlide, m_sAir, WhenJumpKeyTriggered());
+            To(m_sWallSlide, m_sAir, NoContactToWall());
+            To(m_sTeleport, m_sAir, OnSliceFinished());
+            To(m_sAir, m_sShift, () => false);
+            To(m_sShift, m_sAir, () => false);
+            To(m_sShift, m_sTeleport, () => false);
+            To(m_sJump, m_sAir, () => true);
 
-            void To(State from, State to, Func<bool> condition) => _stateMachine.AddTransition(@from, to, condition);
+            void To(State from, State to, Func<bool> condition) => m_StateMachine.AddTransition(@from, to, condition);
 
-            Func<bool> HasMovementInput() => () => Mathf.Abs(_inputs.m_HorizontalMovement) > 0;
-            Func<bool> HasNotMovementInput() => () => _inputs.m_HorizontalMovement == 0;
-            Func<bool> CanJump() => () => _rememberedJumpRequest && JumpPropertiesInstance.CanJump;
-            Func<bool> WhenJumpKeyTriggered() => () => _rememberedJumpRequest;
-            Func<bool> OnFallToGround() => () => IsTouchingToGround() != null && _rb.velocity.y <= 0;
+            Func<bool> HasMovementInput() => () => Mathf.Abs(m_Inputs.m_HorizontalMovement) > 0;
+            Func<bool> HasNotMovementInput() => () => m_Inputs.m_HorizontalMovement == 0;
+            Func<bool> CanJump() => () => m_bHasJumpRequest && JumpPropertiesInstance.CanJump;
+            Func<bool> WhenJumpKeyTriggered() => () => m_bHasJumpRequest;
+            Func<bool> OnFallToGround() => () => IsTouchingToGround() != null && m_Rb.velocity.y <= 0;
             Func<bool> NoMoreContactToGround() => () => IsTouchingToGround() == null;
             Func<bool> OnContactToWall() => () => AngleOfContact() == 0 && WallSlideDataInstance.HasCooldown == false;
             Func<bool> NoContactToWall() => () => AngleOfContact() == null || AngleOfContact() != 0;
-            Func<bool> OnSliceFinished() => () => _teleport.HasFinished;
+            Func<bool> OnSliceFinished() => () => m_sTeleport.HasFinished;
             Func<bool> AlwaysTrue() => () => true;
         }
 
-        private void Update() => _stateMachine.Tick();
-        private void FixedUpdate() => _stateMachine.PhysicsTick();
+        private void Update() => m_StateMachine.Tick();
+        private void FixedUpdate() => m_StateMachine.PhysicsTick();
 
         #endregion
 
@@ -149,14 +165,14 @@ namespace DenizYanar.PlayerSystem.Movement
 
         private void OnJumpStarted() => StartCoroutine(RememberJumpRequest(0.15f));
 
-        private void OnAttack1Started() => _stateMachine.TriggerState(_teleport);
+        private void OnAttack1Started() => m_StateMachine.TriggerState(m_sTeleport);
         
         private void OnShiftStarted()
         {
-            if(_stateMachine.TriggerState(_shift))
+            if(m_StateMachine.TriggerState(m_sShift))
                 return;
             
-            _stateMachine.TriggerState(_air);
+            m_StateMachine.TriggerState(m_sAir);
         }
         
         #endregion
@@ -166,14 +182,14 @@ namespace DenizYanar.PlayerSystem.Movement
         private float? IsTouchingToGround()
         {
             const int rayCount = 8;
-            var bounds = _collider.bounds;
+            var bounds = m_PlayerCollision.bounds;
             var spaceBetweenRays = bounds.size.x / (rayCount - 1);
             var bottomLeft = new Vector2(bounds.min.x, bounds.min.y);
             for (var i = 0; i < 8; i++)
             {
                 var hit = Physics2D.Raycast(
                     bottomLeft + Vector2.right * (spaceBetweenRays * i), 
-                    Vector2.down, 0.1f, _settings.ObstacleLayerMask);
+                    Vector2.down, 0.1f, m_Settings.ObstacleLayerMask);
 
                 if (hit)
                     return Vector2.Angle(hit.normal, Vector2.up) % 90f;
@@ -184,13 +200,13 @@ namespace DenizYanar.PlayerSystem.Movement
         
         private RaycastHit2D? IsTouchingToWall()
         {
-            if(_inputs.m_HorizontalMovement == 0)
+            if(m_Inputs.m_HorizontalMovement == 0)
                 return null;
 
-            var bounds = _collider.bounds;
+            var bounds = m_PlayerCollision.bounds;
             const int horizontalRayCount = 2;
             var verticalRaySpace = bounds.size.y / (horizontalRayCount - 1);
-            var movementDirection = _inputs.m_HorizontalMovement > 0 ? 1 : -1;
+            var movementDirection = m_Inputs.m_HorizontalMovement > 0 ? 1 : -1;
 
             var rayStartPosition = movementDirection == 1 ? new Vector2(bounds.max.x, bounds.min.y) : new Vector2(bounds.min.x, bounds.min.y);
 
@@ -204,7 +220,7 @@ namespace DenizYanar.PlayerSystem.Movement
                     rayStartPosition + Vector2.up * (verticalRaySpace * i),
                     Vector2.right * movementDirection,
                     0.1f,
-                    _settings.ObstacleLayerMask);
+                    m_Settings.ObstacleLayerMask);
 
                 if (hit)
                     return hit;
@@ -230,12 +246,12 @@ namespace DenizYanar.PlayerSystem.Movement
             // Change jump input in a bad way, but that's prevent the holding jump key.
             //_inputs.Jump = false;
             
-            if (_rememberedJumpRequest)
+            if (m_bHasJumpRequest)
                 yield return null;
 
-            _rememberedJumpRequest = true;
+            m_bHasJumpRequest = true;
             yield return new WaitForSeconds(duration);
-            _rememberedJumpRequest = false;
+            m_bHasJumpRequest = false;
         }
 
         #endregion

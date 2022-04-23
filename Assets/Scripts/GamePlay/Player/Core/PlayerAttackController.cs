@@ -4,6 +4,7 @@ using DenizYanar.SenseEngine;
 using UnityEngine;
 using DenizYanar.FSM;
 using DenizYanar.Inputs;
+using Sirenix.OdinInspector;
 
 namespace DenizYanar.PlayerSystem.Attacks
 {
@@ -11,26 +12,33 @@ namespace DenizYanar.PlayerSystem.Attacks
     {
         #region Private Variables
 
-        private StateMachine _stateMachine;
-        private Rigidbody2D _rb;
-        private bool _hasAttackCooldown;
+        private StateMachine m_StateMachine;
+        private Rigidbody2D m_Rb;
+        private bool m_bHasAttackCooldown;
         
 
-        private SliceState _slash;
-        private ThrowSwordState _throw;
-        private WaitSwordState _wait;
-        private IdleState _idle;
+        private SliceState m_sSlash;
+        private ThrowSwordState m_sThrow;
+        private WaitSwordState m_sWait;
+        private IdleState m_sIdle;
 
         #endregion
 
         #region Serialized Variables
         
-        [SerializeField] private PlayerSettings _settings;
-        [SerializeField] private PlayerInputs _inputs;
+        [SerializeField] [Required]
+        private PlayerSettings m_Settings;
+        
+        [SerializeField] [Required]
+        private PlayerInputs m_Inputs;
 
         [Header("Slash Sense Players")]
-        [SerializeField] private SenseEnginePlayer _attackSensePlayer;
-        [SerializeField] private SenseEnginePlayer _hitSensePlayer;
+        
+        [SerializeField]
+        private SenseEnginePlayer m_sepAttack;  
+        [SerializeField]
+        
+        private SenseEnginePlayer m_sepHit;
 
         #endregion
         
@@ -43,40 +51,40 @@ namespace DenizYanar.PlayerSystem.Attacks
 
         private void OnEnable()
         {
-            _inputs.e_OnAttack1Started += OnAttack1Pressed;
-            _inputs.e_OnAttack2Started += OnAttack2Pressed;
+            m_Inputs.e_OnAttack1Started += OnAttack1Pressed;
+            m_Inputs.e_OnAttack2Started += OnAttack2Pressed;
         }
 
         private void OnDisable()
         {
-            _inputs.e_OnAttack1Started -= OnAttack1Pressed;
-            _inputs.e_OnAttack2Started -= OnAttack2Pressed;
+            m_Inputs.e_OnAttack1Started -= OnAttack1Pressed;
+            m_Inputs.e_OnAttack2Started -= OnAttack2Pressed;
         }
 
         private void Awake()
         {
-            _stateMachine = new StateMachine();
-            _rb = GetComponent<Rigidbody2D>();
+            m_StateMachine = new StateMachine();
+            m_Rb = GetComponent<Rigidbody2D>();
 
-            _idle = new IdleState();
-            _slash = new SliceState(this, _settings, _inputs, CreateAttackCooldown, _rb, _attackSensePlayer, _hitSensePlayer);
-            _throw = new ThrowSwordState(ThrowKatana, OnSwordCalled, OnSwordReturned, transform, _settings, _inputs);
-            _wait = new WaitSwordState();
+            m_sIdle = new IdleState();
+            m_sSlash = new SliceState(this, m_Settings, m_Inputs, CreateAttackCooldown, m_Rb, m_sepAttack, m_sepHit);
+            m_sThrow = new ThrowSwordState(ThrowKatana, OnSwordCalled, OnSwordReturned, transform, m_Settings, m_Inputs);
+            m_sWait = new WaitSwordState();
 
-            _stateMachine.InitState(_idle);
+            m_StateMachine.InitState(m_sIdle);
             
-            To(_idle,_slash,() => false);
-            To(_idle, _throw, () => false);
-            To(_throw, _wait, () => false);
-            To(_wait, _idle, () => false);
-            To(_slash, _idle, HasNotAttackCooldown());
+            To(m_sIdle,m_sSlash,() => false);
+            To(m_sIdle, m_sThrow, () => false);
+            To(m_sThrow, m_sWait, () => false);
+            To(m_sWait, m_sIdle, () => false);
+            To(m_sSlash, m_sIdle, HasNotAttackCooldown());
             
-            void To(State from, State to, Func<bool> condition) => _stateMachine.AddTransition(from, to, condition);
+            void To(State from, State to, Func<bool> condition) => m_StateMachine.AddTransition(from, to, condition);
             
-            Func<bool> HasNotAttackCooldown() => () => !_hasAttackCooldown;
+            Func<bool> HasNotAttackCooldown() => () => !m_bHasAttackCooldown;
         }
 
-        private void Update() => _stateMachine.Tick();
+        private void Update() => m_StateMachine.Tick();
 
         #endregion
 
@@ -84,7 +92,7 @@ namespace DenizYanar.PlayerSystem.Attacks
 
         private void OnAttack1Pressed()
         {
-            _stateMachine.TriggerState(_slash);
+            m_StateMachine.TriggerState(m_sSlash);
         }
 
         private void OnAttack2Pressed()
@@ -92,17 +100,17 @@ namespace DenizYanar.PlayerSystem.Attacks
            /* if(_stateMachine.TriggerState(_wait))
                 return;*/
 
-            _stateMachine.TriggerState(_throw);
+            m_StateMachine.TriggerState(m_sThrow);
         }
 
         private void OnSwordCalled()
         {
-            _stateMachine.TriggerState(_wait);
+            m_StateMachine.TriggerState(m_sWait);
         }
 
         private void OnSwordReturned()
         {
-            _stateMachine.TriggerState(_idle);
+            m_StateMachine.TriggerState(m_sIdle);
         }
 
         #endregion
@@ -111,7 +119,7 @@ namespace DenizYanar.PlayerSystem.Attacks
         
         private KatanaProjectile ThrowKatana(Vector2 dir, float throwSpeed, float angularVelocity)
         {
-            var p = Instantiate(_settings.SwordProjectile, transform.position, Quaternion.identity);
+            var p = Instantiate(m_Settings.SwordProjectile, transform.position, Quaternion.identity);
             p.Init(dir.normalized * throwSpeed, angularVelocity: angularVelocity, author: gameObject, lifeTime: 0f);
             var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
             p.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
@@ -122,9 +130,9 @@ namespace DenizYanar.PlayerSystem.Attacks
         
         private IEnumerator AttackCooldownCoroutine(float duration)
         {
-            _hasAttackCooldown = true;
+            m_bHasAttackCooldown = true;
             yield return new WaitForSeconds(duration);
-            _hasAttackCooldown = false;
+            m_bHasAttackCooldown = false;
         }
 
         #endregion
