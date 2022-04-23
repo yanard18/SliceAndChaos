@@ -5,6 +5,6 @@ namespace DenizYanar.GameVariables
     [CreateAssetMenu(menuName = "Game Variables/Int Variable")]
     public class IntVariable : ScriptableObject
     {
-        public int Value;
+        public int m_Value;
     }
 }

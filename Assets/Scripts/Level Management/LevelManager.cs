@@ -37,7 +37,7 @@ namespace DenizYanar.LevelManagement
 
         private void OnLevelLoaded(Level level)
         {
-            m_LoadingProgressValue.Value = 0;
+            m_LoadingProgressValue.m_Value = 0;
             SceneManager.SetActiveScene(SceneManager.GetSceneByName(level.m_LevelName));
             
             m_ecLevelReady.Invoke();
@@ -95,13 +95,13 @@ namespace DenizYanar.LevelManagement
 
                 while (!op.isDone)
                 {
-                    m_LoadingProgressValue.Value = 0;
+                    m_LoadingProgressValue.m_Value = 0;
                     foreach (var operation in m_TLoadingOperations)
                     {
-                        m_LoadingProgressValue.Value += operation.progress;
+                        m_LoadingProgressValue.m_Value += operation.progress;
                     }
 
-                    m_LoadingProgressValue.Value = (m_LoadingProgressValue.Value / m_TLoadingOperations.Count) * 100f;
+                    m_LoadingProgressValue.m_Value = (m_LoadingProgressValue.m_Value / m_TLoadingOperations.Count) * 100f;
 
                     yield return null;
                 }
