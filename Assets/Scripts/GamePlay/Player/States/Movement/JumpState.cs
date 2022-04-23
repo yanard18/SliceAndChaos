@@ -19,8 +19,8 @@ namespace DenizYanar.PlayerSystem.Movement
         {
             _playerMovementController = playerMovementController;
             _jumpProperties = playerMovementController.JumpPropertiesInstance;
-            _stateName = stateName ?? GetType().Name;
-            _stateNameInformerEventChannel = nameInformerChannel;
+            m_StateName = stateName ?? GetType().Name;
+            m_ecStateName = nameInformerChannel;
             _jumpSense = jumpSense;
         }
 

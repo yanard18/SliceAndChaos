@@ -18,8 +18,8 @@ namespace DenizYanar.PlayerSystem.Movement
         public IdleState(Rigidbody2D rb, StringEvent nameInformerEvent = null, [CanBeNull] string stateName = null)
         {
             _rb = rb;
-            _stateName = stateName ?? GetType().Name;
-            _stateNameInformerEventChannel = nameInformerEvent;
+            m_StateName = stateName ?? GetType().Name;
+            m_ecStateName = nameInformerEvent;
         }
 
         #endregion

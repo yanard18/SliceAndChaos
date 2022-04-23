@@ -6,15 +6,16 @@ namespace DenizYanar.EnemySystem
 {
     public class CrawlerBehaviour : EnemyBehaviour
     {
-        private float _jumpCooldown;
+        private float m_JumpCooldown;
         
-        [SerializeField] private CrawlerSettings _settings;
+        [SerializeField]
+        private CrawlerSettings m_Settings;
 
-        public event Action OnAttack;
+        public event Action e_OnAttack;
 
         private void Awake()
         {
-            _jumpCooldown = _settings.m_JumpCooldown;
+            m_JumpCooldown = m_Settings.m_JumpCooldown;
             SetupTree();
         }
 
@@ -35,14 +36,14 @@ namespace DenizYanar.EnemySystem
 
         private Node.EStatus Wait()
         {
-             _jumpCooldown -= m_Tree.m_TickRate;
-            return _jumpCooldown <= 0 ? Node.EStatus.SUCCESS : Node.EStatus.RUNNING;
+             m_JumpCooldown -= m_Tree.m_TickRate;
+            return m_JumpCooldown <= 0 ? Node.EStatus.SUCCESS : Node.EStatus.RUNNING;
         }
 
         private Node.EStatus Attack()
         {
-            OnAttack?.Invoke();
-            _jumpCooldown = _settings.m_JumpCooldown;
+            e_OnAttack?.Invoke();
+            m_JumpCooldown = m_Settings.m_JumpCooldown;
             return Node.EStatus.SUCCESS;
         }
 

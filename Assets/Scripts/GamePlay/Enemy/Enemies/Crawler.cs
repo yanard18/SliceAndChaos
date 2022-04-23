@@ -24,13 +24,13 @@ namespace DenizYanar.EnemySystem
         protected override void OnEnable()
         {
             base.OnEnable();
-            m_Behaviour.OnAttack += Jump;
+            m_Behaviour.e_OnAttack += Jump;
         }
 
         protected override void OnDisable()
         {
             base.OnDisable();
-            m_Behaviour.OnAttack -= Jump;
+            m_Behaviour.e_OnAttack -= Jump;
         }
 
         protected override void EOnDeath(Damage damage)

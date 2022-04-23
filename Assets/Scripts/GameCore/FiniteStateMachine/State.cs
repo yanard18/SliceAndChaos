@@ -5,10 +5,10 @@ namespace DenizYanar.FSM
 {
     public class State
     {
-        public readonly List<Transition> Transitions = new List<Transition>();
+        public readonly List<Transition> m_TTransitions = new();
 
-        protected StringEvent _stateNameInformerEventChannel;
-        protected string _stateName;
+        protected StringEvent m_ecStateName;
+        protected string m_StateName;
 
         public virtual void Tick()
         {
@@ -22,8 +22,8 @@ namespace DenizYanar.FSM
 
         public virtual void OnEnter()
         {
-            if(_stateNameInformerEventChannel != null)
-                _stateNameInformerEventChannel.Invoke(_stateName);
+            if(m_ecStateName != null)
+                m_ecStateName.Invoke(m_StateName);
         }
 
         public virtual void OnExit()

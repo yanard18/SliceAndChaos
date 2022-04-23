@@ -30,8 +30,8 @@ namespace DenizYanar.PlayerSystem.Movement
             StringEvent nameInformerEvent = null,
             [CanBeNull] string stateName = null)
         {
-            _stateNameInformerEventChannel = nameInformerEvent;
-            _stateName = stateName;
+            m_ecStateName = nameInformerEvent;
+            m_StateName = stateName;
 
             _rb = rb;
             _inputs = inputs;

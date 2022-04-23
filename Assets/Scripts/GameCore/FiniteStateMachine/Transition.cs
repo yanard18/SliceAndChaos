@@ -4,13 +4,13 @@ namespace DenizYanar.FSM
 {
     public class Transition
     {
-        public readonly Func<bool> Condition;
-        public readonly State To;
+        public readonly Func<bool> m_Condition;
+        public readonly State m_To;
 
         public Transition(State to, Func<bool> condition)
         {
-            Condition = condition;
-            To = to;
+            m_Condition = condition;
+            m_To = to;
         }
     }
 }

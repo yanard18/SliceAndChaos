@@ -24,8 +24,8 @@ namespace DenizYanar.PlayerSystem.Movement
         
         public AirState(Rigidbody2D rb, PlayerSettings settings, PlayerInputs inputs, StringEvent nameInformerChannel = null, [CanBeNull] string stateName = null)
         {
-            _stateName = stateName ?? GetType().Name;
-            _stateNameInformerEventChannel = nameInformerChannel;
+            m_StateName = stateName ?? GetType().Name;
+            m_ecStateName = nameInformerChannel;
             _rb = rb;
             _inputs = inputs;
 

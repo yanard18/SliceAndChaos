@@ -101,7 +101,7 @@ namespace DenizYanar.PlayerSystem.Movement
             _move = new MoveState(_rb, _settings, _inputs, nameInformerEvent: _stateTitleEvent, stateName: "Move");
             _jump = new JumpState(this, _jumpSense, nameInformerChannel: _stateTitleEvent, stateName: "Jump");
             _land = new LandState(JumpPropertiesInstance, _landSense, nameInformerEvent: _stateTitleEvent, stateName: "Land");
-            _wallSlide = new WallSlideState(this, _settings, nameInformerEventChannel: _stateTitleEvent, stateName: "Wall Slide");
+            _wallSlide = new WallSlideState(this, _settings, name: _stateTitleEvent, stateName: "Wall Slide");
             _air = new AirState(_rb, _settings, _inputs, nameInformerChannel: _stateTitleEvent, stateName: "At Air");
             _shift = new ShiftState(_rb, _inputs, _settings, _enterShiftSense, _leaveShiftSense, nameInformerEvent: _stateTitleEvent, stateName: "Shift");
             _teleport = new TeleportState(_rb, _settings);

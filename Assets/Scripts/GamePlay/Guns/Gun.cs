@@ -4,75 +4,61 @@ namespace DenizYanar.Guns
 {
     public class Gun : MonoBehaviour
     {
-        private bool _isFiring;
-        private float _backupFireCooldown;
+        private bool m_bIsFiring;
+        private float m_BackupFireCooldown;
         
-        private GunInputReader _input;
-        private GunLauncher _launcher;
-        private GunMagazine _magazine;
+        private GunInputReader m_Input;
+        private GunLauncher m_Launcher;
+        private GunMagazine m_Magazine;
 
-        
-        
-        [SerializeField] private float _fireCooldown = 1.0f;
+        [SerializeField]
+        private float m_FireCooldown = 1.0f;
 
         #region Monobehaviour
         
         private void OnEnable()
         {
-            _input.OnFireStarted += FireStarted;
-            _input.OnFireCancelled += FireCancelled;
-            _input.OnReload += Reload;
+            m_Input.e_OnFireStarted += FireStarted;
+            m_Input.e_OnFireCancelled += FireCancelled;
+            m_Input.e_OnReload += Reload;
         }
 
         private void OnDisable()
         {
-            _input.OnFireStarted -= FireStarted;
-            _input.OnFireCancelled -= FireCancelled;
-            _input.OnReload -= Reload;
+            m_Input.e_OnFireStarted -= FireStarted;
+            m_Input.e_OnFireCancelled -= FireCancelled;
+            m_Input.e_OnReload -= Reload;
         }
 
         private void Awake()
         {
-            _backupFireCooldown = _fireCooldown;
+            m_BackupFireCooldown = m_FireCooldown;
             
-            _input = GetComponentInChildren<GunInputReader>();
-            _magazine = GetComponentInChildren<GunMagazine>();
-            _launcher = GetComponentInChildren<GunLauncher>();
+            m_Input = GetComponentInChildren<GunInputReader>();
+            m_Magazine = GetComponentInChildren<GunMagazine>();
+            m_Launcher = GetComponentInChildren<GunLauncher>();
         }
+        
+        private void Update() => FireCycle();
         
         #endregion
 
-        private void FireStarted()
-        {
-            _isFiring = true;
-        }
+        private void FireStarted() => m_bIsFiring = true;
 
-        private void FireCancelled()
-        {
-            _isFiring = false;
-        }
+        private void FireCancelled() => m_bIsFiring = false;
 
-        private void Reload()
-        {
-            _magazine.Reload();
-        }
-
-
-        private void Update()
-        {
-            FireCycle();
-        }
+        private void Reload() => m_Magazine.Reload();
 
         private void FireCycle()
         {
-            if (_fireCooldown > 0)
-                _fireCooldown -= Time.deltaTime;
+            if (m_FireCooldown > 0)
+                m_FireCooldown -= Time.deltaTime;
             else
             {
-                if (!_isFiring) return;
-                if (_magazine.SpendAmmo() is false) return;
-                _launcher.Shot();
-                _fireCooldown = _backupFireCooldown;
+                if (!m_bIsFiring) return;
+                if (m_Magazine.SpendAmmo() is false) return;
+                m_Launcher.Shot();
+                m_FireCooldown = m_BackupFireCooldown;
             }
         }
     }

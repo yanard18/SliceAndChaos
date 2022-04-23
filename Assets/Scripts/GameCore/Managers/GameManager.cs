@@ -9,7 +9,8 @@ namespace DenizYanar.Managers
     {
         [SerializeField] [Required]
         private VoidEvent m_ecGameOver;
-        
+
+            
         public void GameOver()
         {
             m_ecGameOver.Invoke();

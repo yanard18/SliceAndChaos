@@ -20,8 +20,8 @@ namespace DenizYanar.PlayerSystem.Movement
 
         public MoveState(Rigidbody2D rb, PlayerSettings settings, PlayerInputs inputs, StringEvent nameInformerEvent = null, [CanBeNull] string stateName = null)
         {
-            _stateName = stateName ?? GetType().Name;
-            _stateNameInformerEventChannel = nameInformerEvent;
+            m_StateName = stateName ?? GetType().Name;
+            m_ecStateName = nameInformerEvent;
             _rb = rb;
             _inputs = inputs;
 

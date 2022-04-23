@@ -6,9 +6,9 @@ namespace DenizYanar.FSM
 {
     public class StateMachine
     {
-        private State _currentState;
+        private State m_CurrentState;
 
-        private readonly List<Transition> _anyTransitions = new List<Transition>();
+        private readonly List<Transition> m_TAnyTransitions = new (); 
 
         
 
@@ -16,44 +16,37 @@ namespace DenizYanar.FSM
         {
             var transition = GetTriggeredTransition();
             if(transition != null)
-                SetState(transition.To);
+                SetState(transition.m_To);
             
-            _currentState.Tick();
+            m_CurrentState.Tick();
         }
         
-        public void PhysicsTick() => _currentState?.PhysicsTick();
+        public void PhysicsTick() => m_CurrentState?.PhysicsTick();
 
 
-        public void AddTransition(State from, State to, Func<bool> condition)
-        {
-            from.Transitions.Add(new Transition(to, condition));
-        }
-        
+        public void AddTransition(State from, State to, Func<bool> condition) => @from.m_TTransitions.Add(new Transition(to, condition));
 
-        public void AddAnyTransition(State to, Func<bool> condition)
-        {
-            _anyTransitions.Add(new Transition(to, condition));
-        }
+        public void AddAnyTransition(State to, Func<bool> condition) => m_TAnyTransitions.Add(new Transition(to, condition));
 
         private void SetState(State state)
         {
-            if (state == _currentState)
+            if (state == m_CurrentState)
                 return;
 
-            _currentState.OnExit();
-            _currentState = state;
-            _currentState.OnEnter();
+            m_CurrentState.OnExit();
+            m_CurrentState = state;
+            m_CurrentState.OnEnter();
         }
 
         public void InitState(State state)
         {
-            _currentState = state;
-            _currentState.OnEnter();
+            m_CurrentState = state;
+            m_CurrentState.OnEnter();
         }
 
         public bool TriggerState(State state)
         {
-            foreach (var unused in _currentState.Transitions.Where(transition => transition.To == state))
+            foreach (var unused in m_CurrentState.m_TTransitions.Where(transition => transition.m_To == state))
             {
                 SetState(state);
                 return true;
@@ -65,12 +58,12 @@ namespace DenizYanar.FSM
         private Transition GetTriggeredTransition()
         {
             //Any transitions has priority
-            foreach (var anyTransition in _anyTransitions.Where(anyTransition => anyTransition.Condition()))
+            foreach (var anyTransition in m_TAnyTransitions.Where(anyTransition => anyTransition.m_Condition()))
                 return anyTransition;
 
             
-            foreach (var transition in _currentState.Transitions)
-                if(transition.Condition())
+            foreach (var transition in m_CurrentState.m_TTransitions)
+                if(transition.m_Condition())
                     return transition;
 
             return null;

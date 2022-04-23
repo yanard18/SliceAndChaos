@@ -17,15 +17,15 @@ namespace DenizYanar.PlayerSystem.Movement
 
         #region Constructor
 
-        public WallSlideState(PlayerMovementController playerMovementController, PlayerSettings settings, StringEvent nameInformerEventChannel = null, [CanBeNull] string stateName = null)
+        public WallSlideState(PlayerMovementController playerMovementController, PlayerSettings settings, StringEvent name = null, [CanBeNull] string stateName = null)
         {
             _playerMovementController = playerMovementController;
             _rb = playerMovementController.WallSlideDataInstance.Rb;
             _collider = playerMovementController.WallSlideDataInstance.Collider;
             _settings = settings;
             
-            _stateNameInformerEventChannel = nameInformerEventChannel;
-            _stateName = stateName ?? GetType().Name;
+            m_ecStateName = name;
+            m_StateName = stateName ?? GetType().Name;
             
             _defaultGravityScale = _rb.gravityScale;
         }

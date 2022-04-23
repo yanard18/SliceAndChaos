@@ -14,8 +14,8 @@ namespace DenizYanar.PlayerSystem.Movement
 
         public LandState(JumpProperties jumpProperties, SenseEnginePlayer landSense, StringEvent nameInformerEvent = null, [CanBeNull] string stateName = null)
         {
-            _stateName = stateName ?? GetType().Name;
-            _stateNameInformerEventChannel = nameInformerEvent;
+            m_StateName = stateName ?? GetType().Name;
+            m_ecStateName = nameInformerEvent;
             _jumpProperties = jumpProperties;
             _landSense = landSense;
         }
