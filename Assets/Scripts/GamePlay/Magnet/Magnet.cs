@@ -7,52 +7,56 @@ namespace DenizYanar
     [RequireComponent(typeof(CircleCollider2D), typeof(PointEffector2D))]
     public class Magnet : MonoBehaviour
     {
-        private Coroutine _impulseCoroutine;
+        private Coroutine m_ImpulseCoroutine;
 
-        private CircleCollider2D _col;
-        private PointEffector2D _effector;
+        private CircleCollider2D m_Col;
+        private PointEffector2D m_Effector;
+        private MagnetConfigurations m_Conf;
 
-        private MagnetConfigurations _conf;
+        private bool m_bHasUsageCooldown;
 
-        private bool _hasUsageCooldown;
-
-        [SerializeField] private SenseEnginePlayer _magnetActivateSense;
-        [SerializeField] private SenseEnginePlayer _magnetDisableSense;
-        [SerializeField] private SenseEnginePlayer _magnetImpulseSense;
+        [SerializeField]
+        private SenseEnginePlayer m_sepMagnetActivate;
+        
+        [SerializeField]
+        private SenseEnginePlayer m_sepMagnetDeactivate;
+        
+        [SerializeField]
+        private SenseEnginePlayer m_sepMagnetPushImpulse;
 
         
         private void Awake()
         {
-            _col = GetComponent<CircleCollider2D>();
-            _effector = GetComponent<PointEffector2D>();
+            m_Col = GetComponent<CircleCollider2D>();
+            m_Effector = GetComponent<PointEffector2D>();
             ActivateMagnet(false);
 
-            _conf = new MagnetConfigurations(EMagnetPolar.PULL, _effector.forceMagnitude, _col.radius,
-                _effector.distanceScale);
+            m_Conf = new MagnetConfigurations(EMagnetPolar.PULL, m_Effector.forceMagnitude, m_Col.radius,
+                m_Effector.distanceScale);
         }
 
         public void SetMagnet(MagnetConfigurations conf)
         {
-            _effector.forceMagnitude = conf.Polar == EMagnetPolar.PULL ? -Mathf.Abs(conf.Power) : conf.Power;
-            _col.radius = conf.Radius;
-            _effector.distanceScale = conf.DistanceScale;
-            _conf = conf;
+            m_Effector.forceMagnitude = conf.m_Polar == EMagnetPolar.PULL ? -Mathf.Abs(conf.m_Power) : conf.m_Power;
+            m_Col.radius = conf.m_Radius;
+            m_Effector.distanceScale = conf.m_DistanceScale;
+            m_Conf = conf;
         }
 
         public void ImpulseMagnet(EMagnetPolar polar, float impulsePower, float distanceScale, float impulseDecay,
             float usageCooldown = 1.0f)
         {
-            if (_impulseCoroutine is { }) return;
-            _impulseCoroutine =
+            if (m_ImpulseCoroutine is { }) return;
+            m_ImpulseCoroutine =
                 StartCoroutine(ImpulseMagnetEnumerator(polar, impulsePower, distanceScale, impulseDecay,
                     usageCooldown));
         }
 
         public void ActivateMagnet(bool value)
         {
-            if (value && _hasUsageCooldown) return;
+            if (value && m_bHasUsageCooldown) return;
 
-            _effector.enabled = value;
+            m_Effector.enabled = value;
             PlaySenseEffects();
 
 
@@ -60,13 +64,13 @@ namespace DenizYanar
             {
                 if (value)
                 {
-                    if (_magnetActivateSense != null)
-                        _magnetActivateSense.Play();
+                    if (m_sepMagnetActivate != null)
+                        m_sepMagnetActivate.Play();
                 }
                 else
                 {
-                    if (_magnetDisableSense != null)
-                        _magnetDisableSense.Play();
+                    if (m_sepMagnetDeactivate != null)
+                        m_sepMagnetDeactivate.Play();
                 }
             }
         }
@@ -74,23 +78,23 @@ namespace DenizYanar
         private IEnumerator ImpulseMagnetEnumerator(EMagnetPolar polar, float impulsePower, float distanceScale,
             float impulseDecay, float usageCooldown)
         {
-            var conf = _conf;
-            SetMagnet(new MagnetConfigurations(polar, impulsePower, conf.Radius, distanceScale));
+            var conf = m_Conf;
+            SetMagnet(new MagnetConfigurations(polar, impulsePower, conf.m_Radius, distanceScale));
             ActivateMagnet(true);
             StartCoroutine(StartUsageCooldown(usageCooldown));
-            PlayEffect(_magnetImpulseSense);
+            PlayEffect(m_sepMagnetPushImpulse);
             yield return new WaitForSeconds(impulseDecay);
             SetMagnet(conf);
             ActivateMagnet(false);
 
-            _impulseCoroutine = null;
+            m_ImpulseCoroutine = null;
         }
 
         private IEnumerator StartUsageCooldown(float cooldownDuration)
         {
-            _hasUsageCooldown = true;
+            m_bHasUsageCooldown = true;
             yield return new WaitForSeconds(cooldownDuration);
-            _hasUsageCooldown = false;
+            m_bHasUsageCooldown = false;
         }
 
         private void PlayEffect(SenseEnginePlayer player)

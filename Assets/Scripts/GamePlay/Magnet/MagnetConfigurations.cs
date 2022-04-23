@@ -2,17 +2,17 @@
 {
     public class MagnetConfigurations
     {
-        public readonly EMagnetPolar Polar;
-        public readonly float Power; 
-        public readonly float Radius;
-        public readonly float DistanceScale;
+        public readonly EMagnetPolar m_Polar;
+        public readonly float m_Power; 
+        public readonly float m_Radius;
+        public readonly float m_DistanceScale;
 
         public MagnetConfigurations(EMagnetPolar polar, float power, float radius, float distanceScale)
         {
-            Polar = polar;
-            Power = power;
-            Radius = radius;
-            DistanceScale = distanceScale;
+            m_Polar = polar;
+            m_Power = power;
+            m_Radius = radius;
+            m_DistanceScale = distanceScale;
         }
         
     }
