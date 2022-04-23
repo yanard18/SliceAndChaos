@@ -7,7 +7,7 @@ namespace DenizYanar.Events
     public class StringEventListener : EventListener
     {
         [Required] [SerializeField]
-        private StringEventChannelSO m_EventChannel;
+        private StringEvent m_EventChannel;
 
         [SerializeField] private UnityEvent<string> m_UnityEvent;
         

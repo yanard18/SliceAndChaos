@@ -7,8 +7,8 @@ namespace DenizYanar.Events
     /// This class is used for Events that have float arguments. {Example: Set player health game event}
     /// </summary>
 
-    [CreateAssetMenu(menuName = "Slice And Chaos/Events/Float Event Channel")]
-    public class FloatEventChannelSO : ScriptableObject
+    [CreateAssetMenu(menuName = "Game Event/Float Event")]
+    public class FloatEvent : ScriptableObject
     {
         private readonly HashSet<FloatEventListener> m_TListeners = new(); 
 

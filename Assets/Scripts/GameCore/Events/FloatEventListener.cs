@@ -8,7 +8,7 @@ namespace DenizYanar.Events
     {
         [SerializeField] [Required]
 
-    private FloatEventChannelSO m_EventChannel;
+    private FloatEvent m_EventChannel;
 
         [SerializeField]
         private UnityEvent<float> m_UnityEvent;

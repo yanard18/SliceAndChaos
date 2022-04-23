@@ -7,7 +7,7 @@ namespace DenizYanar.Events
     public class VoidEventListener : EventListener
     {
         [SerializeField] [Required]
-        private VoidEventChannelSO m_EventChannel;
+        private VoidEvent m_EventChannel;
 
         [SerializeField]
         private UnityEvent m_UnityEvent;

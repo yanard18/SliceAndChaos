@@ -7,7 +7,7 @@ namespace DenizYanar.Events
     public class IntEventListener : EventListener
     {
         [SerializeField] [Required]
-        private IntEventChannelSO m_EventChannel;
+        private IntEvent m_EventChannel;
 
         [SerializeField]
         private UnityEvent<int> m_UnityEvent;

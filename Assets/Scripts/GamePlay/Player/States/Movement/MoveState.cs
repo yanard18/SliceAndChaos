@@ -18,7 +18,7 @@ namespace DenizYanar.PlayerSystem.Movement
 
         #region Constructor
 
-        public MoveState(Rigidbody2D rb, PlayerSettings settings, PlayerInputs inputs, StringEventChannelSO nameInformerEvent = null, [CanBeNull] string stateName = null)
+        public MoveState(Rigidbody2D rb, PlayerSettings settings, PlayerInputs inputs, StringEvent nameInformerEvent = null, [CanBeNull] string stateName = null)
         {
             _stateName = stateName ?? GetType().Name;
             _stateNameInformerEventChannel = nameInformerEvent;

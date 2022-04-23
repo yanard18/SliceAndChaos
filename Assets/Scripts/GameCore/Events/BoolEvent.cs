@@ -7,8 +7,8 @@ namespace DenizYanar.Events
     /// This class is used for Events that have bool arguments. {Example: Set player blink availability game event}
     /// </summary>
 
-    [CreateAssetMenu(menuName = "Slice And Chaos/Events/Bool Event Channel")]
-    public class BoolEventChannelSO : ScriptableObject
+    [CreateAssetMenu(menuName = "Game Events/Bool Event")]
+    public class BoolEvent : ScriptableObject
     {
         private readonly HashSet<BoolEventListener> m_TListeners = new();
 

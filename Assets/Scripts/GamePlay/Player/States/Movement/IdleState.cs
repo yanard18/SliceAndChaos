@@ -15,7 +15,7 @@ namespace DenizYanar.PlayerSystem.Movement
 
         #region Constructor
 
-        public IdleState(Rigidbody2D rb, StringEventChannelSO nameInformerEvent = null, [CanBeNull] string stateName = null)
+        public IdleState(Rigidbody2D rb, StringEvent nameInformerEvent = null, [CanBeNull] string stateName = null)
         {
             _rb = rb;
             _stateName = stateName ?? GetType().Name;

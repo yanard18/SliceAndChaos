@@ -7,7 +7,7 @@ namespace DenizYanar.Managers
     public class GameManager : MonoBehaviour
     {
         [SerializeField] [Required] 
-        private VoidEventChannelSO m_ecSpawnPlayer;
+        private VoidEvent m_ecSpawnPlayer;
 
         public void OnLevelReady()
         {

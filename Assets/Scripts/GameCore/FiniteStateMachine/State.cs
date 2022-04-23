@@ -7,7 +7,7 @@ namespace DenizYanar.FSM
     {
         public readonly List<Transition> Transitions = new List<Transition>();
 
-        protected StringEventChannelSO _stateNameInformerEventChannel;
+        protected StringEvent _stateNameInformerEventChannel;
         protected string _stateName;
 
         public virtual void Tick()

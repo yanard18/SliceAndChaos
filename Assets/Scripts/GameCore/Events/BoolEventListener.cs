@@ -7,7 +7,7 @@ namespace DenizYanar.Events
     public class BoolEventListener : EventListener
     {
         [SerializeField] [Required]
-        private BoolEventChannelSO m_EventChannel;
+        private BoolEvent m_EventChannel;
 
         [SerializeField]
         private UnityEvent<bool> m_UnityEvent;

@@ -17,7 +17,7 @@ namespace DenizYanar.PlayerSystem.Movement
 
         #region Constructor
 
-        public WallSlideState(PlayerMovementController playerMovementController, PlayerSettings settings, StringEventChannelSO nameInformerEventChannel = null, [CanBeNull] string stateName = null)
+        public WallSlideState(PlayerMovementController playerMovementController, PlayerSettings settings, StringEvent nameInformerEventChannel = null, [CanBeNull] string stateName = null)
         {
             _playerMovementController = playerMovementController;
             _rb = playerMovementController.WallSlideDataInstance.Rb;

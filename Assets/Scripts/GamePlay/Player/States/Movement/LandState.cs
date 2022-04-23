@@ -12,7 +12,7 @@ namespace DenizYanar.PlayerSystem.Movement
 
         #region Constructor
 
-        public LandState(JumpProperties jumpProperties, SenseEnginePlayer landSense, StringEventChannelSO nameInformerEvent = null, [CanBeNull] string stateName = null)
+        public LandState(JumpProperties jumpProperties, SenseEnginePlayer landSense, StringEvent nameInformerEvent = null, [CanBeNull] string stateName = null)
         {
             _stateName = stateName ?? GetType().Name;
             _stateNameInformerEventChannel = nameInformerEvent;

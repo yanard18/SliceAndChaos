@@ -38,7 +38,7 @@ namespace DenizYanar.DeveloperConsoleSystem
         private PlayerInputs m_Inputs;
         
         [SerializeField] [Required]
-        private StringEventChannelSO m_ecChangeInputActionMap;
+        private StringEvent m_ecChangeInputActionMap;
         
 
 

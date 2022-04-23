@@ -7,8 +7,8 @@ namespace DenizYanar.Events
     /// This class is used for Events that have int arguments. {Example: Set gold game event}
     /// </summary>
 
-    [CreateAssetMenu(menuName = "Slice And Chaos/Events/Int Event Channel")]
-    public class IntEventChannelSO : ScriptableObject
+    [CreateAssetMenu(menuName = "Game Event/Int Event")]
+    public class IntEvent : ScriptableObject
     {
         private readonly HashSet<IntEventListener> m_TListeners = new();
 

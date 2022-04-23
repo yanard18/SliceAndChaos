@@ -7,8 +7,8 @@ namespace DenizYanar.Events
     /// This class is used for Events that have no arguments. {Example: Exit game event}
     /// </summary>
 
-    [CreateAssetMenu(menuName = "Slice And Chaos/Events/Void Event Channel")]
-    public class VoidEventChannelSO : ScriptableObject
+    [CreateAssetMenu(menuName = "Game Event/Void Event")]
+    public class VoidEvent : ScriptableObject
     { 
         private readonly HashSet<VoidEventListener> m_Listeners = new();     
 

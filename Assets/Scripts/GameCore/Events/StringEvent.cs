@@ -4,8 +4,8 @@ using System.Collections.Generic;
 namespace DenizYanar.Events
 {
     
-    [CreateAssetMenu(menuName = "Slice And Chaos/Events/String Event Channel")]
-    public class StringEventChannelSO : ScriptableObject
+    [CreateAssetMenu(menuName = "Game Event/String Event")]
+    public class StringEvent : ScriptableObject
     {
         private readonly HashSet<StringEventListener> m_TListeners = new();
 

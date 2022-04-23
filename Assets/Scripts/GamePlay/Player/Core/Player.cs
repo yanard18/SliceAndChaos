@@ -10,7 +10,7 @@ namespace DenizYanar.PlayerSystem
     public class Player : Singleton<Player>
     {
         [SerializeField] private SenseEnginePlayer _deathSense;
-        [SerializeField] private VoidEventChannelSO _gameOverEvent;
+        [SerializeField] private VoidEvent _gameOverEvent;
 
         private Health _health;
 

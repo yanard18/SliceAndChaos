@@ -22,7 +22,7 @@ namespace DenizYanar.PlayerSystem.Movement
         #region Constructor
         
         
-        public AirState(Rigidbody2D rb, PlayerSettings settings, PlayerInputs inputs, StringEventChannelSO nameInformerChannel = null, [CanBeNull] string stateName = null)
+        public AirState(Rigidbody2D rb, PlayerSettings settings, PlayerInputs inputs, StringEvent nameInformerChannel = null, [CanBeNull] string stateName = null)
         {
             _stateName = stateName ?? GetType().Name;
             _stateNameInformerEventChannel = nameInformerChannel;

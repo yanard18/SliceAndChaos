@@ -14,7 +14,7 @@ namespace DenizYanar.LevelManagement
         private LoadLevelEvent m_ecLoadLevel;
         
         [SerializeField] [Required]
-        private VoidEventChannelSO m_ecLevelReady;
+        private VoidEvent m_ecLevelReady;
         
         private readonly List<AsyncOperation> m_TLoadingOperations = new ();
 

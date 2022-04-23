@@ -15,7 +15,7 @@ namespace DenizYanar.PlayerSystem.Movement
 
         #region Constructor
 
-        public JumpState(PlayerMovementController playerMovementController, SenseEnginePlayer jumpSense, StringEventChannelSO nameInformerChannel = null, [CanBeNull] string stateName = null)
+        public JumpState(PlayerMovementController playerMovementController, SenseEnginePlayer jumpSense, StringEvent nameInformerChannel = null, [CanBeNull] string stateName = null)
         {
             _playerMovementController = playerMovementController;
             _jumpProperties = playerMovementController.JumpPropertiesInstance;

@@ -27,7 +27,7 @@ namespace DenizYanar.PlayerSystem.Movement
             PlayerSettings settings,
             SenseEnginePlayer enterShiftSense,
             SenseEnginePlayer leaveShiftSense,
-            StringEventChannelSO nameInformerEvent = null,
+            StringEvent nameInformerEvent = null,
             [CanBeNull] string stateName = null)
         {
             _stateNameInformerEventChannel = nameInformerEvent;

@@ -45,7 +45,7 @@ namespace DenizYanar.PlayerSystem.Movement
         [SerializeField] private PlayerInputs _inputs;
         
         [Header("Player State Informer Channel")]
-        [SerializeField] private StringEventChannelSO _stateTitleEvent;
+        [SerializeField] private StringEvent _stateTitleEvent;
         
         [Header("Dependencies")]
         [SerializeField] private Collider2D _collider;
