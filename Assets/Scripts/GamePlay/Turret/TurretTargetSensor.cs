@@ -4,14 +4,21 @@ namespace DenizYanar.Turret
 {
     public class TurretTargetSensor : MonoBehaviour
     {
-        [SerializeField] private LayerMask _targetLayerMask;
-        [SerializeField] private LayerMask _obstacleLayerMask;
-        [SerializeField] private float _range = 20.0f;
-        [SerializeField] private float _angle = 60.0f;
+        [SerializeField]
+        private LayerMask m_TargetLayer;
+        
+        [SerializeField]
+        private LayerMask m_ObstacleLayer;
+        
+        [SerializeField]
+        private float m_range = 20.0f;
+        
+        [SerializeField]
+        private float m_AngleLimit = 60.0f;
         
         public Transform Detect()
         {
-            var target = Physics2D.OverlapCircle(transform.position, _range, _targetLayerMask);
+            var target = Physics2D.OverlapCircle(transform.position, m_range, m_TargetLayer);
 
             if (target is null)
                 return null;
@@ -24,7 +31,7 @@ namespace DenizYanar.Turret
                 turretPosition, 
                 dir.normalized, 
                 dir.magnitude, 
-                _obstacleLayerMask
+                m_ObstacleLayer
                 );
             
             
@@ -33,7 +40,7 @@ namespace DenizYanar.Turret
             var angle = Vector2.Angle(dir, transform.right);
             
 
-            return Mathf.Abs(angle) <= _angle ? target.transform : null;
+            return Mathf.Abs(angle) <= m_AngleLimit ? target.transform : null;
         }
         
         

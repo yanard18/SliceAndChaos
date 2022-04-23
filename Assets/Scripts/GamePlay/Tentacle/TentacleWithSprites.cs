@@ -6,46 +6,60 @@ namespace DenizYanar
 {
     public class TentacleWithSprites : MonoBehaviour
     {
-        private Vector3[] _segmentVelocity;
+        private Vector3[] m_TSegmentVelocities;
         
+        [SerializeField]
+        private int m_Length;
         
-        [SerializeField] private int _length;
-        [SerializeField] private LineRenderer _lineRenderer;
-        [SerializeField] private Vector3[] _segmentPoses;
+        [SerializeField]
+        private LineRenderer m_LineRenderer;
+        
+        [SerializeField]
+        private Vector3[] m_TSegmentPoses;
         
     
-        [SerializeField] private Transform _targetDir;
-        [SerializeField] private float _targetDist;
-        [SerializeField] private float _smoothSpeed;
+        [SerializeField]
+        private Transform m_TargetDirection;
+        
+        [SerializeField]
+        private float m_TargetDistance;
+        
+        [SerializeField]
+        private float m_SmoothSpeed;
 
-        [SerializeField] private float _wiggleFrequency;
-        [SerializeField] private float _wiggleMagnitude;
-        [SerializeField] private GameObject[] _bodyParts;
+        [SerializeField]
+        private float m_WiggleFrequency;
+        
+        [SerializeField]
+        private float m_WiggleMagnitude;
+        
+        [SerializeField]
+        private GameObject[] m_TBodyParts;
 
 
         private void Start()
         {
-            _lineRenderer.positionCount = _length;
-            _segmentPoses = new Vector3[_length];
-            _segmentVelocity = new Vector3[_length];
+            m_LineRenderer.positionCount = m_Length;
+            m_TSegmentPoses = new Vector3[m_Length];
+            m_TSegmentVelocities = new Vector3[m_Length];
         }
 
         private void Update()
         {
 
-            _targetDir.localRotation =
-                Quaternion.Euler(0, 0, Mathf.Sin(Time.time * _wiggleFrequency) * _wiggleMagnitude);
+            m_TargetDirection.localRotation =
+                Quaternion.Euler(0, 0, Mathf.Sin(Time.time * m_WiggleFrequency) * m_WiggleMagnitude);
             
-            _segmentPoses[0] = _targetDir.position;
+            m_TSegmentPoses[0] = m_TargetDirection.position;
 
-            for (var i = 1; i < _segmentPoses.Length; i++)
+            for (var i = 1; i < m_TSegmentPoses.Length; i++)
             {
-                var targetPos = _segmentPoses[i - 1] + (_segmentPoses[i] - _segmentPoses[i - 1]).normalized * _targetDist;
-                _segmentPoses[i] = Vector3.SmoothDamp(_segmentPoses[i], targetPos, ref _segmentVelocity[i], _smoothSpeed);
-                _bodyParts[i - 1].transform.position = _segmentPoses[i];
+                var targetPos = m_TSegmentPoses[i - 1] + (m_TSegmentPoses[i] - m_TSegmentPoses[i - 1]).normalized * m_TargetDistance;
+                m_TSegmentPoses[i] = Vector3.SmoothDamp(m_TSegmentPoses[i], targetPos, ref m_TSegmentVelocities[i], m_SmoothSpeed);
+                m_TBodyParts[i - 1].transform.position = m_TSegmentPoses[i];
             }
             
-            _lineRenderer.SetPositions(_segmentPoses);
+            m_LineRenderer.SetPositions(m_TSegmentPoses);
         }
     }
 }

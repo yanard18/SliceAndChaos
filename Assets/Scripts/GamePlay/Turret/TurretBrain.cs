@@ -12,24 +12,24 @@ namespace DenizYanar.Turret
             ATTACK
         };
 
-        private ETurretState _turretState;
+        private ETurretState m_TurretState;
 
 
-        private Transform _target;
+        private Transform m_Target;
         
-        private TurretGunInputReader _gun;
-        private TurretLaserSensor _laser;
-        private TurretRotor _rotor;
-        private TurretTargetSensor _sensor;
+        private TurretGunInputReader m_GunInputReader;
+        private TurretLaserSensor m_LaserSensor;
+        private TurretRotor m_Rotor;
+        private TurretTargetSensor m_TargetSensor;
 
         #region Monobehaviour
 
         private void Awake()
         {
-            _laser = GetComponentInChildren<TurretLaserSensor>();
-            _sensor = GetComponentInChildren<TurretTargetSensor>();
-            _gun = GetComponentInChildren<TurretGunInputReader>();
-            _rotor = GetComponentInChildren<TurretRotor>();
+            m_LaserSensor = GetComponentInChildren<TurretLaserSensor>();
+            m_TargetSensor = GetComponentInChildren<TurretTargetSensor>();
+            m_GunInputReader = GetComponentInChildren<TurretGunInputReader>();
+            m_Rotor = GetComponentInChildren<TurretRotor>();
         }
         
         private void Update() => Tick();
@@ -38,20 +38,20 @@ namespace DenizYanar.Turret
 
         private void Tick()
         {
-            if (_laser.HandleDetection() && _turretState != ETurretState.ATTACK)
+            if (m_LaserSensor.HandleDetection() && m_TurretState != ETurretState.ATTACK)
             {
-                _turretState = ETurretState.ATTACK;
-                _gun.InvokeOnFireStarted();
+                m_TurretState = ETurretState.ATTACK;
+                m_GunInputReader.InvokeOnFireStarted();
             }
-            else if (_laser.HandleDetection() is false && _turretState == ETurretState.ATTACK)
+            else if (m_LaserSensor.HandleDetection() is false && m_TurretState == ETurretState.ATTACK)
             {
-                _turretState = ETurretState.PATROL;
-                _gun.InvokeOnFireCancelled();
+                m_TurretState = ETurretState.PATROL;
+                m_GunInputReader.InvokeOnFireCancelled();
             }
 
-            var target = _sensor.Detect();
+            var target = m_TargetSensor.Detect();
             if(target is {})
-                _rotor.LookPosition(target.position);
+                m_Rotor.LookPosition(target.position);
 
         }
 
@@ -61,7 +61,7 @@ namespace DenizYanar.Turret
         {
             //Play sound effect
             yield return new WaitForSeconds(duration);
-            _gun.InvokeOnFireStarted();
+            m_GunInputReader.InvokeOnFireStarted();
         }
     }
 }

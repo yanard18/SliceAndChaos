@@ -4,12 +4,13 @@ namespace DenizYanar
 {
     public class MoveMousePos : MonoBehaviour
     {
-        private Rigidbody2D _rb;
-        [SerializeField] private float _speed = 100.0f;
+        private Rigidbody2D m_Rb;
+        [SerializeField]
+        private float m_Speed = 100.0f;
         
         private void Awake()
         {
-            _rb = GetComponent<Rigidbody2D>();
+            m_Rb = GetComponent<Rigidbody2D>();
         }
 
         private void FixedUpdate()
@@ -18,8 +19,8 @@ namespace DenizYanar
             var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             var position = transform.position;
             var dir = mousePos - position;
-            var targetPos = position + dir.normalized * (_speed * Time.fixedDeltaTime);
-            _rb.MovePosition(targetPos);
+            var targetPos = position + dir.normalized * (m_Speed * Time.fixedDeltaTime);
+            m_Rb.MovePosition(targetPos);
         }
     }
 }

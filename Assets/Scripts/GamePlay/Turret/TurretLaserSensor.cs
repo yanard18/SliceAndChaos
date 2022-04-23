@@ -7,17 +7,21 @@ namespace DenizYanar.Turret
     [RequireComponent(typeof(LineRenderer))]
     public class TurretLaserSensor : MonoBehaviour
     {
-        private LineRenderer _lr;
+        private LineRenderer m_LR;
 
-        [SerializeField] private float _range = 20.0f;
+        [SerializeField]
+        private float m_Range = 20.0f;
 
-        [SerializeField] private LayerMask _obstacleLayer;
-        [SerializeField] private LayerMask _targetLayer;
+        [SerializeField] 
+        private LayerMask m_ObstacleLayer;
+        
+        [SerializeField]
+        private LayerMask m_TargetLayer;
 
 
         public bool IsDetected;
 
-        private void Awake() => _lr = GetComponent<LineRenderer>();
+        private void Awake() => m_LR = GetComponent<LineRenderer>();
 
         private void Update()
         {
@@ -29,20 +33,21 @@ namespace DenizYanar.Turret
 
         public bool HandleDetection()
         {
-            var hitTarget = Physics2D.Raycast(transform.position, transform.right, _range, _targetLayer);
+            var selfTransform = transform;
+            var hitTarget = Physics2D.Raycast(selfTransform.position, selfTransform.right, m_Range, m_TargetLayer);
             return hitTarget;
         }
 
         private void SetLineRenderer(Vector2 pos, Transform localTransform)
         {
-            var hit = Physics2D.Raycast(pos, localTransform.right, _range, _obstacleLayer);
+            var hit = Physics2D.Raycast(pos, localTransform.right, m_Range, m_ObstacleLayer);
 
-            _lr.SetPosition(0, pos);
+            m_LR.SetPosition(0, pos);
 
             if (hit)
-                _lr.SetPosition(1, hit.point);
+                m_LR.SetPosition(1, hit.point);
             else
-                _lr.SetPosition(1, (Vector2) (localTransform.right * 20) + pos);
+                m_LR.SetPosition(1, (Vector2) (localTransform.right * 20) + pos);
         }
         
     }

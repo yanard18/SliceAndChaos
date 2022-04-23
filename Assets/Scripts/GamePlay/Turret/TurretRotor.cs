@@ -4,9 +4,11 @@ namespace DenizYanar.Turret
 {
     public class TurretRotor : MonoBehaviour
     {
-        [SerializeField] private float _speed;
+        [SerializeField]
+        private float m_RotateSpeed;
         
-        private float _velocity;
+        private float m_Velocity;
+        
         public void LookPosition(Vector2 pos)
         {
             var dir = pos - (Vector2) transform.position;
@@ -18,7 +20,7 @@ namespace DenizYanar.Turret
 
 
             transform.rotation = Quaternion.Lerp(transform.rotation,
-                Quaternion.AngleAxis(desiredAngle, Vector3.forward), Time.deltaTime * _speed);
+                Quaternion.AngleAxis(desiredAngle, Vector3.forward), Time.deltaTime * m_RotateSpeed);
         }
     }
 }

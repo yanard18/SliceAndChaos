@@ -5,18 +5,20 @@ namespace DenizYanar.Projectiles
     [RequireComponent(typeof(Rigidbody2D))]
     public abstract class Projectile : MonoBehaviour
     {
-        private Rigidbody2D _rb;
-        private bool _hit;
+        private Rigidbody2D m_Rb;
+        private bool m_Hit;
 
-        [SerializeField] private LayerMask _hitBoxLayer;
+        [SerializeField]
+        private LayerMask m_HitBoxLayer;
 
-        [SerializeField] private bool _enableDebug;
+        [SerializeField]
+        private bool m_bIsDebugEnabled;
 
         public GameObject Author { get; private set; }
 
         #region Monobehaviour
 
-        protected virtual void Awake() => _rb = GetComponent<Rigidbody2D>();
+        protected virtual void Awake() => m_Rb = GetComponent<Rigidbody2D>();
 
         protected virtual void FixedUpdate() => DetectHit();
 
@@ -26,10 +28,10 @@ namespace DenizYanar.Projectiles
 
         private void DetectHit()
         {
-            if (_hit) return;
+            if (m_Hit) return;
 
-            var velocity = _rb.velocity;
-            var currentPosition = _rb.position;
+            var velocity = m_Rb.velocity;
+            var currentPosition = m_Rb.position;
             var desiredVelocityVector = velocity * Time.fixedDeltaTime;
 
             // ReSharper disable once Unity.PreferNonAllocApi
@@ -38,11 +40,11 @@ namespace DenizYanar.Projectiles
                 0.1f,
                 desiredVelocityVector.normalized,
                 desiredVelocityVector.magnitude,
-                _hitBoxLayer);
+                m_HitBoxLayer);
 
 
 #if UNITY_EDITOR
-            if (_enableDebug)
+            if (m_bIsDebugEnabled)
                 Debug.DrawRay(currentPosition, desiredVelocityVector, Color.magenta, 5.0f);
 #endif
 
@@ -51,18 +53,18 @@ namespace DenizYanar.Projectiles
             foreach (var t in hit)
             {
 #if UNITY_EDITOR
-                if (_enableDebug)
+                if (m_bIsDebugEnabled)
                     Debug.Log(t.transform.name);
 #endif
 
                 if (t.transform.gameObject == Author) continue;
 
                 Hit(t.collider);
-                _hit = true;
+                m_Hit = true;
                 transform.position = t.point;
 
 #if UNITY_EDITOR
-                if (_enableDebug)
+                if (m_bIsDebugEnabled)
                     Debug.Log("Hit to: " + t.transform.name);
 #endif
 
@@ -74,8 +76,8 @@ namespace DenizYanar.Projectiles
 
         protected void StopProjectile()
         {
-            _rb.velocity = Vector2.zero;
-            _rb.angularVelocity = 0f;
+            m_Rb.velocity = Vector2.zero;
+            m_Rb.angularVelocity = 0f;
         }
 
         protected abstract void Hit(Collider2D col);
@@ -86,8 +88,8 @@ namespace DenizYanar.Projectiles
         public void Init(Vector2 trajectory, float angularVelocity = 0, float lifeTime = 5.0f, GameObject author = null)
         {
             Author = author != null ? author : null;
-            _rb.velocity = trajectory;
-            _rb.angularVelocity = angularVelocity;
+            m_Rb.velocity = trajectory;
+            m_Rb.angularVelocity = angularVelocity;
             DetectHit();
             if (lifeTime > 0f)
                 Destroy(gameObject, lifeTime);

@@ -4,16 +4,18 @@ namespace DenizYanar
 {
     public class PrototypeTurret : MonoBehaviour
     {
-        [SerializeField] private LayerMask _playerLayerMask;
-        private TurretGunInputReader _input;
+        [SerializeField]
+        private LayerMask m_PlayerLayer;
+        
+        private TurretGunInputReader m_Input;
 
-        private void Awake() => _input = GetComponentInChildren<TurretGunInputReader>();
+        private void Awake() => m_Input = GetComponentInChildren<TurretGunInputReader>();
         private void Update()
         {
-            var player = Physics2D.OverlapCircle(transform.position, 15.0f, _playerLayerMask);
+            var player = Physics2D.OverlapCircle(transform.position, 15.0f, m_PlayerLayer);
             if (player is null)
             {
-                _input.InvokeOnFireCancelled();
+                m_Input.InvokeOnFireCancelled();
                 return;
             }
 
@@ -21,7 +23,7 @@ namespace DenizYanar
             var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
             transform.Rotate(Vector3.forward * 90);
-            _input.InvokeOnFireStarted();
+            m_Input.InvokeOnFireStarted();
         }
     }
 }
