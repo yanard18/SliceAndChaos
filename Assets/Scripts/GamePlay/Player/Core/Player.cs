@@ -1,5 +1,6 @@
 using DenizYanar.DamageAndHealthSystem;
 using DenizYanar.Events;
+using DenizYanar.Managers;
 using DenizYanar.SenseEngine;
 using DenizYanar.Singletons;
 using UnityEngine;
@@ -10,10 +11,8 @@ namespace DenizYanar.PlayerSystem
     public class Player : Singleton<Player>
     {
         [SerializeField] private SenseEnginePlayer _deathSense;
-        [SerializeField] private VoidEvent _gameOverEvent;
 
         private Health _health;
-
 
         protected override void Awake()
         {
@@ -38,8 +37,8 @@ namespace DenizYanar.PlayerSystem
         {
             Debug.Log("Player killed by " + damage.m_Author.name);
             _deathSense.Play();
-            _gameOverEvent.Invoke();
-            Destroy(this.gameObject);
+            GameManager.s_Instance.GameOver();
+            Destroy(gameObject);
         }
     }
 }

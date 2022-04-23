@@ -6,9 +6,6 @@ namespace DenizYanar
     {
         [SerializeField] private int m_TargetFrameRate = 300;
 
-        private void Awake()
-        {
-            Application.targetFrameRate = m_TargetFrameRate;
-        }
+        private void Awake() => Application.targetFrameRate = m_TargetFrameRate;
     }
 }

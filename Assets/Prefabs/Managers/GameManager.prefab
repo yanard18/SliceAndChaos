@@ -10,8 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8661152374887149044}
   - component: {fileID: 8661152374887149045}
-  - component: {fileID: 8661152374887149042}
-  - component: {fileID: 1010034244}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -46,62 +44,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 766f416be72145d4e9adb63b455e47a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ecSpawnPlayer: {fileID: 11400000, guid: 323442b94c0aaad478b3027e83f36084, type: 2}
---- !u!114 &8661152374887149042
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8661152374887149043}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: afb8d02ca8ce6a54bbedee06b1cfc98e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Description: 'Take the signal of when level ready : Level Ready Event'
-  m_EventChannel: {fileID: 11400000, guid: 90762cb79025dbc44a1ffbac3bd640db, type: 2}
-  m_UnityEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8661152374887149045}
-        m_TargetAssemblyTypeName: DenizYanar.Managers.GameManager, Assembly-CSharp
-        m_MethodName: OnLevelReady
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &1010034244
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8661152374887149043}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: afb8d02ca8ce6a54bbedee06b1cfc98e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Description: Finish the game on game over event
-  m_EventChannel: {fileID: 11400000, guid: c38f8415cb250f4409c1208692a25e02, type: 2}
-  m_UnityEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8661152374887149045}
-        m_TargetAssemblyTypeName: DenizYanar.Managers.GameManager, Assembly-CSharp
-        m_MethodName: GameOver
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  m_ecGameOver: {fileID: 11400000, guid: c38f8415cb250f4409c1208692a25e02, type: 2}
