@@ -25,7 +25,7 @@ namespace DenizYanar.PlayerSystem.Movement
             _rb = rb;
             _inputs = inputs;
 
-            _desiredXVelocity = settings.DesiredMovementVelocity;
+            _desiredXVelocity = settings.m_DesiredMovementVelocity;
             _acceleration = settings.MovementAcceleration;
         }
 

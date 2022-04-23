@@ -342,8 +342,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18c0401ebb0c10c46a1cfc5ba8b868ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _deathSense: {fileID: 3552776219876277578}
-  _gameOverEvent: {fileID: 11400000, guid: c38f8415cb250f4409c1208692a25e02, type: 2}
+  m_sepDeath: {fileID: 0}
 --- !u!114 &3552776220282073113
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -373,14 +372,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 453681dcc2dc2be4eaa5190af0262551, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _settings: {fileID: 11400000, guid: d938edc4172181545985124f4fb0933a, type: 2}
-  _inputs: {fileID: 11400000, guid: 19cff4123c4ee15498d6229cf530e6b2, type: 2}
-  _stateTitleEvent: {fileID: 11400000, guid: a4f433397220c1345b68ba4e43bd55ee, type: 2}
-  _collider: {fileID: 1008661422195125062}
-  _jumpSense: {fileID: 1008661423400421246}
-  _landSense: {fileID: 3552776220777306523}
-  _enterShiftSense: {fileID: 3552776220023608877}
-  _leaveShiftSense: {fileID: 3552776221575650350}
+  m_Settings: {fileID: 11400000, guid: d938edc4172181545985124f4fb0933a, type: 2}
+  m_Inputs: {fileID: 11400000, guid: 19cff4123c4ee15498d6229cf530e6b2, type: 2}
+  m_ecStateChangeTitle: {fileID: 11400000, guid: a4f433397220c1345b68ba4e43bd55ee, type: 2}
+  m_PlayerCollision: {fileID: 1008661422195125062}
+  m_sepJump: {fileID: 1008661423400421246}
+  m_sepLand: {fileID: 3552776220777306523}
+  m_sepEnterShift: {fileID: 3552776220023608877}
+  m_sepLeaveShift: {fileID: 3552776221575650350}
 --- !u!114 &1008661422985328070
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -393,10 +392,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c81910e487548442bfb56795208968a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _settings: {fileID: 11400000, guid: d938edc4172181545985124f4fb0933a, type: 2}
-  _inputs: {fileID: 11400000, guid: 19cff4123c4ee15498d6229cf530e6b2, type: 2}
-  _attackSensePlayer: {fileID: 413510137304208084}
-  _hitSensePlayer: {fileID: 3325955951770683869}
+  m_Settings: {fileID: 11400000, guid: d938edc4172181545985124f4fb0933a, type: 2}
+  m_Inputs: {fileID: 11400000, guid: 19cff4123c4ee15498d6229cf530e6b2, type: 2}
+  m_sepAttack: {fileID: 413510137304208084}
+  m_sepHit: {fileID: 3325955951770683869}
 --- !u!114 &3552776220282073127
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -409,8 +408,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3090c82da925154f830d98249f3f773, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inputs: {fileID: 11400000, guid: 19cff4123c4ee15498d6229cf530e6b2, type: 2}
-  _settings: {fileID: 11400000, guid: d938edc4172181545985124f4fb0933a, type: 2}
+  m_Inputs: {fileID: 11400000, guid: 19cff4123c4ee15498d6229cf530e6b2, type: 2}
+  m_Settings: {fileID: 11400000, guid: d938edc4172181545985124f4fb0933a, type: 2}
 --- !u!1 &1008661423268689544
 GameObject:
   m_ObjectHideFlags: 0

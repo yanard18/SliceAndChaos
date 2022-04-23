@@ -91,7 +91,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c47c4f8f0bcea447b77b15f4dec6572, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 10
+  m_RotateSpeed: 0
 --- !u!1 &1771611213405346561
 GameObject:
   m_ObjectHideFlags: 0
@@ -336,13 +336,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 954fd31ef2604b64d836c6d2bebfaa28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _range: 20
-  _obstacleLayer:
+  m_Range: 20
+  m_ObstacleLayer:
     serializedVersion: 2
-    m_Bits: 192
-  _targetLayer:
+    m_Bits: 0
+  m_TargetLayer:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 0
   IsDetected: 0
 --- !u!1 &1771611214263172055
 GameObject:
@@ -419,14 +419,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d4baa29604e9ce4fb60ad1f8cd92893, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _targetLayerMask:
+  m_TargetLayer:
     serializedVersion: 2
-    m_Bits: 128
-  _obstacleLayerMask:
+    m_Bits: 0
+  m_ObstacleLayer:
     serializedVersion: 2
-    m_Bits: 64
-  _range: 20
-  _angle: 60
+    m_Bits: 0
+  m_range: 20
+  m_AngleLimit: 60
 --- !u!1 &1771611214744186744
 GameObject:
   m_ObjectHideFlags: 0
@@ -474,7 +474,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_TBulletStartPositions:
   - {fileID: 1771611214263172048}
-  m_Projectile: {fileID: 0}
+  m_Projectile: {fileID: 1047641192188529287, guid: b5a3f54666e78254380ab6a9102e9424, type: 3}
   m_ProjectileSpeed: 1
 --- !u!1 &1771611214972681202
 GameObject:
