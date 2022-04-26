@@ -22,17 +22,17 @@ namespace DenizYanar.PlayerSystem.Movement
         #region Constructor
         
         
-        public AirState(Rigidbody2D rb, PlayerSettings settings, PlayerInputs inputs, StringEvent nameInformerChannel = null, [CanBeNull] string stateName = null)
+        public AirState(Rigidbody2D rb, PlayerConfigurations configurations, PlayerInputs inputs, StringEvent nameInformerChannel = null, [CanBeNull] string stateName = null)
         {
             m_StateName = stateName ?? GetType().Name;
             m_ecStateName = nameInformerChannel;
             _rb = rb;
             _inputs = inputs;
 
-            _xAcceleration = settings.AirStrafeXAcceleration;
-            _maxXVelocity = settings.AirStrafeMaxXVelocity;
-            _yAcceleration = settings.AirStrafeYAcceleration;
-            _maxYVelocity = settings.AirStrafeMaxYVelocity;
+            _xAcceleration = configurations.AirStrafeXAcceleration;
+            _maxXVelocity = configurations.AirStrafeMaxXVelocity;
+            _yAcceleration = configurations.AirStrafeYAcceleration;
+            _maxYVelocity = configurations.AirStrafeMaxYVelocity;
         }
 
         #endregion

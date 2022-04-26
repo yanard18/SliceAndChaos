@@ -18,15 +18,15 @@ namespace DenizYanar.PlayerSystem.Movement
 
         #region Constructor
 
-        public MoveState(Rigidbody2D rb, PlayerSettings settings, PlayerInputs inputs, StringEvent nameInformerEvent = null, [CanBeNull] string stateName = null)
+        public MoveState(Rigidbody2D rb, PlayerConfigurations configurations, PlayerInputs inputs, StringEvent nameInformerEvent = null, [CanBeNull] string stateName = null)
         {
             m_StateName = stateName ?? GetType().Name;
             m_ecStateName = nameInformerEvent;
             _rb = rb;
             _inputs = inputs;
 
-            _desiredXVelocity = settings.m_DesiredMovementVelocity;
-            _acceleration = settings.MovementAcceleration;
+            _desiredXVelocity = configurations.m_DesiredMovementVelocity;
+            _acceleration = configurations.MovementAcceleration;
         }
 
         #endregion

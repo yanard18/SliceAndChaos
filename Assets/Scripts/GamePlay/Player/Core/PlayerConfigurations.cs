@@ -4,7 +4,7 @@ using UnityEngine;
 namespace DenizYanar.PlayerSystem
 {
     [CreateAssetMenu(menuName = "Slice And Chaos/Player/Player Settings")]
-    public class PlayerSettings : ScriptableObject
+    public class PlayerConfigurations : ScriptableObject
     {
         [Header("Movement Configurations")]
         
@@ -122,6 +122,10 @@ namespace DenizYanar.PlayerSystem
 
         [SerializeField] private LayerMask _enemyLayerMask;
         public LayerMask EnemyLayerMask => _enemyLayerMask;
+
+        [SerializeField] 
+        private LayerMask m_prHitBoxLayer;
+        public LayerMask m_HitBoxLayer => m_prHitBoxLayer;
 
 
     }

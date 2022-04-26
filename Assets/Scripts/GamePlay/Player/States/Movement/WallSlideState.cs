@@ -11,18 +11,18 @@ namespace DenizYanar.PlayerSystem.Movement
         private readonly Rigidbody2D _rb;
         private readonly PlayerMovementController _playerMovementController;
         private readonly Collider2D _collider;
-        private readonly PlayerSettings _settings;
+        private readonly PlayerConfigurations m_Configurations;
         private readonly float _defaultGravityScale;
 
 
         #region Constructor
 
-        public WallSlideState(PlayerMovementController playerMovementController, PlayerSettings settings, StringEvent name = null, [CanBeNull] string stateName = null)
+        public WallSlideState(PlayerMovementController playerMovementController, PlayerConfigurations configurations, StringEvent name = null, [CanBeNull] string stateName = null)
         {
             _playerMovementController = playerMovementController;
             _rb = playerMovementController.WallSlideDataInstance.Rb;
             _collider = playerMovementController.WallSlideDataInstance.Collider;
-            _settings = settings;
+            m_Configurations = configurations;
             
             m_ecStateName = name;
             m_StateName = stateName ?? GetType().Name;
@@ -37,7 +37,7 @@ namespace DenizYanar.PlayerSystem.Movement
         public override void OnEnter()
         {
             base.OnEnter();
-            _rb.gravityScale = _settings.WallSlideGravity;
+            _rb.gravityScale = m_Configurations.WallSlideGravity;
             _rb.velocity /= 4.0f;
             _playerMovementController.JumpPropertiesInstance.ResetJumpCount();
         }
@@ -67,8 +67,8 @@ namespace DenizYanar.PlayerSystem.Movement
 
             if (hitNormal != null)
             {
-                var horizontal = _settings.WallSlideHorizontalBouncePower;
-                var vertical = _settings.WallSlideVerticalBouncePower;
+                var horizontal = m_Configurations.WallSlideHorizontalBouncePower;
+                var vertical = m_Configurations.WallSlideVerticalBouncePower;
                 _rb.velocity = (hitNormal.Value * horizontal) + (Vector2.up * vertical);
             }
             
@@ -88,7 +88,7 @@ namespace DenizYanar.PlayerSystem.Movement
             for (var i = 0; i < horizontalRayCount; i++)
             {
                 var rayDirection = Vector2.left;
-                var hit = Physics2D.Raycast(bottomLeft, rayDirection, 0.1f, _settings.ObstacleLayerMask);
+                var hit = Physics2D.Raycast(bottomLeft, rayDirection, 0.1f, m_Configurations.ObstacleLayerMask);
                 Debug.DrawRay(bottomLeft, Vector2.left * 5, Color.red, 3);
                 
                 if(hit)
@@ -100,7 +100,7 @@ namespace DenizYanar.PlayerSystem.Movement
                 var rayStartPos = bottomRight + Vector2.up * (i * horizontalRaySpacing);
                 var rayDirection = Vector2.right;
                 
-                var hit = Physics2D.Raycast(rayStartPos, rayDirection, 0.1f, _settings.ObstacleLayerMask);
+                var hit = Physics2D.Raycast(rayStartPos, rayDirection, 0.1f, m_Configurations.ObstacleLayerMask);
                 Debug.DrawRay(rayStartPos, Vector2.right * 5, Color.red, 3);
                 
                 if(hit)

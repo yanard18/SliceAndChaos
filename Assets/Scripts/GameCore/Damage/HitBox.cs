@@ -1,11 +1,14 @@
-using DenizYanar.DamageAndHealthSystem;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace DenizYanar
+namespace DenizYanar.DamageAndHealthSystem
 {
-    public class HitBox : MonoBehaviour
+    [RequireComponent(typeof(Collider2D))]
+    public class HitBox : MonoBehaviour, IDamage
     {
-        public GameObject m_Owner;
+        [Required]
         public Health m_HealthOfHitBox;
+
+        public void TakeDamage(Damage damage) => m_HealthOfHitBox.TakeDamage(damage);
     }
 }

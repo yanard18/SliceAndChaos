@@ -1,5 +1,6 @@
 using System;
 using DenizYanar.BehaviourTreeAI;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace DenizYanar.EnemySystem
@@ -8,7 +9,7 @@ namespace DenizYanar.EnemySystem
     {
         private float m_JumpCooldown;
         
-        [SerializeField]
+        [SerializeField] [Required]
         private CrawlerSettings m_Settings;
 
         public event Action e_OnAttack;

@@ -11,7 +11,7 @@ namespace DenizYanar
         private PlayerInputs m_Inputs;
         
         [SerializeField] [Required]
-        private PlayerSettings m_Settings;
+        private PlayerConfigurations m_Configurations;
 
         private Magnet m_Magnet;
         private KatanaProjectile m_KatanaProjectile;
@@ -25,9 +25,9 @@ namespace DenizYanar
 
             var conf = new MagnetConfigurations(
                 EMagnetPolar.PULL,
-                m_Settings.MagnetPullStrength,
-                m_Settings.MagnetAffectRadius,
-                m_Settings.MagnetPullDistanceScale
+                m_Configurations.MagnetPullStrength,
+                m_Configurations.MagnetAffectRadius,
+                m_Configurations.MagnetPullDistanceScale
                 );
             
             m_Magnet.SetMagnet(conf);
@@ -69,7 +69,7 @@ namespace DenizYanar
         {
             if(!m_bIsReadyForAction) return; 
             if(m_Magnet == null) return;
-            m_Magnet.ImpulseMagnet(EMagnetPolar.PUSH, m_Settings.MagnetPushStrength, m_Settings.MagnetPushDistanceScale, 0.05f);
+            m_Magnet.ImpulseMagnet(EMagnetPolar.PUSH, m_Configurations.MagnetPushStrength, m_Configurations.MagnetPushDistanceScale, 0.05f);
             m_KatanaProjectile.CallbackKatana();
             SetReadyToUse(false);
         }

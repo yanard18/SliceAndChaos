@@ -11,14 +11,25 @@ namespace DenizYanar.DamageAndHealthSystem
         private bool m_bHasImmunity;
 
         [Header("Health Configurations")]
-        [Range(0, 9999)] [SerializeField] private float m_MaxHealth = 100.0f;
-        [ProgressBar(0,1000)] [SerializeField] private float m_Health = 100.0f;
-        [Range(0, 5)] [SerializeField] private float m_ImmunityDuration;
+        [Range(0, 9999)] [SerializeField] [ValidateInput("@$value > 0", "Max health should be greater than zero")]
+        private float m_MaxHealth = 100.0f;
+        
+        [ProgressBar(0,1000)] [SerializeField] [ValidateInput("@$value > 0", "We suggests to make health greater than zero")]
+        private float m_Health = 100.0f;
+        
+        [Range(0, 5)] [SerializeField] [ShowIf(nameof(m_bHasImmunity))]
+        private float m_ImmunityDuration = 0.5f;
+        
         
         [Header("Sense Players")]
-        [SerializeField] private SenseEnginePlayer m_sepDamage;
-        [SerializeField] private SenseEnginePlayer m_sepDeath;
+        [SerializeField] 
+        private SenseEnginePlayer m_sepDamage;
+        
+        [SerializeField]  
+        private SenseEnginePlayer m_sepDeath;
 
+        
+        
         public event Action<Damage> e_OnDeath;
         public event Action<Damage> e_OnDamage;
 

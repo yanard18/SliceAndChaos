@@ -42,7 +42,7 @@ namespace DenizYanar.PlayerSystem.Movement
         [Header("Player Settings")]
         
         [SerializeField] [Required]
-        private PlayerSettings m_Settings;
+        private PlayerConfigurations m_Configurations;
         
         [Header("Player Inputs")]   
         
@@ -114,13 +114,13 @@ namespace DenizYanar.PlayerSystem.Movement
             m_StateMachine = new StateMachine();
 
             m_sIdle = new IdleState(m_Rb, nameInformerEvent: m_ecStateChangeTitle, stateName: "Idle");
-            m_sMove = new MoveState(m_Rb, m_Settings, m_Inputs, nameInformerEvent: m_ecStateChangeTitle, stateName: "Move");
+            m_sMove = new MoveState(m_Rb, m_Configurations, m_Inputs, nameInformerEvent: m_ecStateChangeTitle, stateName: "Move");
             m_sJump = new JumpState(this, m_sepJump, nameInformerChannel: m_ecStateChangeTitle, stateName: "Jump");
             m_sLand = new LandState(JumpPropertiesInstance, m_sepLand, nameInformerEvent: m_ecStateChangeTitle, stateName: "Land");
-            m_sWallSlide = new WallSlideState(this, m_Settings, name: m_ecStateChangeTitle, stateName: "Wall Slide");
-            m_sAir = new AirState(m_Rb, m_Settings, m_Inputs, nameInformerChannel: m_ecStateChangeTitle, stateName: "At Air");
-            m_sShift = new ShiftState(m_Rb, m_Inputs, m_Settings, m_sepEnterShift, m_sepLeaveShift, nameInformerEvent: m_ecStateChangeTitle, stateName: "Shift");
-            m_sTeleport = new TeleportState(m_Rb, m_Settings);
+            m_sWallSlide = new WallSlideState(this, m_Configurations, name: m_ecStateChangeTitle, stateName: "Wall Slide");
+            m_sAir = new AirState(m_Rb, m_Configurations, m_Inputs, nameInformerChannel: m_ecStateChangeTitle, stateName: "At Air");
+            m_sShift = new ShiftState(m_Rb, m_Inputs, m_Configurations, m_sepEnterShift, m_sepLeaveShift, nameInformerEvent: m_ecStateChangeTitle, stateName: "Shift");
+            m_sTeleport = new TeleportState(m_Rb, m_Configurations);
 
             m_StateMachine.InitState(m_sIdle);
 
@@ -152,7 +152,7 @@ namespace DenizYanar.PlayerSystem.Movement
             Func<bool> NoMoreContactToGround() => () => IsTouchingToGround() == null;
             Func<bool> OnContactToWall() => () => AngleOfContact() == 0 && WallSlideDataInstance.HasCooldown == false;
             Func<bool> NoContactToWall() => () => AngleOfContact() == null || AngleOfContact() != 0;
-            Func<bool> OnSliceFinished() => () => m_sTeleport.HasFinished;
+            Func<bool> OnSliceFinished() => () => m_sTeleport.m_bHasFinished;
             Func<bool> AlwaysTrue() => () => true;
         }
 
@@ -189,7 +189,7 @@ namespace DenizYanar.PlayerSystem.Movement
             {
                 var hit = Physics2D.Raycast(
                     bottomLeft + Vector2.right * (spaceBetweenRays * i), 
-                    Vector2.down, 0.1f, m_Settings.ObstacleLayerMask);
+                    Vector2.down, 0.1f, m_Configurations.ObstacleLayerMask);
 
                 if (hit)
                     return Vector2.Angle(hit.normal, Vector2.up) % 90f;
@@ -220,7 +220,7 @@ namespace DenizYanar.PlayerSystem.Movement
                     rayStartPosition + Vector2.up * (verticalRaySpace * i),
                     Vector2.right * movementDirection,
                     0.1f,
-                    m_Settings.ObstacleLayerMask);
+                    m_Configurations.ObstacleLayerMask);
 
                 if (hit)
                     return hit;

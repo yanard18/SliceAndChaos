@@ -13,7 +13,7 @@ namespace DenizYanar.PlayerSystem.Attacks
         private readonly Action _onCalled;
         private readonly Action _onReturned;
         private readonly Transform _playerTransform;
-        private readonly PlayerSettings _settings;
+        private readonly PlayerConfigurations m_Configurations;
         private readonly PlayerInputs _inputs;
         
         private KatanaProjectile _katana;
@@ -25,7 +25,7 @@ namespace DenizYanar.PlayerSystem.Attacks
             Action onCalled,
             Action onReturned,
             Transform playerTransform,
-            PlayerSettings settings,
+            PlayerConfigurations configurations,
             PlayerInputs inputs
             )
         {
@@ -34,7 +34,7 @@ namespace DenizYanar.PlayerSystem.Attacks
             _onCalled = onCalled;
             _onReturned = onReturned;
             _playerTransform = playerTransform;
-            _settings = settings;
+            m_Configurations = configurations;
         }
 
         #endregion
@@ -59,7 +59,7 @@ namespace DenizYanar.PlayerSystem.Attacks
 
             
 
-            _katana = _throwKatana(dir, _settings.SwordThrowSpeed, _settings.SwordThrowAngularVelocity);
+            _katana = _throwKatana(dir, m_Configurations.SwordThrowSpeed, m_Configurations.SwordThrowAngularVelocity);
             _katana.SetOnSwordReturned(_onReturned);
             _katana.SetOnSwordCalled(_onCalled);
         }

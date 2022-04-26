@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using DenizYanar.DamageAndHealthSystem;
 using DenizYanar.SenseEngine;
 using DenizYanar.FSM;
@@ -12,38 +10,42 @@ namespace DenizYanar.PlayerSystem.Attacks
 {
     public class SliceState : State
     {
-        private readonly PlayerAttackController _player;
-        private readonly PlayerSettings _settings;
+        private readonly PlayerAttackController m_PlayerAttackController;
+        private readonly PlayerConfigurations m_PlayerConfigurations;
 
-        private readonly PlayerInputs _inputs;
-        private readonly Action<float> _startAttackCooldown;
-        private readonly Rigidbody2D _rb;
-        private readonly SenseEnginePlayer _attackSensePlayer;
-        private readonly SenseEnginePlayer _hitSensePlayer;
+        private readonly PlayerInputs m_PlayerInputs;
+        private readonly Action<float> m_fAttackCooldown;
+        private readonly Rigidbody2D m_Rb;
+        private readonly IDamageArea m_DamageArea;
+        private readonly SenseEnginePlayer m_sepAttack;
+        private readonly SenseEnginePlayer m_sepHit;
+        
 
 
         #region Constructor
 
         public SliceState
         (
-            PlayerAttackController player,
-            PlayerSettings settings,
-            PlayerInputs input,
-            Action<float> startAttackCooldown,
+            PlayerAttackController playerAttackController,
+            PlayerConfigurations playerConfigurations,
+            PlayerInputs playerInput,
+            Action<float> fAttackCooldown,
             Rigidbody2D rb,
-            SenseEnginePlayer attackSense,
-            SenseEnginePlayer hitSense
+            IDamageArea damageArea,
+            SenseEnginePlayer sepAttackSense,
+            SenseEnginePlayer sepHitSense
         )
 
         {
+            m_PlayerAttackController = playerAttackController;
+            m_PlayerConfigurations = playerConfigurations;
+            m_PlayerInputs = playerInput;
+            m_fAttackCooldown = fAttackCooldown;
+            m_Rb = rb;
+            m_DamageArea = damageArea;
+            m_sepAttack = sepAttackSense;
+            m_sepHit = sepHitSense;
             
-            _player = player;
-            _settings = settings;
-            _inputs = input;
-            _startAttackCooldown = startAttackCooldown;
-            _rb = rb;
-            _attackSensePlayer = attackSense;
-            _hitSensePlayer = hitSense;
         }
 
         #endregion
@@ -53,120 +55,54 @@ namespace DenizYanar.PlayerSystem.Attacks
         public override void OnEnter()
         {
             base.OnEnter();
+
+            // Check is camera exist
             if (Camera.main is null) return;
 
-            _startAttackCooldown.Invoke(_settings.AttackCooldownDuration);
+            // Start attack cooldown
+            m_fAttackCooldown.Invoke(m_PlayerConfigurations.AttackCooldownDuration);
 
+            // Calculate attack direction
+            Vector2 playerPosition = m_PlayerAttackController.transform.position;
 
-            Vector2 playerPosition = _player.transform.position;
-
-            var attackDir = YanarUtils.FindDirectionBetweenPositionAndMouse(playerPosition, _inputs.m_MousePosition);
-            
-            Debug.DrawRay(playerPosition, attackDir, Color.green, 5.0f);
-            
-            
-            var boxDistance = _settings.AttackRadius * Mathf.Sqrt(2);
-            var boxAngle = Vector2.SignedAngle(Vector2.right, attackDir) - 45f;
-            var boxStartPos = playerPosition + attackDir * (boxDistance / 2f);
-            var boxSize = Vector2.one * _settings.AttackRadius;
-
-
-            Collider2D[] enemiesInRectangleArea =
-                // ReSharper disable once Unity.PreferNonAllocApi
-                Physics2D.OverlapBoxAll(boxStartPos, boxSize, boxAngle, _settings.EnemyLayerMask);
-
-            Collider2D[] enemiesInCircleArea =
-                // ReSharper disable once Unity.PreferNonAllocApi
-                Physics2D.OverlapCircleAll(playerPosition, _settings.AttackRadius, _settings.EnemyLayerMask);
-
-            IEnumerable<Collider2D> enemies = enemiesInRectangleArea.Intersect(enemiesInCircleArea);
-
-
-            PushPlayerAlongAttackDir(attackDir);
-
-            foreach (var enemy in enemies)
-            {
-                if (IsTargetEqualToPlayer(enemy.transform)) continue;
-                if (IsThereWallBetween(playerPosition, enemy.transform.position, _settings.ObstacleLayerMask)) continue;
-                if (HasNotHitBox(enemy, out var hitBox)) continue;
-
-                var health = hitBox.m_HealthOfHitBox;
-                
-                // ReSharper disable once Unity.PerformanceCriticalCodeInvocation
-                health.TakeDamage(new Damage(_settings.AttackDamage, _player.gameObject));
-                PlayOnHitSense(playerPosition, attackDir);
-            }
-
-            _startAttackCooldown.Invoke(_settings.AttackCooldownDuration);
-            _attackSensePlayer.Play();
-
+            var attackDir =
+                YanarUtils.FindDirectionBetweenPositionAndMouse(playerPosition, m_PlayerInputs.m_MousePosition);
 
 #if UNITY_EDITOR
-            DebugDrawBox(boxStartPos, boxSize, boxAngle, Color.blue, 4.0f);
+            Debug.DrawRay(playerPosition, attackDir, Color.green, 5.0f);
 #endif
-        }
 
-        
+            // Push player
+            PushPlayerAlongAttackDir(attackDir);
+            m_DamageArea.CreateArea(new Damage(m_PlayerConfigurations.AttackDamage, m_PlayerAttackController.transform.root.gameObject));
+
+
+            m_sepAttack.Play();
+
+
+        }
 
         #endregion
 
         #region Local Methods
 
-        
-
         private void PushPlayerAlongAttackDir(Vector2 attackDir)
         {
-            _rb.AddForce(attackDir * _settings.AttackPushForce, ForceMode2D.Impulse);
+            m_Rb.AddForce(attackDir * m_PlayerConfigurations.AttackPushForce, ForceMode2D.Impulse);
         }
 
-        private static bool HasNotHitBox(Collider2D enemy, out HitBox hitBox)
-        {
-            hitBox = enemy.GetComponent<HitBox>();
-            return hitBox == null;
-        }
-
-
-        private bool IsTargetEqualToPlayer(Transform enemy)
-        {
-            return enemy.root == _player.transform.root;
-        }
-
-        private static bool IsThereWallBetween(Vector2 startPos, Vector2 endPos, LayerMask layerMask)
-        {
-            var dir = endPos - startPos;
-            var hit = Physics2D.Raycast(startPos, dir.normalized, dir.magnitude, layerMask);
-            return hit;
-        }
+        
         
         private void PlayOnHitSense(Vector3 playerPosition, Vector2 attackDir)
         {
-            var spawner = _hitSensePlayer.GetComponent<SenseInstantiateObject>();
+            var spawner = m_sepHit.GetComponent<SenseInstantiateObject>();
             spawner.InstantiatePosition = playerPosition + (Vector3) attackDir * -10f;
             var angle = Mathf.Atan2(attackDir.y, attackDir.x) * Mathf.Rad2Deg;
             spawner.InstantiateRotation = Quaternion.AngleAxis(angle, Vector3.forward);
-            _hitSensePlayer.Play();
+            m_sepHit.Play();
         }
 
-        private static void DebugDrawBox(Vector2 point, Vector2 size, float angle, Color color, float duration)
-        {
-            var orientation = Quaternion.Euler(0, 0, angle);
-
-            // Basis vectors, half the size in each direction from the center.
-            Vector2 right = orientation * Vector2.right * size.x / 2f;
-            Vector2 up = orientation * Vector2.up * size.y / 2f;
-
-            // Four box corners.
-            var topLeft = point + up - right;
-            var topRight = point + up + right;
-            var bottomRight = point - up + right;
-            var bottomLeft = point - up - right;
-
-            // Now we've reduced the problem to drawing lines.
-            Debug.DrawLine(topLeft, topRight, color, duration);
-            Debug.DrawLine(topRight, bottomRight, color, duration);
-            Debug.DrawLine(bottomRight, bottomLeft, color, duration);
-            Debug.DrawLine(bottomLeft, topLeft, color, duration);
-        }
+        
 
         #endregion
     }

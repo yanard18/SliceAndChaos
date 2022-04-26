@@ -1,8 +1,11 @@
 {
-    "name": "Core",
+    "name": "Scripts",
     "rootNamespace": "",
     "references": [
-        "GUID:a6ed1e999f1f4b64bbdcd8c192257ec3"
+        "External",
+        "Cinemachine",
+        "Unity.InputSystem",
+        "Unity.TextMeshPro"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

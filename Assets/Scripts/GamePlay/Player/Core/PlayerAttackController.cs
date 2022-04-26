@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using DenizYanar.DamageAndHealthSystem;
 using DenizYanar.SenseEngine;
 using UnityEngine;
 using DenizYanar.FSM;
@@ -14,20 +15,19 @@ namespace DenizYanar.PlayerSystem.Attacks
 
         private StateMachine m_StateMachine;
         private Rigidbody2D m_Rb;
-        private bool m_bHasAttackCooldown;
+        private bool m_bHasAttackCooldown; 
         
-
         private SliceState m_sSlash;
         private ThrowSwordState m_sThrow;
         private WaitSwordState m_sWait;
         private IdleState m_sIdle;
-
+        
         #endregion
 
         #region Serialized Variables
-        
+    
         [SerializeField] [Required]
-        private PlayerSettings m_Settings;
+        private PlayerConfigurations m_Configurations;
         
         [SerializeField] [Required]
         private PlayerInputs m_Inputs;
@@ -35,9 +35,9 @@ namespace DenizYanar.PlayerSystem.Attacks
         [Header("Slash Sense Players")]
         
         [SerializeField]
-        private SenseEnginePlayer m_sepAttack;  
-        [SerializeField]
+        private SenseEnginePlayer m_sepAttack;
         
+        [SerializeField]    
         private SenseEnginePlayer m_sepHit;
 
         #endregion
@@ -66,9 +66,11 @@ namespace DenizYanar.PlayerSystem.Attacks
             m_StateMachine = new StateMachine();
             m_Rb = GetComponent<Rigidbody2D>();
 
+            var damageArea = new VisionDamageArea(m_Inputs, m_Configurations, this);
+
             m_sIdle = new IdleState();
-            m_sSlash = new SliceState(this, m_Settings, m_Inputs, CreateAttackCooldown, m_Rb, m_sepAttack, m_sepHit);
-            m_sThrow = new ThrowSwordState(ThrowKatana, OnSwordCalled, OnSwordReturned, transform, m_Settings, m_Inputs);
+            m_sSlash = new SliceState(this, m_Configurations, m_Inputs, CreateAttackCooldown, m_Rb, damageArea, m_sepAttack, m_sepHit);
+            m_sThrow = new ThrowSwordState(ThrowKatana, OnSwordCalled, OnSwordReturned, transform, m_Configurations, m_Inputs);
             m_sWait = new WaitSwordState();
 
             m_StateMachine.InitState(m_sIdle);
@@ -90,10 +92,7 @@ namespace DenizYanar.PlayerSystem.Attacks
 
         #region Inputs
 
-        private void OnAttack1Pressed()
-        {
-            m_StateMachine.TriggerState(m_sSlash);
-        }
+        private void OnAttack1Pressed() => m_StateMachine.TriggerState(m_sSlash);
 
         private void OnAttack2Pressed()
         {
@@ -103,15 +102,9 @@ namespace DenizYanar.PlayerSystem.Attacks
             m_StateMachine.TriggerState(m_sThrow);
         }
 
-        private void OnSwordCalled()
-        {
-            m_StateMachine.TriggerState(m_sWait);
-        }
+        private void OnSwordCalled() => m_StateMachine.TriggerState(m_sWait);
 
-        private void OnSwordReturned()
-        {
-            m_StateMachine.TriggerState(m_sIdle);
-        }
+        private void OnSwordReturned() => m_StateMachine.TriggerState(m_sIdle);
 
         #endregion
         
@@ -119,7 +112,7 @@ namespace DenizYanar.PlayerSystem.Attacks
         
         private KatanaProjectile ThrowKatana(Vector2 dir, float throwSpeed, float angularVelocity)
         {
-            var p = Instantiate(m_Settings.SwordProjectile, transform.position, Quaternion.identity);
+            var p = Instantiate(m_Configurations.SwordProjectile, transform.position, Quaternion.identity);
             p.Init(dir.normalized * throwSpeed, angularVelocity: angularVelocity, author: gameObject, lifeTime: 0f);
             var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
             p.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);

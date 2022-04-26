@@ -24,7 +24,7 @@ namespace DenizYanar.PlayerSystem.Movement
 
         public ShiftState(Rigidbody2D rb,
             PlayerInputs inputs,
-            PlayerSettings settings,
+            PlayerConfigurations configurations,
             SenseEnginePlayer enterShiftSense,
             SenseEnginePlayer leaveShiftSense,
             StringEvent nameInformerEvent = null,
@@ -36,10 +36,10 @@ namespace DenizYanar.PlayerSystem.Movement
             _rb = rb;
             _inputs = inputs;
             _originalGravity = rb.gravityScale;
-            _speed = settings.ShiftModeSpeed;
+            _speed = configurations.ShiftModeSpeed;
             _enterShiftSense = enterShiftSense;
             _leaveShiftSense = leaveShiftSense;
-            _turnSpeed = settings.ShiftModeTurnSpeed;
+            _turnSpeed = configurations.ShiftModeTurnSpeed;
         }
 
         #endregion
