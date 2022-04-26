@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using DenizYanar.DamageAndHealthSystem;
 using DenizYanar.SenseEngine;
 using DenizYanar.FSM;
@@ -14,12 +16,11 @@ namespace DenizYanar.PlayerSystem.Attacks
         private readonly PlayerConfigurations m_PlayerConfigurations;
 
         private readonly PlayerInputs m_PlayerInputs;
-        private readonly Action<float> m_fAttackCooldown;
+        private readonly Action<float> m_FAttackCooldown;
         private readonly Rigidbody2D m_Rb;
         private readonly IDamageArea m_DamageArea;
         private readonly SenseEnginePlayer m_sepAttack;
         private readonly SenseEnginePlayer m_sepHit;
-        
 
 
         #region Constructor
@@ -40,12 +41,11 @@ namespace DenizYanar.PlayerSystem.Attacks
             m_PlayerAttackController = playerAttackController;
             m_PlayerConfigurations = playerConfigurations;
             m_PlayerInputs = playerInput;
-            m_fAttackCooldown = fAttackCooldown;
+            m_FAttackCooldown = fAttackCooldown;
             m_Rb = rb;
             m_DamageArea = damageArea;
             m_sepAttack = sepAttackSense;
             m_sepHit = sepHitSense;
-            
         }
 
         #endregion
@@ -56,53 +56,47 @@ namespace DenizYanar.PlayerSystem.Attacks
         {
             base.OnEnter();
 
-            // Check is camera exist
-            if (Camera.main is null) return;
+            if (!YanarUtils.IsMainCameraExist()) return;
 
-            // Start attack cooldown
-            m_fAttackCooldown.Invoke(m_PlayerConfigurations.AttackCooldownDuration);
+            Attack();
+        }
 
-            // Calculate attack direction
+        private void Attack()
+        {
+            m_FAttackCooldown.Invoke(m_PlayerConfigurations.AttackCooldownDuration);
+
             Vector2 playerPosition = m_PlayerAttackController.transform.position;
+            var attackDir = YanarUtils.FindDirectionToMouse(playerPosition, m_PlayerInputs.m_MousePosition);
 
-            var attackDir =
-                YanarUtils.FindDirectionBetweenPositionAndMouse(playerPosition, m_PlayerInputs.m_MousePosition);
+            YanarDebugs.DrawRayInEditor(playerPosition, attackDir, Color.green, 5.0f);
 
-#if UNITY_EDITOR
-            Debug.DrawRay(playerPosition, attackDir, Color.green, 5.0f);
-#endif
+            var damage = new Damage(
+                m_PlayerConfigurations.AttackDamage,
+                m_PlayerAttackController.transform.root.gameObject
+            );
 
-            // Push player
+            List<DamageResult> TDamageResults = m_DamageArea.CreateArea(damage);
+
+
+            PlaySenseEnginePlayers(TDamageResults, playerPosition, attackDir);
+
             PushPlayerAlongAttackDir(attackDir);
-            m_DamageArea.CreateArea(new Damage(m_PlayerConfigurations.AttackDamage, m_PlayerAttackController.transform.root.gameObject));
-
-
-            m_sepAttack.Play();
-
-
         }
 
         #endregion
 
         #region Local Methods
 
-        private void PushPlayerAlongAttackDir(Vector2 attackDir)
-        {
-            m_Rb.AddForce(attackDir * m_PlayerConfigurations.AttackPushForce, ForceMode2D.Impulse);
-        }
+        private void PushPlayerAlongAttackDir(Vector2 attackDir) =>
+            m_Rb.velocity = attackDir * m_PlayerConfigurations.AttackPushForce;
 
-        
-        
-        private void PlayOnHitSense(Vector3 playerPosition, Vector2 attackDir)
+        private void PlaySenseEnginePlayers(ICollection TDamageResults, Vector2 playerPosition,
+            Vector2 attackDir)
         {
-            var spawner = m_sepHit.GetComponent<SenseInstantiateObject>();
-            spawner.InstantiatePosition = playerPosition + (Vector3) attackDir * -10f;
-            var angle = Mathf.Atan2(attackDir.y, attackDir.x) * Mathf.Rad2Deg;
-            spawner.InstantiateRotation = Quaternion.AngleAxis(angle, Vector3.forward);
-            m_sepHit.Play();
-        }
+            m_sepAttack.Play();
 
-        
+            if (TDamageResults.Count > 0) m_sepHit.PlayHitSEP(playerPosition, attackDir);
+        }
 
         #endregion
     }

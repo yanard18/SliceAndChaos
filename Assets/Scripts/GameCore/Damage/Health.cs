@@ -17,7 +17,7 @@ namespace DenizYanar.DamageAndHealthSystem
         [ProgressBar(0,1000)] [SerializeField] [ValidateInput("@$value > 0", "We suggests to make health greater than zero")]
         private float m_Health = 100.0f;
         
-        [Range(0, 5)] [SerializeField] [ShowIf(nameof(m_bHasImmunity))]
+        [Range(0, 5)] [SerializeField] 
         private float m_ImmunityDuration = 0.5f;
         
         

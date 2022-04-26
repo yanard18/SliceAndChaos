@@ -22,17 +22,19 @@ namespace DenizYanar.DamageAndHealthSystem
         }
 
 
-        public void CreateArea(Damage damage)
+        public List<DamageResult> CreateArea(Damage damage)
         {
             // Check is camera exist
-            if (Camera.main is null) return;
+            if (Camera.main is null) return null;
 
+            
+            List<DamageResult> TDamageResults = new ();
 
             // Calculate attack direction
             Vector2 playerPosition = m_PlayerAttackController.transform.position;
 
             var attackDir =
-                YanarUtils.FindDirectionBetweenPositionAndMouse(playerPosition, m_PlayerInputs.m_MousePosition);
+                YanarUtils.FindDirectionToMouse(playerPosition, m_PlayerInputs.m_MousePosition);
 
 #if UNITY_EDITOR
             Debug.DrawRay(playerPosition, attackDir, Color.green, 5.0f);
@@ -57,27 +59,33 @@ namespace DenizYanar.DamageAndHealthSystem
             IEnumerable<Collider2D> targets = targetsInRectangleArea.Intersect(targetsInCircleArea);
             
 #if UNITY_EDITOR
-            YanarGizmos.DebugDrawBox(boxStartPos, boxSize, boxAngle, Color.red, 4.0f);
+            YanarDebugs.DebugDrawBox(boxStartPos, boxSize, boxAngle, Color.red, 4.0f);
 #endif
 
             // Give damage enemies that inside of attack area
             foreach (var target in targets)
             {
                 if (IsTargetEqualToPlayer(target.transform)) continue;
-                if (IsThereWallBetween(playerPosition, target.transform.position,
-                    m_Configurations.ObstacleLayerMask)) continue;
+                if (IsThereWallBetween(playerPosition, target.transform.position, m_Configurations.ObstacleLayerMask)) continue;
                 if (target.GetComponent<IDamage>() == null) continue;
 
-                Debug.Log("Give Damage");
-                // ReSharper disable once Unity.PerformanceCriticalCodeInvocation
-                target.GetComponent<IDamage>()
-                    .TakeDamage(new Damage(m_Configurations.AttackDamage, m_PlayerAttackController.gameObject));
+                GiveDamage(target, TDamageResults);
                 
-                //PlayOnHitSense(playerPosition, attackDir);
             }
+
+            return TDamageResults;
         }
-        
-         private bool IsTargetEqualToPlayer(Transform enemy)
+
+        private void GiveDamage(Collider2D target, ICollection<DamageResult> TResults)
+        {
+            target.GetComponent<IDamage>()
+                .TakeDamage(new Damage(m_Configurations.AttackDamage, m_PlayerAttackController.gameObject));
+
+            var damageResult = new DamageResult(target.transform.root.gameObject);
+            TResults.Add(damageResult);
+        }
+
+        private bool IsTargetEqualToPlayer(Transform enemy)
                 {
                     return enemy.root == m_PlayerAttackController.transform.root;
                 }

@@ -1,7 +1,11 @@
-﻿namespace DenizYanar.DamageAndHealthSystem
+﻿using System.Collections.Generic;
+
+namespace DenizYanar.DamageAndHealthSystem
 {
     public interface IDamageArea
     {
-        void CreateArea(Damage damage);
+        List<DamageResult> CreateArea(Damage damage);
     }
+
+    
 }

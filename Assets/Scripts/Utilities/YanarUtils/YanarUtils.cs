@@ -7,6 +7,11 @@ namespace DenizYanar.YanarPro
 {
     public static class YanarUtils
     {
+        public static bool IsMainCameraExist()
+        {
+            return Camera.main != null;
+        }
+        
         public static float FindAngleBetweenTwoPositions(Vector2 pos1, Vector2 pos2)
         {
             var dir = pos2 - pos1;
@@ -23,7 +28,7 @@ namespace DenizYanar.YanarPro
             return angle;
         }
 
-        public static Vector2 FindDirectionBetweenPositionAndMouse(Vector2 startPos, Vector2 mousePos)
+        public static Vector2 FindDirectionToMouse(Vector2 startPos, Vector2 mousePos)
         {
             if (Camera.main == null) return Vector2.zero;
 
