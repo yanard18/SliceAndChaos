@@ -35,6 +35,9 @@ namespace DenizYanar.EnemySystem
         [VerticalGroup("Basic Stats/Stats")] 
         public float m_Speed;
 
-        
+        [Range(0, 100)]
+        [VerticalGroup("Basic Stats/Stats")]
+        public float m_JumpForce;
+
     }
 }

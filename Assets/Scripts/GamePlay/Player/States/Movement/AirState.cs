@@ -3,36 +3,30 @@ using JetBrains.Annotations;
 using UnityEngine;
 using DenizYanar.FSM;
 using DenizYanar.Inputs;
+using GameCore.Movement;
 
 namespace DenizYanar.PlayerSystem.Movement
 {
     public class AirState : State
     {
 
-        private readonly Rigidbody2D _rb;
-        private readonly PlayerInputs _inputs;
+        private readonly PlayerInputs m_Inputs;
 
-        private readonly float _xAcceleration;
-        private readonly float _maxXVelocity;
-        private readonly float _yAcceleration;
-        private readonly float _maxYVelocity;
+        private readonly IMove m_iHorizontalMovement;
+        private readonly IMove m_iVerticalMovement;
 
-        private bool _dive;
+        private bool m_Dive;
 
         #region Constructor
         
         
-        public AirState(Rigidbody2D rb, PlayerConfigurations configurations, PlayerInputs inputs, StringEvent nameInformerChannel = null, [CanBeNull] string stateName = null)
+        public AirState(PlayerInputs inputs, IMove iHorizontalMovement, IMove iVerticalMovement, StringEvent nameInformerChannel = null, [CanBeNull] string stateName = null)
         {
             m_StateName = stateName ?? GetType().Name;
             m_ecStateName = nameInformerChannel;
-            _rb = rb;
-            _inputs = inputs;
-
-            _xAcceleration = configurations.AirStrafeXAcceleration;
-            _maxXVelocity = configurations.AirStrafeMaxXVelocity;
-            _yAcceleration = configurations.AirStrafeYAcceleration;
-            _maxYVelocity = configurations.AirStrafeMaxYVelocity;
+            m_Inputs = inputs;
+            m_iHorizontalMovement = iHorizontalMovement;
+            m_iVerticalMovement = iVerticalMovement;
         }
 
         #endregion
@@ -42,15 +36,15 @@ namespace DenizYanar.PlayerSystem.Movement
         public override void OnEnter()
         {
             base.OnEnter();
-            _inputs.e_OnDiveStarted += OnDiveStarted;
-            _inputs.e_OnDiveCancelled += OnDiveCancelled;
+            m_Inputs.e_OnDiveStarted += OnDiveStarted;
+            m_Inputs.e_OnDiveCancelled += OnDiveCancelled;
         }
 
         public override void OnExit()
         {
-            _inputs.e_OnDiveStarted -= OnDiveStarted;
-            _inputs.e_OnDiveCancelled -= OnDiveCancelled;
-            _dive = false;
+            m_Inputs.e_OnDiveStarted -= OnDiveStarted;
+            m_Inputs.e_OnDiveCancelled -= OnDiveCancelled;
+            m_Dive = false;
         }
 
         public override void PhysicsTick()
@@ -63,46 +57,22 @@ namespace DenizYanar.PlayerSystem.Movement
 
         private void HandleAirStrafe()
         {
-            var horizontalKeyInput = _inputs.m_HorizontalMovement;
-
-            // X
-
-
-            switch (horizontalKeyInput)
-            {
-                //+x
-                case 1:
-                {
-                    if (_rb.velocity.x < _maxXVelocity)
-                        _rb.AddForce(new Vector2(_xAcceleration, 0), ForceMode2D.Force);
-                    break;
-                }
-                //-x
-                case -1:
-                {
-                    if (_rb.velocity.x > -_maxXVelocity)
-                        _rb.AddForce(new Vector2(-_xAcceleration, 0), ForceMode2D.Force);
-                    break;
-                }
-            }
+            m_iHorizontalMovement.Move(m_Inputs.m_HorizontalMovement * Vector2.right);
         }
 
         private void HandleDive()
         {
-            // Y
-            if (VerticalSpeedLessThanMax() && PressedToDiveKey())
-                _rb.AddForce(new Vector2(0, _yAcceleration), ForceMode2D.Force);
+            if(PressedToDiveKey())
+                m_iVerticalMovement.Move(Vector2.down);
         }
 
-        private bool VerticalSpeedLessThanMax() => Mathf.Abs(_rb.velocity.y) < _maxYVelocity;
-
-        private bool PressedToDiveKey() => _dive;
+        private bool PressedToDiveKey() => m_Dive;
 
         #endregion
 
 
-        private void OnDiveStarted() => _dive = true;
-        private void OnDiveCancelled() => _dive = false;
+        private void OnDiveStarted() => m_Dive = true;
+        private void OnDiveCancelled() => m_Dive = false;
 
     }
 }

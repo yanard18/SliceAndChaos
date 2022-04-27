@@ -1,5 +1,4 @@
 using DenizYanar.DamageAndHealthSystem;
-using DenizYanar.Events;
 using DenizYanar.Managers;
 using DenizYanar.SenseEngine;
 using DenizYanar.Singletons;
@@ -8,7 +7,7 @@ using UnityEngine;
 namespace DenizYanar.PlayerSystem
 {
     [RequireComponent(typeof(Health))]
-    public class Player : Singleton<Player>
+    public class Player : SingletonWithoutCreation<Player>
     {
         [SerializeField]
         private SenseEnginePlayer m_sepDeath;

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cfe1922ce144fb4d9ce6c64945b24e2, type: 3}
   m_Name: Player Configurations
   m_EditorClassIdentifier: 
-  _desiredMovementVelocity: 17
+  m_pDesiredMovementVelocity: 17
   _movementAcceleration: 80
   _jumpDelayDuration: 0.1
   _jumpForce: 15
@@ -22,8 +22,8 @@ MonoBehaviour:
   _wallSlideVerticalBouncePower: 20
   _airStrafeXAcceleration: 100
   _airStrafeMaxXVelocity: 20
-  _airStrafeYAcceleration: -200
-  _airStrafeMaxYVelocity: 25
+  _airStrafeYAcceleration: 200
+  _airStrafeMaxYVelocity: 30
   _shiftModeSpeed: 1300
   _shiftModeTurnSpeed: 500
   _sliceTeleportDistance: 15
@@ -45,5 +45,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1088
   _enemyLayerMask:
+    serializedVersion: 2
+    m_Bits: 256
+  m_prHitBoxLayer:
     serializedVersion: 2
     m_Bits: 256
