@@ -11,8 +11,9 @@ namespace DenizYanar.EnemySystem
         private Rigidbody2D m_Rb;
         private CrawlerBehaviour m_Behaviour;
         
-        [OnStateUpdate("LoadSettings")] [Required]
-        [SerializeField] private CrawlerSettings m_Settings;
+        [SerializeField] 
+        [OnStateUpdate("LoadSettings")] [Required] 
+        private CrawlerSettings m_Settings;
 
         protected override void Awake()
         {
