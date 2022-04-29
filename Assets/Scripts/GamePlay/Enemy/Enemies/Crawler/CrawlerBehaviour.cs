@@ -32,7 +32,7 @@ namespace DenizYanar.EnemySystem
             agro.AddChild(attack);
             
             m_Tree.AddChild(agro);
-            StartCoroutine(m_Tree.Behave());
+            RunTree();
         }
 
         private Node.EStatus Wait()

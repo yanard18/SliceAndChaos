@@ -57,5 +57,6 @@ namespace DenizYanar.YanarPro
             Debug.Log(obj);
 #endif
         }
+        
     }
 }

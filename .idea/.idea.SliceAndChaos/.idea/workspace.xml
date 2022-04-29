@@ -2,20 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ff8d2e12-2b4a-4fab-8f24-02aceb228cc7" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/GameCore/Detections/WallDetectionBetweenPoints.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/GameCore/Detections/WallDetectionBetweenPoints.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlay/Enemy/Enemies/Soldier/SoldierBehaviour.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlay/Enemy/Enemies/Soldier/SoldierBehaviour.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.SliceAndChaos/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SliceAndChaos/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/DeveloperConsole.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Editor.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameCore/Detections/GroundDetection.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameCore/Detections/GroundDetection.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameCore/Detections/WallDetection.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameCore/Detections/WallDetection.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameCore/Movement/HorizontalPhysicMovement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameCore/Movement/HorizontalPhysicMovement.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameCore/Movement/IMove.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameCore/Movement/IMove.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameCore/Movement/Jump.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameCore/Movement/Jump.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameCore/Movement/VerticalPhysicMovement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameCore/Movement/VerticalPhysicMovement.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GamePlay/Enemy/Enemies/Zombie/Zombie.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlay/Enemy/Enemies/Zombie/Zombie.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GamePlay/Player/Core/PlayerMovementController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlay/Player/Core/PlayerMovementController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GamePlay/Player/States/Movement/AirState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlay/Player/States/Movement/AirState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GamePlay/Player/States/Movement/JumpState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlay/Player/States/Movement/JumpState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Level Management.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Prototypes/EnemyTestArea.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Prototypes/EnemyTestArea.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameCore/BehaviourTree/Sequence.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameCore/BehaviourTree/Sequence.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameCore/Pathfinding/ZombiePathFind.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameCore/Pathfinding/ZombiePathFind.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GamePlay/Enemy/Enemies/Crawler/CrawlerBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlay/Enemy/Enemies/Crawler/CrawlerBehaviour.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GamePlay/Enemy/EnemyBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlay/Enemy/EnemyBehaviour.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GamePlay/Player/Core/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlay/Player/Core/Player.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utilities/YanarUtils/YanarDebugs.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utilities/YanarUtils/YanarDebugs.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,9 +43,11 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/GameCore/Movement/VerticalPhysicMovement.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/GamePlay/Enemy/Enemies/Crawler/Crawler.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/bd0fb0ffb410470d90a48d812f5481ae15d000/75/bdf63556/Debug.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/GamePlay/Enemy/Enemies/Soldier/Soldier.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/DeveloperConsole/ConsoleCommands/QuitCommand.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Inputs/InputManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/GamePlay/Enemy/Enemies/Zombie/Zombie.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/GameCore/Sensores/ISensor.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/GameCore/Damage/DamagingHitBox.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/DeveloperConsole/DeveloperConsole.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/GameCore/Pathfinding/ZombiePathFind.cs" root0="FORCE_HIGHLIGHTING" />
@@ -69,7 +69,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.completion" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
@@ -200,7 +200,7 @@
       <workItem from="1651043536169" duration="8635000" />
       <workItem from="1651132381332" duration="5410000" />
       <workItem from="1651158354644" duration="34000" />
-      <workItem from="1651211842253" duration="3558000" />
+      <workItem from="1651211842253" duration="17744000" />
     </task>
     <servers />
   </component>

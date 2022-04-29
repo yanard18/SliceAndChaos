@@ -41,4 +41,9 @@ namespace DenizYanar.PlayerSystem
             Destroy(gameObject);
         }
     }
+
+    public static class PlayerUtils
+    {
+        public static bool IsPlayerExist() => Player.s_Instance != null;
+    }
 }

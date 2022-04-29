@@ -8,5 +8,7 @@ namespace DenizYanar.EnemySystem
         protected BehaviourTree m_Tree;
 
         protected abstract void SetupTree();
+
+        protected void RunTree() => StartCoroutine(m_Tree.Behave());
     }
 }

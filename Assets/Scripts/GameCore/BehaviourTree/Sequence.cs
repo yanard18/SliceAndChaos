@@ -18,6 +18,7 @@ namespace DenizYanar
                 case EStatus.RUNNING:
                     return EStatus.RUNNING;
                 case EStatus.FAILURE:
+                    m_CurrentChildIndex = 0;
                     return EStatus.FAILURE;
                 case EStatus.SUCCESS:
                     m_CurrentChildIndex++;
