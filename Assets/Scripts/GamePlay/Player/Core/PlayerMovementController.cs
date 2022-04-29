@@ -6,6 +6,7 @@ using DenizYanar.SenseEngine;
 using DenizYanar.FSM;
 using DenizYanar.Inputs;
 using GameCore;
+using GameCore.Movement;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -75,7 +76,7 @@ namespace DenizYanar.PlayerSystem.Movement
 
         #region Public Variables
 
-        public JumpProperties JumpPropertiesInstance { get; private set; }
+        public JumpData s_JumpDataInstance { get; private set; }
         public WallSlideData WallSlideDataInstance { get; private set; }
 
         #endregion
@@ -135,7 +136,7 @@ namespace DenizYanar.PlayerSystem.Movement
 
         private void SetupStateMachine()
         {
-            JumpPropertiesInstance = new JumpProperties(2, 20, m_Rb);
+            s_JumpDataInstance = new JumpData(2, 20, m_Rb);
             WallSlideDataInstance = new WallSlideData(m_Rb, m_PlayerCollision);
             
             var horizontalPhysicMovement = new HorizontalPhysicMovement(
@@ -150,12 +151,13 @@ namespace DenizYanar.PlayerSystem.Movement
                 m_Configurations.AirStrafeMaxYVelocity,
                 m_Configurations.AirStrafeYAcceleration
             );
+
             m_StateMachine = new StateMachine();
 
             m_sIdle = new IdleState(m_Rb, nameInformerEvent: m_ecStateChangeTitle, stateName: "Idle");
             m_sMove = new MoveState(m_Rb, m_Configurations, m_Inputs, nameInformerEvent: m_ecStateChangeTitle,  stateName: "Move");
             m_sJump = new JumpState(this, m_sepJump, nameInformerChannel: m_ecStateChangeTitle, stateName: "Jump");
-            m_sLand = new LandState(JumpPropertiesInstance, m_sepLand, nameInformerEvent: m_ecStateChangeTitle,    stateName: "Land");
+            m_sLand = new LandState(s_JumpDataInstance, m_sepLand, nameInformerEvent: m_ecStateChangeTitle,    stateName: "Land");
             m_sWallSlide = new WallSlideState(this, m_Configurations, name: m_ecStateChangeTitle, stateName: "Wall Slide");
             m_sAir = new AirState(m_Inputs, horizontalPhysicMovement, verticalPhysicMovement, nameInformerChannel: m_ecStateChangeTitle, stateName: "At Air");
             m_sShift = new ShiftState(m_Rb, m_Inputs, m_Configurations, m_sepEnterShift, m_sepLeaveShift, nameInformerEvent: m_ecStateChangeTitle, stateName: "Shift");
@@ -185,7 +187,7 @@ namespace DenizYanar.PlayerSystem.Movement
 
             Func<bool> HasMovementInput() => () => Mathf.Abs(m_Inputs.m_HorizontalMovement) > 0;
             Func<bool> HasNotMovementInput() => () => m_Inputs.m_HorizontalMovement == 0;
-            Func<bool> CanJump() => () => m_bHasJumpRequest && JumpPropertiesInstance.CanJump;
+            Func<bool> CanJump() => () => m_bHasJumpRequest && s_JumpDataInstance.CanJump;
             Func<bool> WhenJumpKeyTriggered() => () => m_bHasJumpRequest;
             Func<bool> OnFallToGround() => () => IsTouchingToGround() != null && m_Rb.velocity.y <= 0;
             Func<bool> NoMoreContactToGround() => () => IsTouchingToGround() == null;

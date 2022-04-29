@@ -39,7 +39,7 @@ namespace DenizYanar.PlayerSystem.Movement
             base.OnEnter();
             _rb.gravityScale = m_Configurations.WallSlideGravity;
             _rb.velocity /= 4.0f;
-            _playerMovementController.JumpPropertiesInstance.ResetJumpCount();
+            _playerMovementController.s_JumpDataInstance.ResetJumpCount();
         }
 
         public override void OnExit()

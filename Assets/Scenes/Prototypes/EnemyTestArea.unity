@@ -307,7 +307,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 27883985}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: a23d637715cd45d439db5da6c3f325ff, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -3679,6 +3679,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0410ff042f05564bbd16bc84f75265e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_ObstacleLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  m_Collider2D: {fileID: 27883987}
 --- !u!114 &1988072621
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3716,7 +3720,7 @@ Rigidbody2D:
   m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!212 &1988072623
 SpriteRenderer:
   m_ObjectHideFlags: 0

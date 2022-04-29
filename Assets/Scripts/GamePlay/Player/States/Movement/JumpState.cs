@@ -4,24 +4,26 @@ using DenizYanar.SenseEngine;
 using JetBrains.Annotations;
 using UnityEngine;
 using DenizYanar.FSM;
+using GameCore.Movement;
 
 namespace DenizYanar.PlayerSystem.Movement
 {
     public class JumpState : State
     {
-        private readonly JumpProperties _jumpProperties;
-        private readonly PlayerMovementController _playerMovementController;
-        private readonly SenseEnginePlayer _jumpSense;
+        private readonly JumpData m_JumpData;
+        private readonly PlayerMovementController m_MovementController;
+        private readonly SenseEnginePlayer m_sepJump;
+        private readonly IMove m_iJump;
 
         #region Constructor
 
-        public JumpState(PlayerMovementController playerMovementController, SenseEnginePlayer jumpSense, StringEvent nameInformerChannel = null, [CanBeNull] string stateName = null)
+        public JumpState(PlayerMovementController movementController, SenseEnginePlayer sepJump, StringEvent nameInformerChannel = null, [CanBeNull] string stateName = null)
         {
-            _playerMovementController = playerMovementController;
-            _jumpProperties = playerMovementController.JumpPropertiesInstance;
+            m_MovementController = movementController;
+            m_JumpData = movementController.s_JumpDataInstance;
             m_StateName = stateName ?? GetType().Name;
             m_ecStateName = nameInformerChannel;
-            _jumpSense = jumpSense;
+            m_sepJump = sepJump;
         }
 
         #endregion
@@ -40,43 +42,43 @@ namespace DenizYanar.PlayerSystem.Movement
 
         private void Jump()
         {
-            _jumpProperties.Rb.velocity = new Vector2(_jumpProperties.Rb.velocity.x, _jumpProperties.JumpForce);
-            _jumpProperties.JumpCount--;
-            _jumpSense.PlayIfExist();
-            _playerMovementController.StartCoroutine(StartJumpCooldown(0.15f));
+            m_JumpData.m_Rb.velocity = new Vector2(m_JumpData.m_Rb.velocity.x, m_JumpData.m_JumpForce);
+            m_JumpData.m_nAvailableJump--;
+            m_sepJump.PlayIfExist();
+            m_MovementController.StartCoroutine(StartJumpCooldown(0.15f));
         }
 
         private IEnumerator StartJumpCooldown(float duration)
         {
-            _jumpProperties.HasCooldown = true;
+            m_JumpData.m_bHasCooldown = true;
             yield return new WaitForSeconds(duration);
-            _jumpProperties.HasCooldown = false;
+            m_JumpData.m_bHasCooldown = false;
         }
 
         #endregion
     }
     
-    public class JumpProperties
+    public class JumpData
     {
-        private readonly int _maxJumpCount;
+        private readonly int m_nMaxJump;
         
-        public readonly float JumpForce;
-        public readonly Rigidbody2D Rb;
+        public readonly float m_JumpForce;
+        public readonly Rigidbody2D m_Rb;
         
-        public int JumpCount;
-        public bool HasCooldown;
+        public int m_nAvailableJump;
+        public bool m_bHasCooldown;
         
 
-        public bool CanJump => JumpCount > 0 && HasCooldown == false;
+        public bool CanJump => m_nAvailableJump > 0 && m_bHasCooldown == false;
 
-        public void ResetJumpCount() => JumpCount = _maxJumpCount;
+        public void ResetJumpCount() => m_nAvailableJump = m_nMaxJump;
 
-        public JumpProperties(int maxJumpCount, float jumpForce, Rigidbody2D rb)
+        public JumpData(int nMaxJump, float jumpForce, Rigidbody2D rb)
         {
-            _maxJumpCount = maxJumpCount;
-            JumpCount = _maxJumpCount;
-            JumpForce = jumpForce;
-            Rb = rb;
+            m_nMaxJump = nMaxJump;
+            m_nAvailableJump = m_nMaxJump;
+            m_JumpForce = jumpForce;
+            m_Rb = rb;
         }
 
     }

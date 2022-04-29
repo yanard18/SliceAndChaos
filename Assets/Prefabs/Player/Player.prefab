@@ -195,6 +195,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1008661422195125065}
+  - component: {fileID: 7118758363963736602}
   - component: {fileID: 1008661422195125062}
   m_Layer: 7
   m_Name: Collider
@@ -218,8 +219,8 @@ Transform:
   m_Father: {fileID: 1008661422985328068}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &1008661422195125062
-BoxCollider2D:
+--- !u!70 &7118758363963736602
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -231,7 +232,23 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.03, y: -0.06}
+  m_Size: {x: 0.72, y: 1.67}
+  m_Direction: 0
+--- !u!61 &1008661422195125062
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1008661422195125064}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 6200000, guid: a23d637715cd45d439db5da6c3f325ff, type: 2}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.03, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -242,7 +259,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1.6}
+  m_Size: {x: 0.73, y: 1.6}
   m_EdgeRadius: 0
 --- !u!1 &1008661422985328073
 GameObject:
@@ -375,7 +392,7 @@ MonoBehaviour:
   m_Configurations: {fileID: 11400000, guid: d938edc4172181545985124f4fb0933a, type: 2}
   m_Inputs: {fileID: 11400000, guid: 19cff4123c4ee15498d6229cf530e6b2, type: 2}
   m_ecStateChangeTitle: {fileID: 11400000, guid: a4f433397220c1345b68ba4e43bd55ee, type: 2}
-  m_PlayerCollision: {fileID: 1008661422195125062}
+  m_PlayerCollision: {fileID: 7118758363963736602}
   m_sepJump: {fileID: 1008661423400421246}
   m_sepLand: {fileID: 3552776220777306523}
   m_sepEnterShift: {fileID: 3552776220023608877}
