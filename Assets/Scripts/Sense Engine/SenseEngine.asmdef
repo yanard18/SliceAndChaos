@@ -1,13 +1,9 @@
 {
-    "name": "Scripts",
+    "name": "SenseEngine",
     "rootNamespace": "",
     "references": [
-        "External",
-        "Cinemachine",
-        "Unity.InputSystem",
-        "Unity.TextMeshPro",
-        "SoundEngine",
-        "SenseEngine"
+        "GUID:4307f53044263cf4b835bd812fc161a4",
+        "GUID:62a55c9872193aa45b9782ef1c6571c9"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

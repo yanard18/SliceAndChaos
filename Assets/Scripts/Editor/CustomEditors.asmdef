@@ -1,13 +1,8 @@
 {
-    "name": "Scripts",
+    "name": "CustomEditors",
     "rootNamespace": "",
     "references": [
-        "External",
-        "Cinemachine",
-        "Unity.InputSystem",
-        "Unity.TextMeshPro",
-        "SoundEngine",
-        "SenseEngine"
+        "GUID:de23070b5bb8650458ee69920710676f"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
