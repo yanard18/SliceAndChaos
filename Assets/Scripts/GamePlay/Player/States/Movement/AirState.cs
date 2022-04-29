@@ -3,7 +3,7 @@ using JetBrains.Annotations;
 using UnityEngine;
 using DenizYanar.FSM;
 using DenizYanar.Inputs;
-using GameCore.Movement;
+using DenizYanar.Movement;
 
 namespace DenizYanar.PlayerSystem.Movement
 {

@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace GameCore
+namespace DenizYanar.Detection
 {
     public class WallDetection
     {

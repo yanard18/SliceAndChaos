@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace DenizYanar.Core
+namespace DenizYanar.Detection
 {
     public class GroundDetection
     {

@@ -1,12 +1,10 @@
 using System;
 using System.Collections;
-using DenizYanar.Core;
+using DenizYanar.Detection;
 using DenizYanar.Events;
 using DenizYanar.SenseEngine;
 using DenizYanar.FSM;
 using DenizYanar.Inputs;
-using GameCore;
-using GameCore.Movement;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -101,10 +99,15 @@ namespace DenizYanar.PlayerSystem.Movement
         private void Awake()
         {
             m_Rb = GetComponent<Rigidbody2D>();
-            m_WallDetection = new WallDetection(m_PlayerCollision, 2, m_Configurations.ObstacleLayerMask);
+            SetupWallDetection();
             m_GroundDetection = new GroundDetection(m_PlayerCollision, 8, m_Configurations.ObstacleLayerMask);
 
             SetupStateMachine();
+        }
+
+        private void SetupWallDetection()
+        {
+            m_WallDetection = new WallDetection(m_PlayerCollision, 2, m_Configurations.ObstacleLayerMask);
         }
 
 

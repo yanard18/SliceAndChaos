@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace GameCore.Movement
+namespace DenizYanar.Movement
 {
     public interface IMove
     {

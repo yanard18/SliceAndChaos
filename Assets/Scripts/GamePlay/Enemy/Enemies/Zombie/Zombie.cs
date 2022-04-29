@@ -1,9 +1,8 @@
-using DenizYanar.Core;
 using DenizYanar.DamageAndHealthSystem;
 using DenizYanar.EnemySystem;
 using DenizYanar.PlayerSystem;
-using GameCore;
-using GameCore.Movement;
+using DenizYanar.Movement;
+using DenizYanar.Detection;
 using UnityEngine;
 
 public class Zombie : Enemy

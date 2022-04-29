@@ -1,4 +1,4 @@
-using GameCore.Movement;
+using DenizYanar.Movement;
 using UnityEngine;
 
 public class VerticalPhysicMovement : IMove 

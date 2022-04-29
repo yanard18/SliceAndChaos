@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace GameCore.Movement
+namespace DenizYanar.Movement
 {
     public class Jump : IMove
     {
