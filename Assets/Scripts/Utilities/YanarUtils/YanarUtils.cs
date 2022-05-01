@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,7 +9,7 @@ namespace DenizYanar.YanarPro
         {
             return Camera.main != null;
         }
-        
+
         public static float FindAngleBetweenTwoPositions(Vector2 pos1, Vector2 pos2)
         {
             var dir = pos2 - pos1;
@@ -54,37 +52,20 @@ namespace DenizYanar.YanarPro
             return endPosition - startPosition;
         }
 
-
-        public class Sequence
+        public static Collider2D FindClosestTarget(Vector2 positionToCompare, IEnumerable<Collider2D> TTargets)
         {
-            public readonly Action Method;
-            public readonly float RoutineDuration;
-
-            protected Sequence(Action method, float routineDuration)
+            var closestDistance = Mathf.Infinity;
+            var closestTarget = new Collider2D();
+            foreach (var target in TTargets)
             {
-                Method = method;
-                RoutineDuration = routineDuration;
-            }
-        }
-
-        public class SequenceQueue
-        {
-            private readonly Queue<Sequence> _sequences = new();
-
-            public IEnumerator Play()
-            {
-                while (_sequences.Count > 0)
-                {
-                    var sequence = _sequences.Dequeue();
-                    sequence.Method.Invoke();
-                    yield return new WaitForSeconds(sequence.RoutineDuration);
-                }
+                if (target == null) continue;
+                var distance = Vector2.Distance(positionToCompare, target.transform.root.position);
+                if (!(distance < closestDistance)) continue;
+                closestDistance = distance;
+                closestTarget = target;
             }
 
-            public void Add(Sequence sequence)
-            {
-                _sequences.Enqueue(sequence);
-            }
+            return closestTarget;
         }
     }
 }

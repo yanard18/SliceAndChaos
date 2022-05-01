@@ -1,6 +1,7 @@
 ﻿using DenizYanar.BehaviourTreeAI;
 using DenizYanar.PlayerSystem;
 using DenizYanar.Sensors;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace DenizYanar.EnemySystem
@@ -9,17 +10,12 @@ namespace DenizYanar.EnemySystem
     public class SoldierBehaviour : EnemyBehaviour
     {
         private Soldier m_Soldier;
-        
-        private ISensor m_DetectionRangeSensor;
-        private ISensor m_AttackRangeSensor;
 
-
+        [SerializeField] [Required]
+        private HumanoidDetection m_HumanoidDetection;
         private void Awake()
         {
             m_Soldier = GetComponent<Soldier>();
-            ISensor[] sensors = GetComponents<ISensor>();
-            m_DetectionRangeSensor = sensors[0];
-            m_AttackRangeSensor = sensors[1];
             SetupTree();
         }
 
@@ -46,7 +42,7 @@ namespace DenizYanar.EnemySystem
         private Node.EStatus Wait()
         {
             Debug.Log("Wait Mode");
-            Vector2? targetPos = m_DetectionRangeSensor.Scan();
+            Vector2? targetPos = m_HumanoidDetection.m_DetectionSensor.Scan();
             return targetPos.HasValue ? Node.EStatus.SUCCESS : Node.EStatus.RUNNING;
         }
 
@@ -54,13 +50,13 @@ namespace DenizYanar.EnemySystem
         {
             Debug.Log("Follow Mode");
             if (!PlayerUtils.IsPlayerExist()) return Node.EStatus.FAILURE;
-            Vector2? targetPosInDetectionRange = m_DetectionRangeSensor.Scan();
+            Vector2? targetPosInDetectionRange = m_HumanoidDetection.m_RememberedLocationSensor.Scan();
             
             if (!targetPosInDetectionRange.HasValue) return Node.EStatus.FAILURE;
 
 
             m_Soldier.ChaseTarget(targetPosInDetectionRange.Value);
-            return m_AttackRangeSensor.Scan().HasValue ? Node.EStatus.SUCCESS : Node.EStatus.RUNNING;
+            return m_HumanoidDetection.m_AttackRangeSensor.Scan().HasValue ? Node.EStatus.SUCCESS : Node.EStatus.RUNNING;
         }
 
         private Node.EStatus Attack()
@@ -68,7 +64,7 @@ namespace DenizYanar.EnemySystem
             Debug.Log("Attack Mode");
             if (!PlayerUtils.IsPlayerExist()) return Node.EStatus.FAILURE;
             
-            Vector2? targetPosInAttackRange = m_AttackRangeSensor.Scan();
+            Vector2? targetPosInAttackRange = m_HumanoidDetection.m_AttackRangeSensor.Scan();
             if (!targetPosInAttackRange.HasValue) return Node.EStatus.FAILURE;
             m_Soldier.Attack();
             return Node.EStatus.RUNNING;

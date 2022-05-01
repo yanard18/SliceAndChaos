@@ -5,10 +5,10 @@ using UnityEngine;
 
 namespace DenizYanar.Sensors
 {
-    public class TargetSensor : MonoBehaviour, ISensor
+    public class XRayTargetSensor : MonoBehaviour, ISensor
     {
         private WallDetectionBetweenPoints m_WallDetection;
-        
+
         [SerializeField]
         [Range(0.1f, 100f)]
         private float m_Range;
@@ -34,13 +34,11 @@ namespace DenizYanar.Sensors
             Collider2D[] TTargets = new Collider2D[10];
             var size = Physics2D.OverlapCircleNonAlloc(transform.position, m_Range, TTargets, m_TargetLayer);
             if (size == 0) return null;
-            
+
             // var target = FindClosestTarget(TTargets);
             Vector2 selfPosition = transform.position;
             var target = YanarUtils.FindClosestTarget(selfPosition, TTargets);
             var rootTransformOfTarget = target.transform.root;
-            var bIsThereWallBetween = m_WallDetection.IsThereWallBetween(selfPosition,rootTransformOfTarget.position);
-            if (bIsThereWallBetween) return null;
             return rootTransformOfTarget.position;
         }
 

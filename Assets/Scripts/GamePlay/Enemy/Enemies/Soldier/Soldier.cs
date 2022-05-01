@@ -13,6 +13,7 @@ namespace DenizYanar.EnemySystem
         private IPathFind m_PathFind;
         private Rigidbody2D m_Rb;
         
+        
         protected override void Awake()
         {
             base.Awake();
