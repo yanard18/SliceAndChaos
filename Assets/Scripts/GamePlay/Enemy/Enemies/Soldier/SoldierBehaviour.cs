@@ -1,6 +1,5 @@
 ﻿using DenizYanar.BehaviourTreeAI;
 using DenizYanar.PlayerSystem;
-using DenizYanar.Sensors;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -23,18 +22,26 @@ namespace DenizYanar.EnemySystem
         {
             m_Tree = new BehaviourTree(tickRate: 0.05f);
 
-            var behave = new Sequence("Behave");
+            var baseSelector = new Selector("Agro Or Wait");
+            var agroSequence = new Sequence("Agro");
+            var followOrAttackSequence = new Sequence("Follow and Attack");
+
+            var doesKnowWhereIsPlayer = new Leaf("Does Know Where Is Player", DoesKnowWhereIsPlayer);
             
             
             var wait = new Leaf("Wait", Wait);
             var follow = new Leaf("Chase", Follow);
             var attack = new Leaf("Attack", Attack);
             
-            behave.AddChild(wait);
-            behave.AddChild(follow);
-            behave.AddChild(attack);
+            followOrAttackSequence.AddChild(follow);
+            followOrAttackSequence.AddChild(attack);
+            agroSequence.AddChild(doesKnowWhereIsPlayer);
+            agroSequence.AddChild(followOrAttackSequence);
+            baseSelector.AddChild(agroSequence);
+            baseSelector.AddChild(wait);
             
-            m_Tree.AddChild(behave);
+            
+            m_Tree.AddChild(baseSelector);
             m_Tree.PrintTree();
             RunTree();
         }
@@ -42,31 +49,42 @@ namespace DenizYanar.EnemySystem
         private Node.EStatus Wait()
         {
             Debug.Log("Wait Mode");
-            Vector2? targetPos = m_HumanoidDetection.m_DetectionSensor.Scan();
-            return targetPos.HasValue ? Node.EStatus.SUCCESS : Node.EStatus.RUNNING;
+            return Node.EStatus.SUCCESS;
+        }
+
+        private Node.EStatus DoesKnowWhereIsPlayer()
+        {
+            if (!PlayerUtils.IsPlayerExist()) return Node.EStatus.FAILURE;
+            Vector2? targetPosInDetectionRange = m_HumanoidDetection.m_DetectionSensor.Scan();
+
+            return targetPosInDetectionRange.HasValue ? Node.EStatus.SUCCESS : Node.EStatus.FAILURE;
         }
 
         private Node.EStatus Follow()
         {
-            Debug.Log("Follow Mode");
             if (!PlayerUtils.IsPlayerExist()) return Node.EStatus.FAILURE;
-            Vector2? targetPosInDetectionRange = m_HumanoidDetection.m_RememberedLocationSensor.Scan();
+
+            Vector2? targetPosInRememberableRange = m_HumanoidDetection.m_RememberedLocationSensor.Scan();
             
-            if (!targetPosInDetectionRange.HasValue) return Node.EStatus.FAILURE;
-
-
-            m_Soldier.ChaseTarget(targetPosInDetectionRange.Value);
-            return m_HumanoidDetection.m_AttackRangeSensor.Scan().HasValue ? Node.EStatus.SUCCESS : Node.EStatus.RUNNING;
+            if (!targetPosInRememberableRange.HasValue) return Node.EStatus.FAILURE;
+            
+            m_Soldier.ChaseTarget(targetPosInRememberableRange.Value);
+            
+            Debug.Log("Follow Mode");
+            var bInAttackRange = m_HumanoidDetection.m_AttackRangeSensor.Scan().HasValue;
+            return bInAttackRange ? Node.EStatus.SUCCESS : Node.EStatus.RUNNING;
         }
 
         private Node.EStatus Attack()
         {
-            Debug.Log("Attack Mode");
             if (!PlayerUtils.IsPlayerExist()) return Node.EStatus.FAILURE;
             
             Vector2? targetPosInAttackRange = m_HumanoidDetection.m_AttackRangeSensor.Scan();
-            if (!targetPosInAttackRange.HasValue) return Node.EStatus.FAILURE;
+            var bIsTargetInAttackRange = targetPosInAttackRange.HasValue;
+            
+            if (!bIsTargetInAttackRange) return Node.EStatus.FAILURE;
             m_Soldier.Attack();
+            Debug.Log("Attack Mode");
             return Node.EStatus.RUNNING;
         }
     }
