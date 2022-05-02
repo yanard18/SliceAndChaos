@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using DenizYanar.Attacks;
 using DenizYanar.DamageAndHealthSystem;
 using DenizYanar.SenseEngine;
 using UnityEngine;
@@ -66,10 +67,11 @@ namespace DenizYanar.PlayerSystem.Attacks
             m_StateMachine = new StateMachine();
             m_Rb = GetComponent<Rigidbody2D>();
 
-            var damageArea = new VisionDamageArea(m_Inputs, m_Configurations, this);
+            IDamageArea iDamageArea = new VisionDamageArea(m_Inputs, m_Configurations, this);
+            IAttack iSwordSlashAttack = new SwordSlashAttack(m_Configurations.AttackDamage, iDamageArea, transform);
 
             m_sIdle = new IdleState();
-            m_sSlash = new SliceState(this, m_Configurations, m_Inputs, CreateAttackCooldown, m_Rb, damageArea, m_sepAttack, m_sepHit);
+            m_sSlash = new SliceState(this, m_Configurations, m_Inputs, iSwordSlashAttack, CreateAttackCooldown, m_Rb, m_sepAttack, m_sepHit);
             m_sThrow = new ThrowSwordState(ThrowKatana, OnSwordCalled, OnSwordReturned, transform, m_Configurations, m_Inputs);
             m_sWait = new WaitSwordState();
 

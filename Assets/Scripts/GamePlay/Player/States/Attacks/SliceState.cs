@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using DenizYanar.Attacks;
 using DenizYanar.DamageAndHealthSystem;
 using DenizYanar.SenseEngine;
 using DenizYanar.FSM;
@@ -17,8 +18,8 @@ namespace DenizYanar.PlayerSystem.Attacks
 
         private readonly PlayerInputs m_PlayerInputs;
         private readonly Action<float> m_FAttackCooldown;
+        private readonly IAttack m_IAttack;
         private readonly Rigidbody2D m_Rb;
-        private readonly IDamageArea m_DamageArea;
         private readonly SenseEnginePlayer m_sepAttack;
         private readonly SenseEnginePlayer m_sepHit;
 
@@ -30,9 +31,9 @@ namespace DenizYanar.PlayerSystem.Attacks
             PlayerAttackController playerAttackController,
             PlayerConfigurations playerConfigurations,
             PlayerInputs playerInput,
+            IAttack iAttack,
             Action<float> fAttackCooldown,
             Rigidbody2D rb,
-            IDamageArea damageArea,
             SenseEnginePlayer sepAttackSense,
             SenseEnginePlayer sepHitSense
         )
@@ -42,8 +43,8 @@ namespace DenizYanar.PlayerSystem.Attacks
             m_PlayerConfigurations = playerConfigurations;
             m_PlayerInputs = playerInput;
             m_FAttackCooldown = fAttackCooldown;
+            m_IAttack = iAttack;
             m_Rb = rb;
-            m_DamageArea = damageArea;
             m_sepAttack = sepAttackSense;
             m_sepHit = sepHitSense;
         }
@@ -65,21 +66,11 @@ namespace DenizYanar.PlayerSystem.Attacks
         {
             m_FAttackCooldown.Invoke(m_PlayerConfigurations.AttackCooldownDuration);
 
+            List<DamageResult> TDamageResults = m_IAttack.Attack();
             Vector2 playerPosition = m_PlayerAttackController.transform.position;
             var attackDir = YanarUtils.FindDirectionToMouse(playerPosition, m_PlayerInputs.m_MousePosition);
 
-            YanarDebugs.DrawRayInEditor(playerPosition, attackDir, Color.green, 5.0f);
-
-            var damage = new Damage(
-                m_PlayerConfigurations.AttackDamage,
-                m_PlayerAttackController.transform.root.gameObject
-            );
-
-            List<DamageResult> TDamageResults = m_DamageArea.CreateArea(damage);
-
-
-            PlaySenseEnginePlayers(TDamageResults, playerPosition, attackDir);
-
+            PlayOnHitSense(TDamageResults, playerPosition, attackDir);
             PushPlayerAlongAttackDir(attackDir);
         }
 
@@ -90,7 +81,7 @@ namespace DenizYanar.PlayerSystem.Attacks
         private void PushPlayerAlongAttackDir(Vector2 attackDir) =>
             m_Rb.velocity = attackDir * m_PlayerConfigurations.AttackPushForce;
 
-        private void PlaySenseEnginePlayers(ICollection TDamageResults, Vector2 playerPosition,
+        private void PlayOnHitSense(ICollection TDamageResults, Vector2 playerPosition,
             Vector2 attackDir)
         {
             m_sepAttack.Play();

@@ -46,11 +46,7 @@ namespace DenizYanar.EnemySystem
             RunTree();
         }
 
-        private Node.EStatus Wait()
-        {
-            Debug.Log("Wait Mode");
-            return Node.EStatus.SUCCESS;
-        }
+        private static Node.EStatus Wait() => Node.EStatus.SUCCESS;
 
         private Node.EStatus DoesKnowWhereIsPlayer()
         {
@@ -70,7 +66,6 @@ namespace DenizYanar.EnemySystem
             
             m_Soldier.ChaseTarget(targetPosInRememberableRange.Value);
             
-            Debug.Log("Follow Mode");
             var bInAttackRange = m_HumanoidDetection.m_AttackRangeSensor.Scan().HasValue;
             return bInAttackRange ? Node.EStatus.SUCCESS : Node.EStatus.RUNNING;
         }
@@ -84,7 +79,6 @@ namespace DenizYanar.EnemySystem
             
             if (!bIsTargetInAttackRange) return Node.EStatus.FAILURE;
             m_Soldier.Attack();
-            Debug.Log("Attack Mode");
             return Node.EStatus.RUNNING;
         }
     }

@@ -3783,7 +3783,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1707719273}
   - component: {fileID: 1707719277}
-  - component: {fileID: 1707719276}
+  - component: {fileID: 1707719278}
   - component: {fileID: 1707719275}
   - component: {fileID: 1707719274}
   m_Layer: 0
@@ -3848,26 +3848,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   m_GizmoColor: {r: 0.015686274, g: 0.6650051, b: 1, a: 1}
---- !u!114 &1707719276
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1707719272}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a06a2b9180a9ad41aa9e70af75424e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Range: 30
-  m_TargetLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  m_ObstacleLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  m_GizmoColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
 --- !u!114 &1707719277
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3880,6 +3860,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b41b2c0e281de9849b3599a5c143d052, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1707719278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1707719272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab3cf537bb574d44092602c7eb8a164e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Range: 30
+  m_TargetLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  m_ObstacleLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  m_GizmoColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
 --- !u!4 &1779745740 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2824384073939078169, guid: a41e5862a04c9a04a939a0dbe21767b6, type: 3}
