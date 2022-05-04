@@ -29,7 +29,7 @@ namespace DenizYanar.Sensors
             m_WallDetection = new WallDetectionBetweenPoints(m_ObstacleLayer);
         }
 
-        public Vector2? Scan()
+        public Transform Scan()
         {
             Collider2D[] TTargets = new Collider2D[10];
             var size = Physics2D.OverlapCircleNonAlloc(transform.position, m_Range, TTargets, m_TargetLayer);
@@ -40,8 +40,7 @@ namespace DenizYanar.Sensors
             var target = YanarUtils.FindClosestTarget(selfPosition, TTargets);
             var rootTransformOfTarget = target.transform.root;
             var bIsThereWallBetween = m_WallDetection.IsThereWallBetween(selfPosition,rootTransformOfTarget.position);
-            if (bIsThereWallBetween) return null;
-            return rootTransformOfTarget.position;
+            return bIsThereWallBetween ? null : rootTransformOfTarget;
         }
 
         private void OnDrawGizmosSelected()

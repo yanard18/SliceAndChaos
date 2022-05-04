@@ -1,4 +1,3 @@
-using DenizYanar.Detection;
 using DenizYanar.YanarPro;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -7,8 +6,6 @@ namespace DenizYanar.Sensors
 {
     public class XRayTargetSensor : MonoBehaviour, ISensor
     {
-        private WallDetectionBetweenPoints m_WallDetection;
-
         [SerializeField]
         [Range(0.1f, 100f)]
         private float m_Range;
@@ -18,18 +15,9 @@ namespace DenizYanar.Sensors
         private LayerMask m_TargetLayer;
 
         [SerializeField]
-        [Required]
-        private LayerMask m_ObstacleLayer;
-
-        [SerializeField]
         private Color m_GizmoColor = Color.yellow;
 
-        private void Awake()
-        {
-            m_WallDetection = new WallDetectionBetweenPoints(m_ObstacleLayer);
-        }
-
-        public Vector2? Scan()
+        public Transform Scan()
         {
             Collider2D[] TTargets = new Collider2D[10];
             var size = Physics2D.OverlapCircleNonAlloc(transform.position, m_Range, TTargets, m_TargetLayer);
@@ -39,7 +27,7 @@ namespace DenizYanar.Sensors
             Vector2 selfPosition = transform.position;
             var target = YanarUtils.FindClosestTarget(selfPosition, TTargets);
             var rootTransformOfTarget = target.transform.root;
-            return rootTransformOfTarget.position;
+            return rootTransformOfTarget;
         }
 
         private void OnDrawGizmosSelected()

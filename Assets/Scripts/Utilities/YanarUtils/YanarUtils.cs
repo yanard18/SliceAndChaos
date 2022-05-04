@@ -42,7 +42,7 @@ namespace DenizYanar.YanarPro
             return dir;
         }
 
-        public static Vector2 FindDirectionBetweenTwoPositions(Vector2 startPosition, Vector2 endPosition)
+        public static Vector2 Direction(Vector2 startPosition, Vector2 endPosition)
         {
             return (endPosition - startPosition).normalized;
         }

@@ -1,7 +1,8 @@
-using System;
-using Cinemachine;
 using DenizYanar.DamageAndHealthSystem;
+using DenizYanar.Guns;
 using DenizYanar.Movement;
+using DenizYanar.YanarPro;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace DenizYanar.EnemySystem
@@ -9,22 +10,32 @@ namespace DenizYanar.EnemySystem
     public class Soldier : Enemy
     {
         private SoldierBehaviour m_SoldierBehaviour;
-        private IMove m_HorizontalMovement;
         private IPathFind m_PathFind;
+        private IMove m_iStopMovement;
+        private IMove m_iHorizontalMovement;
         private Rigidbody2D m_Rb;
+
+
         
-        
+        [SerializeField] [Required]
+        private Aim2D m_Aim2D;
+
+        [SerializeField] [Required]
+        private Gun m_Gun;
+
+
         protected override void Awake()
         {
             base.Awake();
             m_Rb = GetComponent<Rigidbody2D>();
             m_PathFind = GetComponent<IPathFind>();
-            m_HorizontalMovement = new HorizontalPhysicMovement(m_Rb, 10, 10);
+            m_iHorizontalMovement = new HorizontalPhysicMovement(m_Rb, 5, 30);
+            m_iStopMovement = new Stop(m_Rb);
         }
 
         protected override void EOnDeath(Damage damage)
         {
-            throw new System.NotImplementedException();
+            Destroy(gameObject);
         }
 
         protected override void EOnTakeDamage(Damage damage)
@@ -34,13 +45,34 @@ namespace DenizYanar.EnemySystem
 
         public void ChaseTarget(Vector2 targetPos)
         {
-            Debug.Log("Chase");
             var dir = m_PathFind.CalculateDirection(targetPos);
-            m_HorizontalMovement.Move(dir);
+            m_iHorizontalMovement.Move(dir);
         }
-        public void Attack()
+
+
+        public void StartAttack(Transform target)
         {
-            Debug.Log("Started To Attack");
+            m_iStopMovement.Move(Vector2.zero);
+            m_Aim2D.StartToAim(target);
+            m_Gun.StartFire();
+        }
+
+        public void Attack(Transform target)
+        {
+            var gunTransform = m_Gun.transform;
+            var dirBetweenGunAndEnemy =
+                YanarUtils.Direction(gunTransform.position, target.position);
+            var angleBetweenGunAndEnemy = Vector2.Angle(gunTransform.right, dirBetweenGunAndEnemy);
+            if (angleBetweenGunAndEnemy <= 15)
+                m_Gun.StartFire();
+            else
+                m_Gun.StopFire();
+        }
+
+
+        public void StopAttack()
+        {
+            m_Gun.StopFire();
         }
     }
 }

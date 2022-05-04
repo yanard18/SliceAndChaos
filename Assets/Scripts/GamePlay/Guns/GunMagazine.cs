@@ -1,4 +1,5 @@
 using System.Collections;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace DenizYanar.Guns
@@ -20,61 +21,77 @@ namespace DenizYanar.Guns
         
         private EReloadStatus _reloadStatus;
 
-        [SerializeField] private int _magazineCapacity = 30;
-        [SerializeField] private int _ammo = 30;
-        [SerializeField] private int _totalAmmo = 90;
-        [SerializeField] private bool _unlimitedAmmo;
-        [SerializeField] private bool _unlimitedReload;
-        [SerializeField] private float _reloadDuration = 1.0f;
+        [SerializeField] [ValidateInput("@$value > 0", "Magazine capacity has to be greater than zero")]
+        private int m_MagazineCapacity = 30;
+        [SerializeField] [ValidateInput("@$value >= 0", "Current ammo can't be negative")]
+        private int m_Ammo = 30;
+        [SerializeField] [ValidateInput("@$value >= 0", "Total ammo can't be negative")]
+        private int m_AmmoThatReloadable = 90;
+        [SerializeField] 
+        private bool m_bHasUnlimitedAmmo;
+        
+        [SerializeField] 
+        private float m_ReloadDuration = 1.0f;
 
         public EMagazineStatus MagazineStatus;
 
-        
 
-        public bool SpendAmmo()
+        public void SpendAmmo()
         {
-            if(_unlimitedAmmo || _ammo <= 0) return false;
+            if(m_bHasUnlimitedAmmo || m_Ammo <= 0) return;
 
-            if (_ammo == _magazineCapacity)
-                MagazineStatus = EMagazineStatus.FULL;
-            else if (_ammo > 0 && _ammo < _magazineCapacity)
-                MagazineStatus = EMagazineStatus.LOADED;
-            else if (_ammo == 0)
-                MagazineStatus = EMagazineStatus.EMPTY;
-
-            return true;
-        }
-        
-        public void Reload()
-        {
-            if (MagazineStatus == EMagazineStatus.FULL || _reloadStatus == EReloadStatus.RELOADING || _totalAmmo <= 0) return;
-            StartCoroutine(StartReloadDuration(_reloadDuration));
-        }
-
-        private void FinishReload()
-        {
-            var reloadAmount = _magazineCapacity - _ammo;
-            if (_totalAmmo < reloadAmount && !_unlimitedAmmo)
-                reloadAmount = _totalAmmo;
-
-            if(!_unlimitedReload)
-                _totalAmmo -= reloadAmount;
+            m_Ammo--;
             
-            _ammo += reloadAmount;
+            MagazineStatus = m_Ammo > 0 ? EMagazineStatus.LOADED : EMagazineStatus.EMPTY;
+            if(m_Ammo == 0) StartReload();
+        }
+        
+        public void StartReload()
+        {
+            if (MagazineStatus == EMagazineStatus.FULL || _reloadStatus == EReloadStatus.RELOADING || m_AmmoThatReloadable <= 0) return;
+            StartCoroutine(ReloadCooldownCoroutine(m_ReloadDuration));
+        }
 
-            if (_ammo == _totalAmmo)
+        private void Reload()
+        {
+            var reloadAmount = 0;
+            if (HasEnoughAmmoToReload(reloadAmount))
+                reloadAmount = m_AmmoThatReloadable;
+            else
+                reloadAmount = m_MagazineCapacity - m_Ammo;
+
+            m_AmmoThatReloadable -= reloadAmount;
+            
+            FillTheMagazine(reloadAmount);
+
+            SetMagazineStatus();
+        }
+
+        private bool HasEnoughAmmoToReload(int reloadAmount) => m_AmmoThatReloadable < reloadAmount;
+
+        private void SetMagazineStatus()
+        {
+            if (m_Ammo == m_MagazineCapacity)
                 MagazineStatus = EMagazineStatus.FULL;
-            else if (_ammo < _totalAmmo)
+            else if (m_Ammo < m_MagazineCapacity && m_Ammo > 0)
                 MagazineStatus = EMagazineStatus.LOADED;
+            else
+                MagazineStatus = EMagazineStatus.EMPTY;
+        }
+
+        private void FillTheMagazine(int reloadAmount)
+        {
+            m_Ammo += reloadAmount;
+            m_Ammo = Mathf.Clamp(m_Ammo, 0, m_MagazineCapacity);
         }
 
 
-        private IEnumerator StartReloadDuration(float duration)
+        private IEnumerator ReloadCooldownCoroutine(float duration)
         {
             _reloadStatus = EReloadStatus.RELOADING;
             yield return new WaitForSeconds(duration);
             _reloadStatus = EReloadStatus.NORMAL;
-            FinishReload();
+            Reload();
         }
 
     }

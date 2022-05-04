@@ -25,16 +25,24 @@ namespace DenizYanar.EnemySystem
             var baseSelector = new Selector("Agro Or Wait");
             var agroSequence = new Sequence("Agro");
             var followOrAttackSequence = new Sequence("Follow and Attack");
+            var attackSequence = new Sequence("Attack Sequence");
 
+            
             var doesKnowWhereIsPlayer = new Leaf("Does Know Where Is Player", DoesKnowWhereIsPlayer);
             
             
             var wait = new Leaf("Wait", Wait);
             var follow = new Leaf("Chase", Follow);
             var attack = new Leaf("Attack", Attack);
+            var startAttack = new Leaf("Start Attack", StartAttack);
+            var stopAttack = new Leaf("Stop Attack", StopAttack);
             
+            
+            attackSequence.AddChild(startAttack);
+            attackSequence.AddChild(attack);
+            attackSequence.AddChild(stopAttack);
             followOrAttackSequence.AddChild(follow);
-            followOrAttackSequence.AddChild(attack);
+            followOrAttackSequence.AddChild(attackSequence);
             agroSequence.AddChild(doesKnowWhereIsPlayer);
             agroSequence.AddChild(followOrAttackSequence);
             baseSelector.AddChild(agroSequence);
@@ -51,35 +59,50 @@ namespace DenizYanar.EnemySystem
         private Node.EStatus DoesKnowWhereIsPlayer()
         {
             if (!PlayerUtils.IsPlayerExist()) return Node.EStatus.FAILURE;
-            Vector2? targetPosInDetectionRange = m_HumanoidDetection.m_DetectionSensor.Scan();
+            var targetInDetectionRange = m_HumanoidDetection.m_DetectionSensor.Scan();
 
-            return targetPosInDetectionRange.HasValue ? Node.EStatus.SUCCESS : Node.EStatus.FAILURE;
+            return targetInDetectionRange != null ? Node.EStatus.SUCCESS : Node.EStatus.FAILURE;
         }
 
         private Node.EStatus Follow()
         {
             if (!PlayerUtils.IsPlayerExist()) return Node.EStatus.FAILURE;
 
-            Vector2? targetPosInRememberableRange = m_HumanoidDetection.m_RememberedLocationSensor.Scan();
+            var targetPosInRememberableRange = m_HumanoidDetection.m_RememberedLocationSensor.Scan();
+            var bDoesRememberTargetPos = targetPosInRememberableRange != null;
             
-            if (!targetPosInRememberableRange.HasValue) return Node.EStatus.FAILURE;
+            if (!bDoesRememberTargetPos) return Node.EStatus.FAILURE;
             
-            m_Soldier.ChaseTarget(targetPosInRememberableRange.Value);
+            m_Soldier.ChaseTarget(targetPosInRememberableRange.position);
             
-            var bInAttackRange = m_HumanoidDetection.m_AttackRangeSensor.Scan().HasValue;
+            var bInAttackRange = m_HumanoidDetection.m_AttackRangeSensor.Scan() != null;
             return bInAttackRange ? Node.EStatus.SUCCESS : Node.EStatus.RUNNING;
         }
 
+        private Node.EStatus StartAttack()
+        {
+            var targetInAttackRange = m_HumanoidDetection.m_AttackRangeSensor.Scan();
+            var bIsTargetInAttackRange = targetInAttackRange != null;
+            if (!bIsTargetInAttackRange) return Node.EStatus.FAILURE;
+            m_Soldier.StartAttack(targetInAttackRange);
+            return Node.EStatus.SUCCESS;
+        }
         private Node.EStatus Attack()
         {
-            if (!PlayerUtils.IsPlayerExist()) return Node.EStatus.FAILURE;
+            if (!PlayerUtils.IsPlayerExist()) return Node.EStatus.SUCCESS;
             
-            Vector2? targetPosInAttackRange = m_HumanoidDetection.m_AttackRangeSensor.Scan();
-            var bIsTargetInAttackRange = targetPosInAttackRange.HasValue;
+            var targetInAttackRange = m_HumanoidDetection.m_AttackRangeSensor.Scan();
+            var bIsTargetInAttackRange = targetInAttackRange != null;
             
-            if (!bIsTargetInAttackRange) return Node.EStatus.FAILURE;
-            m_Soldier.Attack();
+            if (!bIsTargetInAttackRange) return Node.EStatus.SUCCESS;
+            m_Soldier.Attack(targetInAttackRange);
             return Node.EStatus.RUNNING;
+        }
+
+        private Node.EStatus StopAttack()
+        {
+            m_Soldier.StopAttack();
+            return Node.EStatus.SUCCESS;
         }
     }
 }

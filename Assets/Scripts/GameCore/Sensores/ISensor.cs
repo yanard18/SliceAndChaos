@@ -4,6 +4,6 @@ namespace DenizYanar.Sensors
 {
     public interface ISensor
     {
-        Vector2? Scan();
+        Transform Scan();
     }
 }
