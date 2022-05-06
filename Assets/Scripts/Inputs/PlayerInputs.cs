@@ -20,6 +20,8 @@ namespace DenizYanar.Inputs
         public UnityAction e_OnOpenDevConsoleKeyPressed;
         public UnityAction e_OnCloseDevConsoleKeyPressed;
         public UnityAction e_OnEnterCommandKeyPressed;
+        public UnityAction e_OnCameraZoomPressed;
+        public UnityAction e_OnCameraZoomCancelled;
 
     }
 }

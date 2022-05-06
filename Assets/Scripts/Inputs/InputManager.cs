@@ -87,5 +87,13 @@ namespace DenizYanar.Inputs
             if (context.started)
                 m_Inputs.e_OnEnterCommandKeyPressed?.Invoke();
         }
+
+        public void HandleCameraZoomInput(InputAction.CallbackContext context)
+        {
+            if (context.started)
+                m_Inputs.e_OnCameraZoomPressed?.Invoke();
+            if (context.canceled)
+                m_Inputs.e_OnCameraZoomCancelled?.Invoke();
+        }
     }
 }
