@@ -7,6 +7,7 @@ using UnityEngine;
 
 namespace DenizYanar.EnemySystem
 {
+    [RequireComponent(typeof(Rigidbody2D), typeof(IPathFind))]
     public class Soldier : Enemy
     {
         private SoldierBehaviour m_SoldierBehaviour;
