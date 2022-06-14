@@ -7,6 +7,7 @@ public class Aim2D : MonoBehaviour
     private Coroutine m_AimCoroutine;
 
     private bool m_bHasEnable;
+    private float m_FlipOffset;
     private Transform m_TargetToAim;
     
     [SerializeField]
@@ -22,6 +23,7 @@ public class Aim2D : MonoBehaviour
     }
 
     public void StopToAim() => m_bHasEnable = false;
+    public void Flip() => m_FlipOffset = m_FlipOffset == 0 ? 180 : 0;
 
     private void Update()
     {
@@ -32,7 +34,7 @@ public class Aim2D : MonoBehaviour
     private void Aim()
     {
         var angle = YanarUtils.FindAngleBetweenTwoPositions(transform.position, m_TargetToAim.position);
-        var targetRotation = Quaternion.AngleAxis(angle, Vector3.forward);
-        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * m_RotationSpeed);
+        var targetRotation = Quaternion.AngleAxis(angle + m_FlipOffset, Vector3.forward);
+        transform.rotation = m_bAimInstant ? targetRotation : Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * m_RotationSpeed);
     }
 }

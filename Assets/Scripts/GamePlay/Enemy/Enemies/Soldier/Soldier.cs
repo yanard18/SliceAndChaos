@@ -16,14 +16,11 @@ namespace DenizYanar.EnemySystem
         private IMove m_iHorizontalMovement;
         private Rigidbody2D m_Rb;
 
-
-        
         [SerializeField] [Required]
         private Aim2D m_Aim2D;
 
         [SerializeField] [Required]
         private Gun m_Gun;
-
 
         protected override void Awake()
         {
@@ -41,7 +38,7 @@ namespace DenizYanar.EnemySystem
 
         protected override void EOnTakeDamage(Damage damage)
         {
-            throw new System.NotImplementedException();
+            
         }
 
         public void ChaseTarget(Vector2 targetPos)

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace DenizYanar.Sensors
 {
-    public class TargetSensor : MonoBehaviour, ISensor
+    public class TargetSensor : Sensor
     {
         private WallDetectionBetweenPoints m_WallDetection;
         
@@ -29,7 +29,7 @@ namespace DenizYanar.Sensors
             m_WallDetection = new WallDetectionBetweenPoints(m_ObstacleLayer);
         }
 
-        public Transform Scan()
+        public override Transform Scan()
         {
             Collider2D[] TTargets = new Collider2D[10];
             var size = Physics2D.OverlapCircleNonAlloc(transform.position, m_Range, TTargets, m_TargetLayer);

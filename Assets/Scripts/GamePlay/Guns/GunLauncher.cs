@@ -24,8 +24,12 @@ namespace DenizYanar.Guns
             foreach (var startPos in m_TBulletStartPositions)
             {
                 var shotDirection = startPos.right;
-                var recoil = new Recoil(shotDirection, m_RecoilAmount);
-                shotDirection = recoil.CalculateRecoil();
+                if (m_RecoilAmount > 0)
+                {
+                    var recoil = new Recoil(shotDirection, m_RecoilAmount);
+                    shotDirection = recoil.CalculateRecoil();
+                }
+
                 var p = Instantiate(m_Projectile, startPos.position, Quaternion.Euler(shotDirection));
                 p.Init(shotDirection * m_ProjectileSpeed, 0, lifeTime: 5.0f, author: transform.root.gameObject);
             }

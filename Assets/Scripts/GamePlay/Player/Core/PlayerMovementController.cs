@@ -5,6 +5,7 @@ using DenizYanar.Events;
 using DenizYanar.SenseEngine;
 using DenizYanar.FSM;
 using DenizYanar.Inputs;
+using DenizYanar.Movement;
 using Sirenix.OdinInspector;
 using UnityEngine;
 

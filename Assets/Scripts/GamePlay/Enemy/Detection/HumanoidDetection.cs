@@ -5,13 +5,13 @@ namespace DenizYanar.EnemySystem
 {
     public class HumanoidDetection : MonoBehaviour
     {
-        public ISensor m_RememberedLocationSensor;
-        public ISensor m_DetectionSensor;
-        public ISensor m_AttackRangeSensor;
+        public Sensor m_RememberedLocationSensor;
+        public Sensor m_DetectionSensor;
+        public Sensor m_AttackRangeSensor;
 
         private void Awake()
         {
-            ISensor[] sensors = GetComponents<ISensor>();
+            Sensor[] sensors = GetComponents<Sensor>();
             m_RememberedLocationSensor = sensors[0];
             m_DetectionSensor = sensors[1];
             m_AttackRangeSensor = sensors[2];

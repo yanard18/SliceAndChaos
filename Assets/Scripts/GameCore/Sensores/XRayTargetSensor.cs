@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace DenizYanar.Sensors
 {
-    public class XRayTargetSensor : MonoBehaviour, ISensor
+    public class XRayTargetSensor : Sensor
     {
         [SerializeField]
         [Range(0.1f, 100f)]
@@ -17,7 +17,7 @@ namespace DenizYanar.Sensors
         [SerializeField]
         private Color m_GizmoColor = Color.yellow;
 
-        public Transform Scan()
+        public override Transform Scan()
         {
             Collider2D[] TTargets = new Collider2D[10];
             var size = Physics2D.OverlapCircleNonAlloc(transform.position, m_Range, TTargets, m_TargetLayer);
